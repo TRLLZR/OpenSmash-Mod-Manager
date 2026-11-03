@@ -1,0 +1,260 @@
+OPENSMASH MOD MANAGER 3.7.0 - SO BENUTZT DU DAS PAKET
+
+1. INSTALLIEREN
+   Gesamte ZIP entpacken, Setup.exe starten. Windows 10 ab 2004 oder
+   Windows 11 x64 erforderlich. Installation fuer dein Benutzerkonto,
+   ohne Administratorrechte. Python und Bibliotheken sind enthalten.
+   Standardziel: %LocalAppData%\Programs\OpenSmash Mod Manager
+   Updates verwenden den bisherigen Programmordner und sichern alte Dateien.
+   Setup erstellt standardmaessig die Desktop-Verknuepfung OpenSmash Mod Manager
+   mit dem Aqua-/Limetten-Logo sowie einen Startmenue-Eintrag. Die Desktop-Option
+   kann im Setup abgewaehlt werden. Verknuepfungen werden fuer deinen Rechner
+   erzeugt; eine fremde fertige LNK muss nicht kopiert werden.
+
+2. DEIN SPIEL VERBINDEN
+   Bereits funktionierenden OpenSmash-Ordner mit Play SSBU.bat auswaehlen.
+   Ohne Spielpfad kann der Manager installiert und spaeter verbunden werden.
+   Spielversion 13.0.5, eigene Spieldaten und ein vollstaendiger lokaler Build
+   mit generierten Quellen/Objekten werden fuer die Mod-Laufzeit benoetigt.
+   LLVM/Clang sowie Microsoft C++ Build Tools mit Windows SDK muessen vorhanden
+   sein. Im Visual Studio Installer: Desktopentwicklung mit C++, MSVC x64/x86
+   und Windows SDK. Der Manager erklaert fehlende Voraussetzungen.
+   Erste Loader-/Plugin-Einrichtung: Internet, mehrere GB Platz, einige Minuten.
+   Spiel, Keys, Firmware, Mods und erzeugte Spiel-Binaries liegen nicht bei.
+
+3. MODS HINZUFUEGEN
+   OpenSmash Mod Manager im Startmenue oeffnen. Eine oder mehrere ZIP-/RAR-/7z-Dateien bzw.
+   Mod-Ordner gemeinsam auf Mods hinzufuegen ziehen. Alternativ Archiv-/
+   Ordnerauswahl benutzen. Sammel-ZIP/RAR/7z-Archive und darin enthaltene einzelne ZIP-/RAR-/7z-Dateien
+   werden erkannt (maximal zwei verschachtelte Archivebenen).
+   Unterstuetzt: Skins, Sound-/Ansagerpakete, UI-Layouts, Effekte, ARCropolis-
+   Konfigurationen sowie uebersetzbare Skyline-NRO-Plugins und deren lokale
+   TOML-/JSON-/INI-Konfiguration. Namen der Mods sind dabei nicht entscheidend.
+   Windows-DLLs, EXEs, Installationsskripte und 7z werden nicht importiert.
+   Vorschau lesen, bereite Mods installieren. Gleiche bereits installierte
+   Inhalte werden auch bei anderen Archiv-/Ordnernamen uebersprungen. Nur neue
+   Inhalte kommen hinzu; die Aktivierung vorhandener Mods bleibt erhalten.
+   Unterschiedliche aktive Dateien am selben Ziel sind ein Konflikt: alte Mod
+   zuerst pausieren. Zwei Ansagerpakete fuer denselben Ton bzw. dasselbe
+   Layout koennen nicht gleichzeitig aktiv sein.
+   Ein Auftrag: bis zu 1024 Mods, 64000 Archiveintraege, 8 GiB entpackt.
+   Abbrechen wirkt vor dem Profilwechsel; Letzte Aenderung zurueck nimmt
+   den letzten Stapel gemeinsam zurueck.
+
+4. PLUGINS UND SPIELSTART
+   NRO-Plugins werden lokal mit OpenSmash-Werkzeugen uebersetzt. Benoetigte
+   offizielle Smashline-/nro-hook-Abhaengigkeiten werden geprueft geladen.
+   Der Build liegt separat; die Original-Spiel-EXE wird nicht ersetzt.
+   Nicht jedes beliebige NRO ist mit der vorhandenen OpenSmash-Laufzeit
+   kompatibel. Bei Fehlern Hinweise und plugin-build-/plugin-ready-Protokolle
+   pruefen; das bisherige Profil bleibt erhalten. Normale Asset-Mods eines
+   gemischten Stapels koennen trotz abgelehntem neuem Plugin installiert werden.
+   Haken schalten Mods aktiv/pausiert. Mit Mods spielen oder Vanilla spielen
+   uebernimmt deine bestehenden Online-Einstellungen. Auswahl gilt beim
+   naechsten Start; vor Aenderungen Spiel schliessen. Online-Partner brauchen
+   passende Spiel-/Mod-Versionen. Kostuemslot des Autors beachten (c03 = 4. Farbe).
+   Nach erfolgreicher Installation duerfen Download-ZIP/RAR/7z/Quellordner geloescht
+   werden: der Manager besitzt eigene Kopien. Entfernen loescht den Eintrag.
+
+5. ALLE MODS WEITERGEBEN
+   Mehr > Alle Mods als ZIP exportieren... anklicken, ZIP-Ziel waehlen.
+   Enthalten sind alle installierten Mods, auch pausierte, ihre Konfiguration
+   und Aktivierungszustaende. Spiel, Saves und lokal erzeugte Laufzeiten fehlen.
+   Empfaenger: Manager und eigenes OpenSmash einrichten, diese ZIP hineinziehen,
+   Vorschau pruefen, neue Mods installieren. Vorhandene Mods werden uebersprungen;
+   ihre bisherigen Haken bleiben erhalten. Neue Mods uebernehmen den Paketstatus.
+   Exportpakete unterliegen denselben Groessenlimits; zu grosse Exporte werden
+   erklaert abgelehnt. Ein fehlerhafter Export ersetzt keine bestehende Ziel-ZIP.
+   Beachte bei der Weitergabe die Bedingungen der jeweiligen Mod-Autoren.
+
+6. DESIGN UND DARK MODE
+   Design > Dunkler Modus, Heller Modus oder Wie Windows auswaehlen.
+   Die Auswahl wird gespeichert; Wie Windows liest die App-Farbe beim Oeffnen
+   und Auswaehlen. Alle Modi sind deckend; es gibt kein Hintergrundglas.
+   Alte Glas-Praeferenzen werden beim Oeffnen auf Deckend umgestellt.
+   Kontrastmodus oder eingeschraenkte Grafik erhalten deckende Flaechen.
+
+7. UPDATE, DEINSTALLATION UND HILFE
+   Spiel/Manager schliessen, neue Setup.exe starten. Mods, Auswahl, Saves,
+   Spielkonfiguration und Farbauswahl bleiben erhalten; die Oberflaeche ist deckend.
+   Windows > Installierte Apps > OpenSmash Mod Manager deinstalliert das Programm;
+   Modbibliothek, Spiel und Einstellungen bleiben erhalten.
+   Hinweise unter Pruefung lesen und Protokolle oeffnen. Bei Loaderfehlern
+   opensmash_mods\logs\arcropolis-build.log, bei Plugins plugin-build-*.log
+   mitgeben. Fehlende C-Header wie string.h: C++ Build Tools und SDK pruefen.
+
+TASTATUR
+   Strg+O ZIP/RAR/7z, Strg+Umschalt+O Ordner, Strg+I Installation, Strg+F Suche,
+   Strg+L Protokolle, Strg+Z letzte Aenderung zurueck, F5 Mods, F6 Vanilla.
+
+RAR-IMPORT AB 2.3.1
+   RAR4 und RAR5 direkt ablegen oder unter Dateien… oeffnen.
+   Mehrere ZIPs, RARs und Ordner duerfen gemeinsam ausgewaehlt werden.
+   Komprimierte und Solid-RARs sowie ZIP-in-RAR / RAR-in-ZIP sind moeglich.
+   WinRAR oder 7-Zip muessen beim Empfaenger nicht installiert sein.
+   Duplikate, Vorschau, Konflikte und Installation laufen wie bei ZIP.
+   Passwortgeschuetzte und mehrteilige Archive vorher vollstaendig entpacken.
+   Maximales RAR-Kompressionswoerterbuch: 512 MiB. Die sonstigen Paketgrenzen
+   gelten gemeinsam fuer ZIP und RAR. Export bleibt eine normale ZIP-Datei.
+
+STARTPFADE AB 2.3.2
+   Mod-, Plugin- und Vanilla-Starts verwenden die vorhandenen Dateien unter
+   build/config (graphics.ini, controllers.ini, dlc.txt) und build/saves.
+   Bei externem Build-Ordner gelten dessen config- und saves-Unterordner.
+   Der Manager erzeugt oder erweitert keine DLC-Liste. Er verwendet deine
+   bestehende Liste. Lautstaerke und Online-Einstellungen stammen aus OpenSmash.
+   Eventuell unter work/modmanager_plugins/config entstandene Einstellungen
+   bleiben erhalten, werden vom korrigierten Start aber nicht mehr verwendet.
+
+ENTHALTENE KORREKTUREN
+   Diese Version enthaelt den direkten ZIP-/RAR-/7z-Import, Sammelarchive,
+   Inhaltsvergleich zum Ueberspringen vorhandener Mods, Bibliotheksexport,
+   Dark Mode und die korrigierten Pfade fuer Einstellungen, Controller,
+   vorhandene DLC-Liste und Saves. Normale Starts uebernehmen die bisherigen
+   Online-Einstellungen und die gespeicherte Lautstaerke. Es werden keine
+   vorhandenen DLC-/Spielkonfigurationen oder Saves zurueckgesetzt.
+
+
+NEU IN 3.0: GAMEBANANA DIREKT IM MANAGER
+1. Entdecken öffnen. Kategorie (einschließlich Audio) und Sortierung wählen.
+   Suche fragt die gewählte Art (Mods oder Audio) nach Relevanz ab. Während
+   einer Textsuche werden Kategorie und Sortierung nicht angewendet; zum
+   Wechsel der Art zuerst das Suchfeld leeren. Ergebnisse seitenweise öffnen.
+2. Eintrag auswählen und Beschreibung, Abhängigkeiten und Dateivarianten lesen.
+   Es wird keine Datei automatisch ausgewählt. Für mehrere Mods Strg/Umschalt
+   verwenden und Varianten für Auswahl anklicken. Jede Variante selbst wählen
+   oder den Eintrag überspringen.
+3. Download einreihen. Unter Downloads stehen Fortschritt, Tempo, Abbruch und
+   erneuter Versuch bereit. Maximal zwei Downloads laufen gleichzeitig.
+4. Abgeschlossene Downloads auswählen, Auswahl prüfen & installieren anklicken.
+   Danach in der Bibliothek die Importliste prüfen. Ein Download allein
+   installiert oder aktiviert nichts.
+5. Bei Konflikten einen Eintrag in der Importliste auswählen: pausiert
+   installieren oder Konfliktpartner ersetzen. Ersetzen pausiert vorhandene
+   Partner und behält deren Daten für Rückgängig. Ohne Entscheidung wird der
+   Konflikt ausgelassen. Danach den Installationsbutton bestätigen.
+6. Mehr > GameBanana-Updates prüfen vergleicht Anbieter-Datei-IDs und Prüfsummen. Neue Varianten
+   sind keine Garantie einer kompatiblen Aktualisierung. Gewünschte Variante
+   in Entdecken prüfen und wie oben bewusst importieren/ersetzen.
+
+KOMPATIBILITÄT
+Unknown: noch nicht genug Informationen. Experimental: die Dateistruktur ist
+vom vorhandenen OpenSmash-Importer geprüft, das Spielverhalten nicht bestätigt.
+Unsupported: konkrete Archiv- oder Importprüfung fehlgeschlagen. Supported
+ist zuverlässigen Spielnachweisen vorbehalten; SSBU-Zuordnung genügt nicht.
+Anbieterbeschreibung und benötigte Plugins immer prüfen. ZIP/RAR/7z können
+direkt importiert werden. Andere öffentliche Dateiformate lassen sich als
+„Nur Download“ laden und mit „Datei speichern…“ ablegen. Keine Zugangssperre
+wird umgangen.
+
+SCHNELLERE VERWALTUNG UND RÜCKGÄNGIG
+Haken ändern nur betroffene Dateien. Schnelle Klicks werden zusammengefasst.
+Mehr > Sichtbare Mods aktivieren/pausieren betrifft die gefilterte Bibliothek.
+Mehr > Bibliothek vollständig prüfen (Strg+R) liest alle Prüfsummen neu und meldet externe Änderungen.
+Entfernen ist zunächst eine logische Entfernung mit Daten in der verwalteten
+Rückgängig-Ablage; es ist keine Zusage sofort frei werdenden Speicherplatzes.
+Abbruch wird an sicheren Prüfpunkten ausgeführt. Ein laufender Compiler kann
+bis zu seinem Abschluss weiterarbeiten; das aktive Profil bleibt bis zum
+sicheren Wechsel gültig. Nach einem Prozessabbruch beim nächsten Managerstart
+wiederherstellen lassen, verwaltete Ablagen nicht von Hand entfernen.
+
+DOWNLOADS BEIM SCHLIESSEN
+Laufende Downloads dürfen im Hintergrund fertig werden. Beim nächsten Öffnen
+des Bereichs Downloads wird ihr Zustand geladen. Nach Prozess-/Rechnerabbruch
+erscheint Unterbrochen; Erneut versuchen startet die Datei frisch. Teilstücke
+werden verworfen. Fehler einer Datei verhindern andere Downloads nicht.
+Für den Manager ist Internet nur für Entdecken/Downloads/Updateprüfung und
+die erstmalige lokale Loader-/Plugin-Vorbereitung nötig.
+
+STARTTON
+Gespeicherte Lautstärke und ursprüngliche Grafik-/Controller-/DLC-/Savepfade
+bleiben erhalten. Die Mod-Laufzeit startet als spielbare ssbu_user.exe.
+Es ist kein Öffnen von F1 und kein Ändern der Lautstärke zum Start nötig.
+
+
+LAYOUT AB 3.1
+Das neue Schriftlogo ersetzt das bisherige Symbol samt Ueberschrift.
+Bibliothek, Entdecken und Downloads sind die drei Hauptbereiche.
+Die Importleiste nimmt ZIP-/RAR-/7z-Dateien und Ordner per Drag & Drop an.
+Dateien... und Ordner... oeffnen die jeweilige Auswahl. Installieren erscheint
+nach einer geeigneten Vorschau. Konfliktaktionen erscheinen fuer einen
+passenden ausgewaehlten Eintrag der Importliste.
+Seltenere Aktionen liegen unter Mehr: Export, sichtbare Mods gemeinsam
+aktivieren/pausieren, Updatepruefung, Vollpruefung und Protokolle.
+Der Vordergrund-Schalter, Glasoptionen und dauerhafte Erklaertexte entfallen.
+Downloadaktionen werden erst mit einer passenden Auswahl freigeschaltet.
+
+
+NEU IN 3.2: CHARAKTERE, VOLLBILD UND GAMEBANANA-LINKS
+In Entdecken unter Charakter z.B. Sora auswaehlen. Das zeigt die echten
+Skin-Unterkategorien von GameBanana, einschliesslich deren Sortierung und
+Seiten. Bei Auswahl eines Charakters wechselt die Kategorie zu Skins.
+Der Filter gilt fuer Skins; Audio hat keine entsprechende Charakterstruktur.
+Fuer eine freie Textsuche zuerst Alle Charaktere waehlen. Die GameBanana-
+Textsuche bietet keinen zuverlaessigen kombinierten Charakterfilter.
+
+Auf das grosse Vorschaubild in den Moddetails klicken: Vollbildansicht mit
+dem groesseren Anbieterbild. Pfeile links/rechts wechseln Bilder, Esc oder
+Schliessen beendet die Ansicht. Sehr grosse Bilder werden auf maximal
+4096 x 4096 Pixel begrenzt; die Quelle bestimmt die verfuegbare Aufloesung.
+
+Mehr > GameBanana-Link oeffnen... akzeptiert eine normale Mod-/Soundseite
+oder einen kopierten 1-Click-Link. Eine Seite oeffnet erst die Dateiauswahl.
+Ein vollstaendiger Dateilink startet den Download der verlinkten Variante;
+nach dem Download immer Auswahl pruefen & installieren benutzen.
+Eine unterstuetzte ZIP-/RAR-/7z-Variante in den Moddetails auswaehlen und
+Mehr > Manager-Link zur Datei kopieren erzeugt einen opensmashmm:-Link.
+Setup registriert dieses Protokoll fuer dein Windows-Benutzerkonto.
+Der Link oeffnet den Manager bzw. wird an den laufenden Manager uebergeben.
+Ein funktionierender Spielordner muss zuvor verbunden sein. Browser koennen
+vor dem Oeffnen einer externen Anwendung einmal nachfragen.
+
+Der vorhandene MOSAIC-/FightPlanner-Button auf GameBanana gehoert zu diesem
+anderen Programm und wird nicht umgebogen. Kopierte fightplanner:-Links
+koennen ausdruecklich im Linkdialog eingefuegt werden. Ein eigener OpenSmash-
+Button direkt auf GameBanana erfordert zusaetzlich deren Website-Integration;
+die lokale Installation allein fuegt dort keinen Button hinzu.
+Nur oeffentliche SSBU-Dateien werden ueber die Anbieter-API aufgeloest.
+Links installieren oder aktivieren keine Mods automatisch.
+
+
+Neu in 3.7.0: einheitliche plastische Buttons, vereinfachte Detailansicht, automatische Sprache nach Windows-Anzeigesprache und Sicherheitsupdate auf Python 3.14.10. Kernabläufe in 16 Sprachfamilien; ergänzende Diagnosen teilweise Englisch/Deutsch. Englische Quell-/Build-Dokumentation: README.md; Sicherheitsprüfung: SECURITY.md.
+
+NEU IN 3.4
+Liste / Kacheln schaltet die Bibliotheksansicht um. Mehr > Titelbild auswählen
+setzt ein eigenes Bild. Downloads > Download entfernen löscht fertige Downloads
+samt Archiv; installierte Mods bleiben erhalten.
+
+Gameplay: Abhängigkeiten werden anhand der Dateien erkannt. Shadow benötigt
+derzeit eine passende CSK-Version für 13.0.5, die beim Prüfen nicht öffentlich
+angeboten wurde. Die inkompatible 5.0.6 wird blockiert. Shadow ist noch nicht
+als spielbar bestätigt. Einzelheiten stehen in BEKANNTE_EINSCHRAENKUNGEN.md.
+
+
+Neu in 3.5: Modlisten ohne Moddateien teilen
+
+Mehr > Modliste teilen… speichert eine kleine .opensmash-list.json. Empfänger
+öffnen Mehr > Modliste importieren… oder ziehen die Datei auf die Bibliothek.
+Nach der Vorschau lädt „Fehlende Mods installieren“ die fehlenden Originaldateien
+herunter und installiert nur die angeforderten Inhalte. Bereits vorhandene Mods
+behalten ihre Aktivierung; Dateikonflikte werden pausiert installiert. Lokale Mods
+ohne gespeicherte Anbieterquelle sowie unveröffentlichte eigene Änderungen
+benötigen weiterhin Originaldateien oder den bisherigen ZIP-Export. Entfernte
+oder veränderte Anbieterdateien werden gemeldet, keine andere Version eingesetzt.
+
+„Dateien für Auswahl…“ heißt jetzt „Ausgewählte Mods herunterladen…“ und erscheint
+nur bei Mehrfachauswahl. Die Downloadliste bleibt beim Aktualisieren ruhig.
+Der gemeldete CSK-Versionskonflikt wird vor der Übersetzung erkannt; unabhängige
+Asset-Imports erzwingen keinen Neuaufbau derselben Plugin-Laufzeit. Näheres:
+BEKANNTE_EINSCHRAENKUNGEN.md. Shadow ist weiterhin nicht als spielbar bestätigt.
+
+
+Neu in 3.6: 7z-Dateien lassen sich wie ZIP und RAR direkt importieren und
+über GameBanana herunterladen. „Manuell“ wegen einer 7z-Endung entfällt.
+Andere öffentliche Dateiformate lassen sich als „Nur Download“ laden und mit
+„Datei speichern…“ ablegen; sie werden nicht automatisch installiert.
+„Alle Downloads löschen…“ entfernt nach Bestätigung Einträge und Archive und
+bricht laufende Transfers ab. Installierte Mods bleiben erhalten. Neue Moddetails
+unter Entdecken beginnen ganz oben. Die passende CSK-Version 6.0.0 für 13.0.5
+war bei erneuter Prüfung nicht öffentlich verfügbar; die inkompatible 5.0.6
+wird weiterhin blockiert. Einzelheiten: BEKANNTE_EINSCHRAENKUNGEN.md.

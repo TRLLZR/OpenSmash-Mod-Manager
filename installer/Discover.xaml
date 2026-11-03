@@ -1,0 +1,58 @@
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+ <Grid Margin="0,0,0,9"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+  <TextBox x:Name="GBSearch" AutomationProperties.Name="GameBanana durchsuchen" ToolTip="Super Smash Bros. Ultimate: Suchbegriff eingeben. Ergebnisse nach Relevanz."/>
+  <Button x:Name="GBReload" Grid.Column="1" Content="Suchen" Margin="9,0,0,0"/>
+ </Grid>
+ <WrapPanel Grid.Row="1" Margin="0,0,0,10">
+  <ComboBox x:Name="GBCategory" Width="178" AutomationProperties.Name="GameBanana Kategorie" Margin="0,0,9,0"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding name}" TextWrapping="Wrap" MaxWidth="600"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+  <ComboBox x:Name="GBCharacter" Width="180" IsTextSearchEnabled="True" TextSearch.TextPath="name" MaxDropDownHeight="350" AutomationProperties.Name="Charakter für Skin-Mods" ToolTip="Charakterfilter für Skins. Tippen wählt einen Namen. Für Textsuche Alle Charaktere wählen." Margin="0,0,9,0"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+  <ComboBox x:Name="GBSort" Width="157" AutomationProperties.Name="GameBanana Sortierung" Margin="0,0,9,0"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding label}" TextWrapping="Wrap" MaxWidth="600"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+  <Button x:Name="GBPrevious" Content="‹" ToolTip="Vorherige Seite" Margin="0,0,6,0"/>
+  <Button x:Name="GBNext" Content="›" ToolTip="Naechste Seite" Margin="0,0,9,0"/>
+  <TextBlock x:Name="GBResults" MaxWidth="300" Text="GameBanana wird beim Oeffnen geladen." TextWrapping="Wrap" Foreground="{DynamicResource SecondaryText}" VerticalAlignment="Center"/>
+ </WrapPanel>
+ <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="1.03*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+  <Border CornerRadius="{DynamicResource PanelRadius}" Background="{DynamicResource ContentSurface}" BorderBrush="{DynamicResource PanelBorder}" BorderThickness="1" Padding="12">
+   <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <ListBox x:Name="GBList" SelectionMode="Extended" Background="Transparent" Foreground="{DynamicResource Text}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.Name="GameBanana Ergebnisse">
+     <ListBox.ItemTemplate><DataTemplate><Grid MinHeight="86"><Grid.ColumnDefinitions><ColumnDefinition Width="108"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Border Background="{DynamicResource SoftSurface}" CornerRadius="9" Margin="0,0,10,0"><Image Source="{Binding Thumbnail}" Height="76" Stretch="UniformToFill" ToolTip="Vorschaubild"/></Border>
+      <StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontWeight="SemiBold"/>
+       <TextBlock Text="{Binding Meta}" TextWrapping="Wrap" FontSize="{DynamicResource MetaSize}" Foreground="{DynamicResource SecondaryText}" Margin="0,4,0,0"/>
+       <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Foreground="{DynamicResource SecondaryText}" FontSize="{DynamicResource MetaSize}" Margin="0,4,0,0"/>
+      </StackPanel>
+     </Grid></DataTemplate></ListBox.ItemTemplate>
+    </ListBox>
+    <StackPanel Grid.Row="1" Margin="0,10,0,0"><Button x:Name="GBChoose" Content="Ausgewählte Mods herunterladen…" Visibility="Collapsed" ToolTip="Für jede ausgewählte Mod die gewünschte Dateivariante wählen."/>
+     
+    </StackPanel>
+   </Grid>
+  </Border>
+  <Border Grid.Column="2" CornerRadius="{DynamicResource PanelRadius}" Background="{DynamicResource ContentSurface}" BorderBrush="{DynamicResource PanelBorder}" BorderThickness="1" Padding="16">
+   <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <ScrollViewer x:Name="GBDetailScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>
+     <TextBlock x:Name="GBTitle" Text="Mod auswählen" FontSize="{DynamicResource DetailSize}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+     <TextBlock x:Name="GBMeta" Text="" Foreground="{DynamicResource SecondaryText}" TextWrapping="Wrap" Margin="0,7,0,10"/>
+     <Grid x:Name="GBGalleryFrame" Visibility="Collapsed"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+      <Button x:Name="GBImagePrevious" Content="‹" Padding="5" Width="30" Height="36" VerticalAlignment="Center" ToolTip="Vorheriges Vorschaubild"/>
+      <Button x:Name="GBFullImage" Grid.Column="1" Margin="7,0" Padding="4" Cursor="Hand" ToolTip="Bild im Vollbild öffnen" AutomationProperties.Name="Vorschaubild im Vollbild öffnen"><Image x:Name="GBImage" MaxHeight="185" Stretch="Uniform"/></Button>
+      <Button x:Name="GBImageNext" Grid.Column="2" Content="›" Padding="5" Width="30" Height="36" VerticalAlignment="Center" ToolTip="Naechstes Vorschaubild"/>
+     </Grid>
+     <TextBlock x:Name="GBCompatibility" Text="Kompatibilität noch ungeprüft." TextWrapping="Wrap" Foreground="{DynamicResource Warning}" Margin="0,10,0,8"/>
+     <TextBlock x:Name="GBDescription" Text="" TextWrapping="Wrap"/>
+     <Expander Header="Abhängigkeiten &amp; Installation" Margin="0,14,0,6"><TextBlock x:Name="GBInstructions" TextWrapping="Wrap" Foreground="{DynamicResource SecondaryText}"/></Expander>
+    </StackPanel></ScrollViewer>
+    <StackPanel Grid.Row="1" Margin="0,12,0,0">
+     <TextBlock x:Name="GBBatchHint" Text="Dateivariante ausdrücklich auswählen:" TextWrapping="Wrap" Margin="0,0,0,6"/>
+     <ComboBox x:Name="GBFiles" SelectedIndex="-1" MaxDropDownHeight="260" AutomationProperties.Name="GameBanana Dateivariante"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding label}" TextWrapping="Wrap" MaxWidth="600"/></DataTemplate></ComboBox.ItemTemplate></ComboBox>
+     <TextBlock x:Name="GBFileHint" TextWrapping="Wrap" Foreground="{DynamicResource SecondaryText}" FontSize="{DynamicResource MetaSize}" Margin="0,5,0,7"/>
+     <WrapPanel><Button x:Name="GBQueue" Content="Download einreihen" Style="{DynamicResource Primary}" IsEnabled="False" Margin="0,0,7,0"/>
+      <Button x:Name="GBSkip" Content="Überspringen" Visibility="Collapsed" Margin="0,0,7,0"/>
+      <Button x:Name="GBSource" Content="Quellseite ↗" IsEnabled="False"/>
+     </WrapPanel>
+    </StackPanel>
+   </Grid>
+  </Border>
+ </Grid>
+</Grid>

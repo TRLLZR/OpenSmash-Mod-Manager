@@ -1,0 +1,22 @@
+*.ps1 text eol=crlf
+*.py text eol=lf
+*.cs text eol=crlf
+*.xaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.png binary
+*.ico binary
+*.dll binary
+*.exe binary
+*.xz binary
+*.rar binary
+# These exact bytes form part of the loader cache signature.
+installer/arc_backend.py -text
+installer/arc_simd.py -text
+installer/arc_fs_support.h -text
+# Preserve verbatim upstream notice bytes.
+installer/7ZIP_LICENSE.txt -text
+installer/7ZIP_LGPL.txt -text
+installer/UNRAR_LICENSE.txt -text

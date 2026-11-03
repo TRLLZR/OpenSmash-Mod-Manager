@@ -1,0 +1,2691 @@
+{
+  "Modliste teilen…": {
+    "en": "Share mod list…",
+    "es": "Compartir lista de mods…",
+    "fr": "Partager la liste de mods…",
+    "it": "Condividi elenco mod…",
+    "pt": "Compartilhar lista de mods…",
+    "nl": "Modlijst delen…",
+    "pl": "Udostępnij listę modów…",
+    "tr": "Mod listesini paylaş…",
+    "ru": "Поделиться списком модов…",
+    "uk": "Поділитися списком модів…",
+    "ja": "MODリストを共有…",
+    "ko": "모드 목록 공유…",
+    "zh-CN": "分享模组列表…",
+    "zh-TW": "分享模組清單…",
+    "ar": "مشاركة قائمة التعديلات…"
+  },
+  "Modliste importieren…": {
+    "en": "Import mod list…",
+    "es": "Importar lista de mods…",
+    "fr": "Importer une liste de mods…",
+    "it": "Importa elenco mod…",
+    "pt": "Importar lista de mods…",
+    "nl": "Modlijst importeren…",
+    "pl": "Importuj listę modów…",
+    "tr": "Mod listesini içe aktar…",
+    "ru": "Импорт списка модов…",
+    "uk": "Імпортувати список модів…",
+    "ja": "MODリストを読み込む…",
+    "ko": "모드 목록 가져오기…",
+    "zh-CN": "导入模组列表…",
+    "zh-TW": "匯入模組清單…",
+    "ar": "استيراد قائمة التعديلات…"
+  },
+  "Modliste teilen": {
+    "en": "Share mod list",
+    "es": "Compartir lista de mods",
+    "fr": "Partager la liste de mods",
+    "it": "Condividi elenco mod",
+    "pt": "Compartilhar lista de mods",
+    "nl": "Modlijst delen",
+    "pl": "Udostępnij listę modów",
+    "tr": "Mod listesini paylaş",
+    "ru": "Поделиться списком модов",
+    "uk": "Поділитися списком модів",
+    "ja": "MODリストを共有",
+    "ko": "모드 목록 공유",
+    "zh-CN": "分享模组列表",
+    "zh-TW": "分享模組清單",
+    "ar": "مشاركة قائمة التعديلات"
+  },
+  "Modliste importieren": {
+    "en": "Import mod list",
+    "es": "Importar lista de mods",
+    "fr": "Importer une liste de mods",
+    "it": "Importa elenco mod",
+    "pt": "Importar lista de mods",
+    "nl": "Modlijst importeren",
+    "pl": "Importuj listę modów",
+    "tr": "Mod listesini içe aktar",
+    "ru": "Импорт списка модов",
+    "uk": "Імпортувати список модів",
+    "ja": "MODリストを読み込む",
+    "ko": "모드 목록 가져오기",
+    "zh-CN": "导入模组列表",
+    "zh-TW": "匯入模組清單",
+    "ar": "استيراد قائمة التعديلات"
+  },
+  "Modliste gespeichert": {
+    "en": "Mod list saved",
+    "es": "Lista de mods guardada",
+    "fr": "Liste de mods enregistrée",
+    "it": "Elenco mod salvato",
+    "pt": "Lista de mods salva",
+    "nl": "Modlijst opgeslagen",
+    "pl": "Lista modów zapisana",
+    "tr": "Mod listesi kaydedildi",
+    "ru": "Список модов сохранён",
+    "uk": "Список модів збережено",
+    "ja": "MODリストを保存しました",
+    "ko": "모드 목록 저장됨",
+    "zh-CN": "模组列表已保存",
+    "zh-TW": "模組清單已儲存",
+    "ar": "تم حفظ قائمة التعديلات"
+  },
+  "Modliste gespeichert.": {
+    "en": "Mod list saved.",
+    "es": "Lista de mods guardada.",
+    "fr": "Liste de mods enregistrée.",
+    "it": "Elenco mod salvato.",
+    "pt": "Lista de mods salva.",
+    "nl": "Modlijst opgeslagen.",
+    "pl": "Lista modów zapisana.",
+    "tr": "Mod listesi kaydedildi.",
+    "ru": "Список модов сохранён.",
+    "uk": "Список модів збережено.",
+    "ja": "MODリストを保存しました.",
+    "ko": "모드 목록 저장됨.",
+    "zh-CN": "模组列表已保存.",
+    "zh-TW": "模組清單已儲存.",
+    "ar": "تم حفظ قائمة التعديلات."
+  },
+  "Fehlende Mods installieren": {
+    "en": "Install missing mods",
+    "es": "Instalar mods que faltan",
+    "fr": "Installer les mods manquants",
+    "it": "Installa mod mancanti",
+    "pt": "Instalar mods ausentes",
+    "nl": "Ontbrekende mods installeren",
+    "pl": "Zainstaluj brakujące mody",
+    "tr": "Eksik modları yükle",
+    "ru": "Установить недостающие моды",
+    "uk": "Встановити відсутні моди",
+    "ja": "不足しているMODをインストール",
+    "ko": "누락된 모드 설치",
+    "zh-CN": "安装缺少的模组",
+    "zh-TW": "安裝缺少的模組",
+    "ar": "تثبيت التعديلات الناقصة"
+  },
+  "Ausgewählte Mods herunterladen…": {
+    "en": "Download selected mods…",
+    "es": "Descargar mods seleccionados…",
+    "fr": "Télécharger les mods sélectionnés…",
+    "it": "Scarica mod selezionate…",
+    "pt": "Baixar mods selecionados…",
+    "nl": "Geselecteerde mods downloaden…",
+    "pl": "Pobierz wybrane mody…",
+    "tr": "Seçili modları indir…",
+    "ru": "Скачать выбранные моды…",
+    "uk": "Завантажити вибрані моди…",
+    "ja": "選択したMODをダウンロード…",
+    "ko": "선택한 모드 다운로드…",
+    "zh-CN": "下载选中的模组…",
+    "zh-TW": "下載所選模組…",
+    "ar": "تنزيل التعديلات المحددة…"
+  },
+  "Für jede ausgewählte Mod die gewünschte Dateivariante wählen.": {
+    "en": "Choose a file variant for each selected mod."
+  },
+  "{0} Mods · {1} ohne Downloadquelle. Die Liste enthält keine Moddateien.": {
+    "en": "{0} mods · {1} without download sources. The list contains no mod assets."
+  },
+  "{0} fehlen · {1} vorhanden · {2} ohne Downloadquelle": {
+    "en": "{0} missing · {1} installed · {2} without download sources"
+  },
+  "Liste prüfen. Bestätigung lädt fehlende Mods herunter und installiert sie; Konflikte bleiben pausiert.": {
+    "en": "Review the list. Confirmation downloads and installs missing mods; conflicts stay paused."
+  },
+  "Liste": {
+    "en": "List",
+    "es": "Lista",
+    "fr": "Liste",
+    "it": "Elenco",
+    "pt": "Lista",
+    "nl": "Lijst",
+    "pl": "Lista",
+    "tr": "Liste",
+    "ru": "Список",
+    "uk": "Список",
+    "ja": "リスト",
+    "ko": "목록",
+    "zh-CN": "列表",
+    "zh-TW": "清單",
+    "ar": "قائمة"
+  },
+  "Kacheln": {
+    "en": "Tiles",
+    "es": "Mosaico",
+    "fr": "Vignettes",
+    "it": "Riquadri",
+    "pt": "Blocos",
+    "nl": "Tegels",
+    "pl": "Kafelki",
+    "tr": "Kutucuklar",
+    "ru": "Плитки",
+    "uk": "Плитки",
+    "ja": "タイル",
+    "ko": "타일",
+    "zh-CN": "平铺",
+    "zh-TW": "磚塊",
+    "ar": "بطاقات"
+  },
+  "Listenansicht": {
+    "en": "List view",
+    "es": "Vista de lista",
+    "fr": "Vue en liste",
+    "it": "Vista elenco",
+    "pt": "Exibição em lista",
+    "nl": "Lijstweergave",
+    "pl": "Widok listy",
+    "tr": "Liste görünümü",
+    "ru": "Вид списком",
+    "uk": "Вигляд списком",
+    "ja": "リスト表示",
+    "ko": "목록 보기",
+    "zh-CN": "列表视图",
+    "zh-TW": "清單檢視",
+    "ar": "عرض القائمة"
+  },
+  "Kachelansicht": {
+    "en": "Tile view",
+    "es": "Vista de mosaico",
+    "fr": "Vue en vignettes",
+    "it": "Vista riquadri",
+    "pt": "Exibição em blocos",
+    "nl": "Tegelweergave",
+    "pl": "Widok kafelków",
+    "tr": "Kutucuk görünümü",
+    "ru": "Вид плитками",
+    "uk": "Вигляд плитками",
+    "ja": "タイル表示",
+    "ko": "타일 보기",
+    "zh-CN": "平铺视图",
+    "zh-TW": "磚塊檢視",
+    "ar": "عرض البطاقات"
+  },
+  "Titelbild auswählen…": {
+    "en": "Choose cover…",
+    "es": "Elegir portada…",
+    "fr": "Choisir une image…",
+    "it": "Scegli copertina…",
+    "pt": "Escolher capa…",
+    "nl": "Omslag kiezen…",
+    "pl": "Wybierz okładkę…",
+    "tr": "Kapak resmi seç…",
+    "ru": "Выбрать обложку…",
+    "uk": "Вибрати обкладинку…",
+    "ja": "カバーを選択…",
+    "ko": "표지 선택…",
+    "zh-CN": "选择封面…",
+    "zh-TW": "選擇封面…",
+    "ar": "اختيار صورة الغلاف…"
+  },
+  "Titelbild auswählen": {
+    "en": "Choose cover",
+    "es": "Elegir portada",
+    "fr": "Choisir une image",
+    "it": "Scegli copertina",
+    "pt": "Escolher capa",
+    "nl": "Omslag kiezen",
+    "pl": "Wybierz okładkę",
+    "tr": "Kapak resmi seç",
+    "ru": "Выбрать обложку",
+    "uk": "Вибрати обкладинку",
+    "ja": "カバーを選択",
+    "ko": "표지 선택",
+    "zh-CN": "选择封面",
+    "zh-TW": "選擇封面",
+    "ar": "اختيار صورة الغلاف"
+  },
+  "Mod aktivieren oder pausieren": {
+    "en": "Enable or pause mod"
+  },
+  "Ausgewählt": {
+    "en": "Selected",
+    "es": "Seleccionado",
+    "fr": "Sélectionné",
+    "it": "Selezionato",
+    "pt": "Selecionado",
+    "nl": "Geselecteerd",
+    "pl": "Wybrano",
+    "tr": "Seçili",
+    "ru": "Выбрано",
+    "uk": "Вибрано",
+    "ja": "選択済み",
+    "ko": "선택됨",
+    "zh-CN": "已选择",
+    "zh-TW": "已選取",
+    "ar": "محدد"
+  },
+  "Download entfernen": {
+    "en": "Remove download",
+    "es": "Eliminar descarga",
+    "fr": "Supprimer le téléchargement",
+    "it": "Rimuovi download",
+    "pt": "Remover download",
+    "nl": "Download verwijderen",
+    "pl": "Usuń pobranie",
+    "tr": "İndirmeyi kaldır",
+    "ru": "Удалить загрузку",
+    "uk": "Видалити завантаження",
+    "ja": "ダウンロードを削除",
+    "ko": "다운로드 제거",
+    "zh-CN": "移除下载",
+    "zh-TW": "移除下載",
+    "ar": "إزالة التنزيل"
+  },
+  "Entfernt Eintrag und heruntergeladenes Archiv. Installierte Mods bleiben erhalten.": {
+    "en": "Removes the entry and cached archive. Installed mods are preserved."
+  },
+  "Download entfernt. Installierte Mods bleiben erhalten.": {
+    "en": "Download removed. Installed mods are preserved."
+  },
+  "Details": {
+    "en": "Details",
+    "es": "Detalles",
+    "fr": "Détails",
+    "it": "Dettagli",
+    "pt": "Detalhes",
+    "nl": "Details",
+    "pl": "Szczegóły",
+    "tr": "Ayrıntılar",
+    "ru": "Сведения",
+    "uk": "Відомості",
+    "ja": "詳細(D)",
+    "ko": "상세 정보(D)",
+    "zh-CN": "详情(D)",
+    "zh-TW": "詳細資訊(D)",
+    "ar": "التفاصيل"
+  },
+  "Keine passenden Mods gefunden.\nVersuche einen anderen Suchbegriff.": {
+    "en": "No matching mods.\nTry another search term.",
+    "es": "No hay mods coincidentes.\nPrueba otra búsqueda.",
+    "fr": "Aucun mod correspondant.\nEssayez un autre terme.",
+    "it": "Nessuna mod corrispondente.\nProva un altro termine.",
+    "pt": "Nenhum mod encontrado.\nTente outro termo.",
+    "nl": "Geen passende mods gevonden.\nProbeer een andere zoekterm.",
+    "pl": "Nie znaleziono pasujących modów.\nSpróbuj innego hasła.",
+    "tr": "Eşleşen mod bulunamadı.\nBaşka bir sözcük deneyin.",
+    "ru": "Подходящих модов нет.\nИзмените поисковый запрос.",
+    "uk": "Відповідних модів немає.\nЗмініть пошуковий запит.",
+    "ja": "一致するMODがありません。\n別のキーワードをお試しください。",
+    "ko": "일치하는 모드가 없습니다.\n다른 검색어를 입력하세요.",
+    "zh-CN": "没有匹配的模组。\n请尝试其他关键词。",
+    "zh-TW": "沒有符合的模組。\n請嘗試其他關鍵字。",
+    "ar": "لا توجد تعديلات مطابقة.\nجرّب عبارة بحث أخرى."
+  },
+  "Installiert den Manager für dein Benutzerkonto. Deine Mods und Spieldaten bleiben erhalten.": {
+    "en": "Installs the manager for your account. Your mods and game data are preserved.",
+    "es": "Instala el gestor para tu cuenta. Se conservan tus mods y datos del juego.",
+    "fr": "Installe le gestionnaire pour votre compte. Vos mods et données de jeu sont conservés.",
+    "it": "Installa il gestore per il tuo account. Mod e dati di gioco vengono conservati.",
+    "pt": "Instala o gerenciador para sua conta. Seus mods e dados do jogo são preservados.",
+    "nl": "Installeert de manager voor je account. Je mods en spelgegevens blijven behouden.",
+    "pl": "Instaluje menedżera dla Twojego konta. Mody i dane gry zostaną zachowane.",
+    "tr": "Yöneticiyi hesabınıza yükler. Modlarınız ve oyun verileriniz korunur.",
+    "ru": "Установит менеджер для вашей учётной записи. Моды и игровые данные сохранятся.",
+    "uk": "Установить менеджер для вашого облікового запису. Моди та ігрові дані збережуться.",
+    "ja": "このユーザー用にマネージャーをインストールします。MODとゲームデータは保持されます。",
+    "ko": "현재 계정에 매니저를 설치합니다. 모드와 게임 데이터는 유지됩니다.",
+    "zh-CN": "为当前账户安装管理器。模组和游戏数据将予以保留。",
+    "zh-TW": "為目前帳戶安裝管理器。模組及遊戲資料將保留。",
+    "ar": "يثبّت المدير لحسابك. تُحفظ تعديلاتك وبيانات اللعبة."
+  },
+  "Der Manager ist eingerichtet. Deine Mods und Spieldaten bleiben erhalten.": {
+    "en": "The manager is ready. Your mods and game data are preserved.",
+    "es": "El gestor está listo. Tus mods y datos del juego se conservan.",
+    "fr": "Le gestionnaire est prêt. Vos mods et données de jeu sont conservés.",
+    "it": "Il gestore è pronto. Mod e dati di gioco sono conservati.",
+    "pt": "O gerenciador está pronto. Seus mods e dados do jogo foram preservados.",
+    "nl": "De manager is klaar. Je mods en spelgegevens blijven behouden.",
+    "pl": "Menedżer jest gotowy. Mody i dane gry zostały zachowane.",
+    "tr": "Yönetici hazır. Modlarınız ve oyun verileriniz korundu.",
+    "ru": "Менеджер установлен. Моды и игровые данные сохранены.",
+    "uk": "Менеджер установлено. Моди та ігрові дані збережено.",
+    "ja": "準備が完了しました。MODとゲームデータは保持されています。",
+    "ko": "매니저가 준비되었습니다. 모드와 게임 데이터는 유지됩니다.",
+    "zh-CN": "管理器已就绪。模组和游戏数据已保留。",
+    "zh-TW": "管理器已就緒。模組及遊戲資料已保留。",
+    "ar": "المدير جاهز. تم حفظ تعديلاتك وبيانات اللعبة."
+  },
+  "Zusätzliche Voraussetzungen werden bei Bedarf geprüft.": {
+    "en": "Additional requirements are checked when needed."
+  },
+  "Die neue Mod wird aktiviert. Rückgängig bleibt möglich.": {
+    "en": "The new mod will be enabled. Undo remains available."
+  },
+  "Bibliothek": {
+    "en": "Library",
+    "es": "Biblioteca",
+    "fr": "Bibliothèque",
+    "it": "Libreria",
+    "pt": "Biblioteca",
+    "nl": "Bibliotheek",
+    "pl": "Biblioteka",
+    "tr": "Kütüphane",
+    "ru": "Библиотека",
+    "uk": "Бібліотека",
+    "ja": "ライブラリ",
+    "ko": "라이브러리",
+    "zh-CN": "模组库",
+    "zh-TW": "模組庫",
+    "ar": "المكتبة"
+  },
+  "Entdecken": {
+    "en": "Discover",
+    "es": "Descubrir",
+    "fr": "Découvrir",
+    "it": "Scopri",
+    "pt": "Descobrir",
+    "nl": "Ontdekken",
+    "pl": "Odkrywaj",
+    "tr": "Keşfet",
+    "ru": "Обзор",
+    "uk": "Огляд",
+    "ja": "見つける",
+    "ko": "탐색",
+    "zh-CN": "发现",
+    "zh-TW": "探索",
+    "ar": "استكشاف"
+  },
+  "Downloads": {
+    "en": "Downloads",
+    "es": "Descargas",
+    "fr": "Téléchargements",
+    "it": "Download",
+    "pt": "Downloads",
+    "nl": "Downloads",
+    "pl": "Pobieranie",
+    "tr": "İndirilenler",
+    "ru": "Загрузки",
+    "uk": "Завантаження",
+    "ja": "ダウンロード",
+    "ko": "다운로드",
+    "zh-CN": "下载",
+    "zh-TW": "下載",
+    "ar": "التنزيلات"
+  },
+  "Design": {
+    "en": "Appearance",
+    "es": "Apariencia",
+    "fr": "Apparence",
+    "it": "Aspetto",
+    "pt": "Aparência",
+    "nl": "Weergave",
+    "pl": "Wygląd",
+    "tr": "Görünüm",
+    "ru": "Оформление",
+    "uk": "Вигляд",
+    "ja": "外観",
+    "ko": "화면 설정",
+    "zh-CN": "外观",
+    "zh-TW": "外觀",
+    "ar": "المظهر"
+  },
+  "Mehr â‹¯": {
+    "en": "More â‹¯"
+  },
+  "Dateien…": {
+    "en": "Files…",
+    "es": "Archivos…",
+    "fr": "Fichiers…",
+    "it": "File…",
+    "pt": "Arquivos…",
+    "nl": "Bestanden…",
+    "pl": "Pliki…",
+    "tr": "Dosyalar…",
+    "ru": "Файлы…",
+    "uk": "Файли…",
+    "ja": "ファイル…",
+    "ko": "파일…",
+    "zh-CN": "文件…",
+    "zh-TW": "檔案…",
+    "ar": "ملفات…"
+  },
+  "Ordner…": {
+    "en": "Folder…",
+    "es": "Carpeta…",
+    "fr": "Dossier…",
+    "it": "Cartella…",
+    "pt": "Pasta…",
+    "nl": "Map…",
+    "pl": "Folder…",
+    "tr": "Klasör…",
+    "ru": "Папка…",
+    "uk": "Папка…",
+    "ja": "フォルダー…",
+    "ko": "폴더…",
+    "zh-CN": "文件夹…",
+    "zh-TW": "資料夾…",
+    "ar": "مجلد…"
+  },
+  "Installieren": {
+    "en": "Install",
+    "es": "Instalar",
+    "fr": "Installer",
+    "it": "Installa",
+    "pt": "Instalar",
+    "nl": "Installeren",
+    "pl": "Zainstaluj",
+    "tr": "Yükle",
+    "ru": "Установить",
+    "uk": "Установити",
+    "ja": "インストール",
+    "ko": "설치",
+    "zh-CN": "安装",
+    "zh-TW": "安裝",
+    "ar": "تثبيت"
+  },
+  "Mods hinzufügen": {
+    "en": "Add mods",
+    "es": "Añadir mods",
+    "fr": "Ajouter des mods",
+    "it": "Aggiungi mod",
+    "pt": "Adicionar mods",
+    "nl": "Mods toevoegen",
+    "pl": "Dodaj mody",
+    "tr": "Mod ekle",
+    "ru": "Добавить моды",
+    "uk": "Додати моди",
+    "ja": "MODを追加",
+    "ko": "모드 추가",
+    "zh-CN": "添加模组",
+    "zh-TW": "新增模組",
+    "ar": "إضافة تعديلات"
+  },
+  "ZIP/RAR/7z oder Ordner hier ablegen": {
+    "en": "Drop ZIP/RAR/7z files or folders here",
+    "es": "Arrastra archivos ZIP/RAR/7z o carpetas aquí",
+    "fr": "Déposez des fichiers ZIP/RAR/7z ou dossiers ici",
+    "it": "Trascina qui file ZIP/RAR/7z o cartelle",
+    "pt": "Solte arquivos ZIP/RAR/7z ou pastas aqui",
+    "nl": "Sleep ZIP/RAR/7z-bestanden of mappen hierheen",
+    "pl": "Przeciągnij tutaj pliki ZIP/RAR/7z lub foldery",
+    "tr": "ZIP/RAR/7z dosyalarını veya klasörleri buraya bırakın",
+    "ru": "Перетащите сюда ZIP/RAR/7z или папки",
+    "uk": "Перетягніть сюди ZIP/RAR/7z або папки",
+    "ja": "ZIP/RAR/7zやフォルダーをここにドロップ",
+    "ko": "ZIP/RAR/7z 파일이나 폴더를 여기에 놓으세요",
+    "zh-CN": "将 ZIP/RAR/7z 文件或文件夹拖到此处",
+    "zh-TW": "將 ZIP/RAR/7z 檔案或資料夾拖到此處",
+    "ar": "اسحب ملفات ZIP/RAR/7z أو المجلدات إلى هنا"
+  },
+  "Mit Mods _spielen": {
+    "en": "_Play with mods",
+    "es": "_Jugar con mods",
+    "fr": "_Jouer avec les mods",
+    "it": "_Gioca con le mod",
+    "pt": "_Jogar com mods",
+    "nl": "_Spelen met mods",
+    "pl": "_Graj z modami",
+    "tr": "Modlarla _oyna",
+    "ru": "_Играть с модами",
+    "uk": "_Грати з модами",
+    "ja": "MODでプレイ(_P)",
+    "ko": "모드로 플레이(_P)",
+    "zh-CN": "使用模组游玩(_P)",
+    "zh-TW": "使用模組遊玩(_P)",
+    "ar": "_اللعب مع التعديلات"
+  },
+  "_Vanilla spielen": {
+    "en": "Play _vanilla",
+    "es": "Jugar sin _mods",
+    "fr": "Jouer sans _mods",
+    "it": "Gioca senza _mod",
+    "pt": "Jogar sem _mods",
+    "nl": "Spelen zonder _mods",
+    "pl": "Graj _bez modów",
+    "tr": "Modsuz _oyna",
+    "ru": "Играть _без модов",
+    "uk": "Грати _без модів",
+    "ja": "通常プレイ(_V)",
+    "ko": "기본 게임 플레이(_V)",
+    "zh-CN": "原版游玩(_V)",
+    "zh-TW": "原版遊玩(_V)",
+    "ar": "اللعب _بدون تعديلات"
+  },
+  "Mod entfernen": {
+    "en": "Remove mod",
+    "es": "Eliminar mod",
+    "fr": "Retirer le mod",
+    "it": "Rimuovi mod",
+    "pt": "Remover mod",
+    "nl": "Mod verwijderen",
+    "pl": "Usuń mod",
+    "tr": "Modu kaldır",
+    "ru": "Удалить мод",
+    "uk": "Видалити мод",
+    "ja": "MODを削除",
+    "ko": "모드 제거",
+    "zh-CN": "移除模组",
+    "zh-TW": "移除模組",
+    "ar": "إزالة التعديل"
+  },
+  "Rückgängig": {
+    "en": "Undo",
+    "es": "Deshacer",
+    "fr": "Annuler l’action",
+    "it": "Annulla modifica",
+    "pt": "Desfazer",
+    "nl": "Ongedaan maken",
+    "pl": "Cofnij",
+    "tr": "Geri al",
+    "ru": "Отменить",
+    "uk": "Скасувати дію",
+    "ja": "元に戻す",
+    "ko": "실행 취소",
+    "zh-CN": "撤销",
+    "zh-TW": "復原",
+    "ar": "تراجع"
+  },
+  "Suchen": {
+    "en": "Search",
+    "es": "Buscar",
+    "fr": "Rechercher",
+    "it": "Cerca",
+    "pt": "Buscar",
+    "nl": "Zoeken",
+    "pl": "Szukaj",
+    "tr": "Ara",
+    "ru": "Поиск",
+    "uk": "Пошук",
+    "ja": "検索",
+    "ko": "검색",
+    "zh-CN": "搜索",
+    "zh-TW": "搜尋",
+    "ar": "بحث"
+  },
+  "Mods durchsuchen": {
+    "en": "Search mods",
+    "es": "Buscar mods",
+    "fr": "Rechercher des mods",
+    "it": "Cerca mod",
+    "pt": "Buscar mods",
+    "nl": "Mods zoeken",
+    "pl": "Szukaj modów",
+    "tr": "Mod ara",
+    "ru": "Поиск модов",
+    "uk": "Пошук модів",
+    "ja": "MODを検索",
+    "ko": "모드 검색",
+    "zh-CN": "搜索模组",
+    "zh-TW": "搜尋模組",
+    "ar": "البحث عن تعديلات"
+  },
+  "Installierte Mods": {
+    "en": "Installed mods",
+    "es": "Mods instalados",
+    "fr": "Mods installés",
+    "it": "Mod installate",
+    "pt": "Mods instalados",
+    "nl": "Geïnstalleerde mods",
+    "pl": "Zainstalowane mody",
+    "tr": "Yüklü modlar",
+    "ru": "Установленные моды",
+    "uk": "Установлені моди",
+    "ja": "インストール済みMOD",
+    "ko": "설치된 모드",
+    "zh-CN": "已安装的模组",
+    "zh-TW": "已安裝的模組",
+    "ar": "التعديلات المثبتة"
+  },
+  "Mod auswählen": {
+    "en": "Select a mod",
+    "es": "Selecciona un mod",
+    "fr": "Sélectionnez un mod",
+    "it": "Seleziona una mod",
+    "pt": "Selecione um mod",
+    "nl": "Selecteer een mod",
+    "pl": "Wybierz mod",
+    "tr": "Bir mod seçin",
+    "ru": "Выберите мод",
+    "uk": "Виберіть мод",
+    "ja": "MODを選択",
+    "ko": "모드 선택",
+    "zh-CN": "选择模组",
+    "zh-TW": "選擇模組",
+    "ar": "اختر تعديلاً"
+  },
+  "Details & Import": {
+    "en": "Details",
+    "es": "Detalles",
+    "fr": "Détails",
+    "it": "Dettagli",
+    "pt": "Detalhes",
+    "nl": "Details",
+    "pl": "Szczegóły",
+    "tr": "Ayrıntılar",
+    "ru": "Сведения",
+    "uk": "Відомості",
+    "ja": "詳細",
+    "ko": "상세 정보",
+    "zh-CN": "详情",
+    "zh-TW": "詳細資訊",
+    "ar": "التفاصيل"
+  },
+  "_Details": {
+    "en": "_Details",
+    "es": "_Detalles",
+    "fr": "_Détails",
+    "it": "_Dettagli",
+    "pt": "_Detalhes",
+    "nl": "_Details",
+    "pl": "_Szczegóły",
+    "tr": "_Ayrıntılar",
+    "ru": "_Сведения",
+    "uk": "_Відомості",
+    "ja": "詳細(_D)",
+    "ko": "상세 정보(_D)",
+    "zh-CN": "详情(_D)",
+    "zh-TW": "詳細資訊(_D)",
+    "ar": "_التفاصيل"
+  },
+  "_Aktivität": {
+    "en": "_Activity",
+    "es": "_Actividad",
+    "fr": "_Activité",
+    "it": "_Attività",
+    "pt": "_Atividade",
+    "nl": "_Activiteit",
+    "pl": "_Aktywność",
+    "tr": "_Etkinlik",
+    "ru": "_Журнал",
+    "uk": "_Журнал",
+    "ja": "操作履歴(_A)",
+    "ko": "활동(_A)",
+    "zh-CN": "活动(_A)",
+    "zh-TW": "活動(_A)",
+    "ar": "_النشاط"
+  },
+  "_Importliste": {
+    "en": "_Import list",
+    "es": "_Lista de importación",
+    "fr": "_Liste d’importation",
+    "it": "_Elenco importazioni",
+    "pt": "_Lista de importação",
+    "nl": "_Importlijst",
+    "pl": "_Lista importu",
+    "tr": "_İçe aktarma listesi",
+    "ru": "_Список импорта",
+    "uk": "_Список імпорту",
+    "ja": "インポート一覧(_I)",
+    "ko": "가져오기 목록(_I)",
+    "zh-CN": "导入列表(_I)",
+    "zh-TW": "匯入清單(_I)",
+    "ar": "_قائمة الاستيراد"
+  },
+  "Info": {
+    "en": "Info"
+  },
+  "Bereit": {
+    "en": "Ready",
+    "es": "Listo",
+    "fr": "Prêt",
+    "it": "Pronto",
+    "pt": "Pronto",
+    "nl": "Gereed",
+    "pl": "Gotowe",
+    "tr": "Hazır",
+    "ru": "Готово",
+    "uk": "Готово",
+    "ja": "準備完了",
+    "ko": "준비됨",
+    "zh-CN": "就绪",
+    "zh-TW": "就緒",
+    "ar": "جاهز"
+  },
+  "Bereit.": {
+    "en": "Ready.",
+    "es": "Listo.",
+    "fr": "Prêt.",
+    "it": "Pronto.",
+    "pt": "Pronto.",
+    "nl": "Gereed.",
+    "pl": "Gotowe.",
+    "tr": "Hazır.",
+    "ru": "Готово.",
+    "uk": "Готово.",
+    "ja": "準備完了.",
+    "ko": "준비됨.",
+    "zh-CN": "就绪.",
+    "zh-TW": "就緒.",
+    "ar": "جاهز."
+  },
+  "Fehler": {
+    "en": "Error",
+    "es": "Error",
+    "fr": "Erreur",
+    "it": "Errore",
+    "pt": "Erro",
+    "nl": "Fout",
+    "pl": "Błąd",
+    "tr": "Hata",
+    "ru": "Ошибка",
+    "uk": "Помилка",
+    "ja": "エラー",
+    "ko": "오류",
+    "zh-CN": "错误",
+    "zh-TW": "錯誤",
+    "ar": "خطأ"
+  },
+  "Hinweise": {
+    "en": "Notes",
+    "es": "Avisos",
+    "fr": "Remarques",
+    "it": "Note",
+    "pt": "Avisos",
+    "nl": "Opmerkingen",
+    "pl": "Uwagi",
+    "tr": "Notlar",
+    "ru": "Примечания",
+    "uk": "Примітки",
+    "ja": "注意事項",
+    "ko": "안내",
+    "zh-CN": "提示",
+    "zh-TW": "提示",
+    "ar": "ملاحظات"
+  },
+  "Abbrechen": {
+    "en": "Cancel",
+    "es": "Cancelar",
+    "fr": "Annuler",
+    "it": "Annulla",
+    "pt": "Cancelar",
+    "nl": "Annuleren",
+    "pl": "Anuluj",
+    "tr": "İptal",
+    "ru": "Отмена",
+    "uk": "Скасувати",
+    "ja": "キャンセル",
+    "ko": "취소",
+    "zh-CN": "取消",
+    "zh-TW": "取消",
+    "ar": "إلغاء"
+  },
+  "Überspringen": {
+    "en": "Skip",
+    "es": "Omitir",
+    "fr": "Ignorer",
+    "it": "Salta",
+    "pt": "Ignorar",
+    "nl": "Overslaan",
+    "pl": "Pomiń",
+    "tr": "Atla",
+    "ru": "Пропустить",
+    "uk": "Пропустити",
+    "ja": "スキップ",
+    "ko": "건너뛰기",
+    "zh-CN": "跳过",
+    "zh-TW": "略過",
+    "ar": "تخطي"
+  },
+  "Öffnen": {
+    "en": "Open",
+    "es": "Abrir",
+    "fr": "Ouvrir",
+    "it": "Apri",
+    "pt": "Abrir",
+    "nl": "Openen",
+    "pl": "Otwórz",
+    "tr": "Aç",
+    "ru": "Открыть",
+    "uk": "Відкрити",
+    "ja": "開く",
+    "ko": "열기",
+    "zh-CN": "打开",
+    "zh-TW": "開啟",
+    "ar": "فتح"
+  },
+  "Erneut versuchen": {
+    "en": "Try again",
+    "es": "Reintentar",
+    "fr": "Réessayer",
+    "it": "Riprova",
+    "pt": "Tentar novamente",
+    "nl": "Opnieuw proberen",
+    "pl": "Spróbuj ponownie",
+    "tr": "Yeniden dene",
+    "ru": "Повторить",
+    "uk": "Спробувати знову",
+    "ja": "再試行",
+    "ko": "다시 시도",
+    "zh-CN": "重试",
+    "zh-TW": "重試",
+    "ar": "إعادة المحاولة"
+  },
+  "Pausiert": {
+    "en": "Paused",
+    "es": "En pausa",
+    "fr": "En pause",
+    "it": "In pausa",
+    "pt": "Pausado",
+    "nl": "Gepauzeerd",
+    "pl": "Wstrzymany",
+    "tr": "Duraklatıldı",
+    "ru": "Приостановлен",
+    "uk": "Призупинено",
+    "ja": "一時停止",
+    "ko": "일시 중지",
+    "zh-CN": "已暂停",
+    "zh-TW": "已暫停",
+    "ar": "متوقف مؤقتاً"
+  },
+  "Aktiv": {
+    "en": "Active",
+    "es": "Activo",
+    "fr": "Actif",
+    "it": "Attivo",
+    "pt": "Ativo",
+    "nl": "Actief",
+    "pl": "Aktywny",
+    "tr": "Etkin",
+    "ru": "Активен",
+    "uk": "Активний",
+    "ja": "有効",
+    "ko": "활성",
+    "zh-CN": "已启用",
+    "zh-TW": "已啟用",
+    "ar": "نشط"
+  },
+  "Ungeprüft": {
+    "en": "Unchecked"
+  },
+  "Abgeschlossen": {
+    "en": "Completed",
+    "es": "Completado",
+    "fr": "Terminé",
+    "it": "Completato",
+    "pt": "Concluído",
+    "nl": "Voltooid",
+    "pl": "Ukończono",
+    "tr": "Tamamlandı",
+    "ru": "Завершено",
+    "uk": "Завершено",
+    "ja": "完了",
+    "ko": "완료",
+    "zh-CN": "已完成",
+    "zh-TW": "已完成",
+    "ar": "مكتمل"
+  },
+  "Fehlgeschlagen": {
+    "en": "Failed",
+    "es": "Fallido",
+    "fr": "Échec",
+    "it": "Non riuscito",
+    "pt": "Falhou",
+    "nl": "Mislukt",
+    "pl": "Niepowodzenie",
+    "tr": "Başarısız",
+    "ru": "Ошибка",
+    "uk": "Не вдалося",
+    "ja": "失敗",
+    "ko": "실패",
+    "zh-CN": "失败",
+    "zh-TW": "失敗",
+    "ar": "فشل"
+  },
+  "Abgebrochen": {
+    "en": "Cancelled",
+    "es": "Cancelado",
+    "fr": "Annulé",
+    "it": "Annullato",
+    "pt": "Cancelado",
+    "nl": "Geannuleerd",
+    "pl": "Anulowano",
+    "tr": "İptal edildi",
+    "ru": "Отменено",
+    "uk": "Скасовано",
+    "ja": "キャンセル済み",
+    "ko": "취소됨",
+    "zh-CN": "已取消",
+    "zh-TW": "已取消",
+    "ar": "ملغى"
+  },
+  "Unterbrochen": {
+    "en": "Interrupted",
+    "es": "Interrumpido",
+    "fr": "Interrompu",
+    "it": "Interrotto",
+    "pt": "Interrompido",
+    "nl": "Onderbroken",
+    "pl": "Przerwano",
+    "tr": "Kesildi",
+    "ru": "Прервано",
+    "uk": "Перервано",
+    "ja": "中断",
+    "ko": "중단됨",
+    "zh-CN": "已中断",
+    "zh-TW": "已中斷",
+    "ar": "انقطع"
+  },
+  "Wartet": {
+    "en": "Queued",
+    "es": "En cola",
+    "fr": "En attente",
+    "it": "In coda",
+    "pt": "Na fila",
+    "nl": "In wachtrij",
+    "pl": "W kolejce",
+    "tr": "Sırada",
+    "ru": "В очереди",
+    "uk": "У черзі",
+    "ja": "待機中",
+    "ko": "대기 중",
+    "zh-CN": "排队中",
+    "zh-TW": "佇列中",
+    "ar": "في الانتظار"
+  },
+  "Prüfung": {
+    "en": "Verifying",
+    "es": "Verificando",
+    "fr": "Vérification",
+    "it": "Verifica",
+    "pt": "Verificando",
+    "nl": "Controleren",
+    "pl": "Weryfikacja",
+    "tr": "Doğrulanıyor",
+    "ru": "Проверка",
+    "uk": "Перевірка",
+    "ja": "確認中",
+    "ko": "확인 중",
+    "zh-CN": "正在校验",
+    "zh-TW": "正在驗證",
+    "ar": "جارٍ التحقق"
+  },
+  "Pruefen": {
+    "en": "Checking"
+  },
+  "Pruefung abgeschlossen": {
+    "en": "Check complete"
+  },
+  "Vorbereiten": {
+    "en": "Preparing"
+  },
+  "In Arbeit": {
+    "en": "In progress",
+    "es": "En curso",
+    "fr": "En cours",
+    "it": "In corso",
+    "pt": "Em andamento",
+    "nl": "Bezig",
+    "pl": "W toku",
+    "tr": "İşleniyor",
+    "ru": "Выполняется",
+    "uk": "Виконується",
+    "ja": "処理中",
+    "ko": "진행 중",
+    "zh-CN": "处理中",
+    "zh-TW": "處理中",
+    "ar": "قيد التنفيذ"
+  },
+  "Schon vorhanden": {
+    "en": "Already installed",
+    "es": "Ya instalado",
+    "fr": "Déjà installé",
+    "it": "Già installato",
+    "pt": "Já instalado",
+    "nl": "Al geïnstalleerd",
+    "pl": "Już zainstalowany",
+    "tr": "Zaten yüklü",
+    "ru": "Уже установлен",
+    "uk": "Уже встановлено",
+    "ja": "インストール済み",
+    "ko": "이미 설치됨",
+    "zh-CN": "已安装",
+    "zh-TW": "已安裝",
+    "ar": "مثبت بالفعل"
+  },
+  "Doppelt": {
+    "en": "Duplicate",
+    "es": "Duplicado",
+    "fr": "Doublon",
+    "it": "Duplicato",
+    "pt": "Duplicado",
+    "nl": "Dubbel",
+    "pl": "Duplikat",
+    "tr": "Yinelenen",
+    "ru": "Дубликат",
+    "uk": "Дублікат",
+    "ja": "重複",
+    "ko": "중복",
+    "zh-CN": "重复",
+    "zh-TW": "重複",
+    "ar": "مكرر"
+  },
+  "Konflikt": {
+    "en": "Conflict",
+    "es": "Conflicto",
+    "fr": "Conflit",
+    "it": "Conflitto",
+    "pt": "Conflito",
+    "nl": "Conflict",
+    "pl": "Konflikt",
+    "tr": "Çakışma",
+    "ru": "Конфликт",
+    "uk": "Конфлікт",
+    "ja": "競合",
+    "ko": "충돌",
+    "zh-CN": "冲突",
+    "zh-TW": "衝突",
+    "ar": "تعارض"
+  },
+  "Installiert": {
+    "en": "Installed",
+    "es": "Instalado",
+    "fr": "Installé",
+    "it": "Installato",
+    "pt": "Instalado",
+    "nl": "Geïnstalleerd",
+    "pl": "Zainstalowano",
+    "tr": "Yüklendi",
+    "ru": "Установлен",
+    "uk": "Установлено",
+    "ja": "インストール済み",
+    "ko": "설치됨",
+    "zh-CN": "已安装",
+    "zh-TW": "已安裝",
+    "ar": "مثبت"
+  },
+  "Ungueltig": {
+    "en": "Invalid",
+    "es": "No válido",
+    "fr": "Non valide",
+    "it": "Non valido",
+    "pt": "Inválido",
+    "nl": "Ongeldig",
+    "pl": "Nieprawidłowy",
+    "tr": "Geçersiz",
+    "ru": "Недопустимо",
+    "uk": "Недійсне",
+    "ja": "無効",
+    "ko": "유효하지 않음",
+    "zh-CN": "无效",
+    "zh-TW": "無效",
+    "ar": "غير صالح"
+  },
+  "Ausgelassen": {
+    "en": "Skipped",
+    "es": "Omitido",
+    "fr": "Ignoré",
+    "it": "Saltato",
+    "pt": "Ignorado",
+    "nl": "Overgeslagen",
+    "pl": "Pominięto",
+    "tr": "Atlandı",
+    "ru": "Пропущено",
+    "uk": "Пропущено",
+    "ja": "スキップ済み",
+    "ko": "건너뜀",
+    "zh-CN": "已跳过",
+    "zh-TW": "已略過",
+    "ar": "تم التخطي"
+  },
+  "Import": {
+    "en": "Import"
+  },
+  "Heller Modus": {
+    "en": "Light",
+    "es": "Claro",
+    "fr": "Clair",
+    "it": "Chiaro",
+    "pt": "Claro",
+    "nl": "Licht",
+    "pl": "Jasny",
+    "tr": "Açık",
+    "ru": "Светлая",
+    "uk": "Світла",
+    "ja": "ライト",
+    "ko": "밝게",
+    "zh-CN": "浅色",
+    "zh-TW": "淺色",
+    "ar": "فاتح"
+  },
+  "Dunkler Modus": {
+    "en": "Dark",
+    "es": "Oscuro",
+    "fr": "Sombre",
+    "it": "Scuro",
+    "pt": "Escuro",
+    "nl": "Donker",
+    "pl": "Ciemny",
+    "tr": "Koyu",
+    "ru": "Тёмная",
+    "uk": "Темна",
+    "ja": "ダーク",
+    "ko": "어둡게",
+    "zh-CN": "深色",
+    "zh-TW": "深色",
+    "ar": "داكن"
+  },
+  "Wie Windows": {
+    "en": "Use Windows setting",
+    "es": "Usar ajuste de Windows",
+    "fr": "Selon Windows",
+    "it": "Come Windows",
+    "pt": "Seguir o Windows",
+    "nl": "Windows volgen",
+    "pl": "Według Windows",
+    "tr": "Windows ayarı",
+    "ru": "Как в Windows",
+    "uk": "Як у Windows",
+    "ja": "Windowsに合わせる",
+    "ko": "Windows 설정 따르기",
+    "zh-CN": "跟随 Windows",
+    "zh-TW": "跟隨 Windows",
+    "ar": "حسب إعداد Windows"
+  },
+  "Hell, Dunkel oder Windows-Einstellung": {
+    "en": "Light, dark or Windows appearance"
+  },
+  "Alle Mods als ZIP exportieren…": {
+    "en": "Export all mods as ZIP…",
+    "es": "Exportar mods como ZIP…",
+    "fr": "Exporter les mods en ZIP…",
+    "it": "Esporta mod in ZIP…",
+    "pt": "Exportar mods em ZIP…",
+    "nl": "Mods als ZIP exporteren…",
+    "pl": "Eksportuj mody do ZIP…",
+    "tr": "Modları ZIP olarak dışa aktar…",
+    "ru": "Экспорт модов в ZIP…",
+    "uk": "Експорт модів у ZIP…",
+    "ja": "MODをZIPでエクスポート…",
+    "ko": "모드를 ZIP으로 내보내기…",
+    "zh-CN": "将模组导出为 ZIP…",
+    "zh-TW": "將模組匯出為 ZIP…",
+    "ar": "تصدير التعديلات بصيغة ZIP…"
+  },
+  "Sichtbare Mods umschalten": {
+    "en": "Toggle visible mods"
+  },
+  "Sichtbare Mods aktivieren": {
+    "en": "Enable visible mods"
+  },
+  "Sichtbare Mods pausieren": {
+    "en": "Pause visible mods"
+  },
+  "GameBanana-Link öffnen…": {
+    "en": "Open GameBanana link…",
+    "es": "Abrir enlace de GameBanana…",
+    "fr": "Ouvrir un lien GameBanana…",
+    "it": "Apri link GameBanana…",
+    "pt": "Abrir link do GameBanana…",
+    "nl": "GameBanana-link openen…",
+    "pl": "Otwórz link GameBanana…",
+    "tr": "GameBanana bağlantısı aç…",
+    "ru": "Открыть ссылку GameBanana…",
+    "uk": "Відкрити посилання GameBanana…",
+    "ja": "GameBananaリンクを開く…",
+    "ko": "GameBanana 링크 열기…",
+    "zh-CN": "打开 GameBanana 链接…",
+    "zh-TW": "開啟 GameBanana 連結…",
+    "ar": "فتح رابط GameBanana…"
+  },
+  "Manager-Link zur Datei kopieren": {
+    "en": "Copy manager link to file",
+    "es": "Copiar enlace del gestor",
+    "fr": "Copier le lien du gestionnaire",
+    "it": "Copia link del gestore",
+    "pt": "Copiar link do gerenciador",
+    "nl": "Managerlink kopiëren",
+    "pl": "Kopiuj link menedżera",
+    "tr": "Yönetici bağlantısını kopyala",
+    "ru": "Копировать ссылку менеджера",
+    "uk": "Копіювати посилання менеджера",
+    "ja": "マネージャーリンクをコピー",
+    "ko": "매니저 링크 복사",
+    "zh-CN": "复制管理器链接",
+    "zh-TW": "複製管理器連結",
+    "ar": "نسخ رابط المدير"
+  },
+  "GameBanana-Updates prüfen": {
+    "en": "Check GameBanana updates",
+    "es": "Buscar actualizaciones de GameBanana",
+    "fr": "Vérifier les mises à jour GameBanana",
+    "it": "Controlla aggiornamenti GameBanana",
+    "pt": "Verificar atualizações do GameBanana",
+    "nl": "GameBanana-updates controleren",
+    "pl": "Sprawdź aktualizacje GameBanana",
+    "tr": "GameBanana güncellemelerini denetle",
+    "ru": "Проверить обновления GameBanana",
+    "uk": "Перевірити оновлення GameBanana",
+    "ja": "GameBananaの更新を確認",
+    "ko": "GameBanana 업데이트 확인",
+    "zh-CN": "检查 GameBanana 更新",
+    "zh-TW": "檢查 GameBanana 更新",
+    "ar": "التحقق من تحديثات GameBanana"
+  },
+  "Bibliothek vollständig prüfen": {
+    "en": "Verify library",
+    "es": "Verificar biblioteca",
+    "fr": "Vérifier la bibliothèque",
+    "it": "Verifica libreria",
+    "pt": "Verificar biblioteca",
+    "nl": "Bibliotheek controleren",
+    "pl": "Sprawdź bibliotekę",
+    "tr": "Kütüphaneyi doğrula",
+    "ru": "Проверить библиотеку",
+    "uk": "Перевірити бібліотеку",
+    "ja": "ライブラリを検証",
+    "ko": "라이브러리 검사",
+    "zh-CN": "校验模组库",
+    "zh-TW": "驗證模組庫",
+    "ar": "التحقق من المكتبة"
+  },
+  "Protokolle öffnen": {
+    "en": "Open logs",
+    "es": "Abrir registros",
+    "fr": "Ouvrir les journaux",
+    "it": "Apri registri",
+    "pt": "Abrir registros",
+    "nl": "Logboeken openen",
+    "pl": "Otwórz dzienniki",
+    "tr": "Günlükleri aç",
+    "ru": "Открыть журналы",
+    "uk": "Відкрити журнали",
+    "ja": "ログを開く",
+    "ko": "로그 열기",
+    "zh-CN": "打开日志",
+    "zh-TW": "開啟記錄",
+    "ar": "فتح السجلات"
+  },
+  "Weitere Funktionen": {
+    "en": "More actions"
+  },
+  "Verbundenes OpenSmash-Spiel": {
+    "en": "Connected OpenSmash game"
+  },
+  "Eine oder mehrere ZIP-/RAR-/7z-Dateien prüfen (Strg+O)": {
+    "en": "Inspect ZIP/RAR/7z files (Ctrl+O)"
+  },
+  "Entpackten Mod-Ordner prüfen (Strg+Umschalt+O)": {
+    "en": "Inspect an extracted mod folder (Ctrl+Shift+O)"
+  },
+  "Geprüfte Auswahl installieren (Strg+I)": {
+    "en": "Install inspected selection (Ctrl+I)"
+  },
+  "Nach Mod-Namen suchen (Strg+F)": {
+    "en": "Search mod names (Ctrl+F)"
+  },
+  "Ausgewählte Mod aus der Auswahl entfernen; Rückgängig bleibt möglich": {
+    "en": "Remove selected mod; undo remains available"
+  },
+  "Vorherige Mod-Auswahl wiederherstellen (Strg+Z)": {
+    "en": "Restore previous mod selection (Ctrl+Z)"
+  },
+  "Noch keine Mods": {
+    "en": "No mods yet",
+    "es": "Sin mods todavía",
+    "fr": "Aucun mod pour le moment",
+    "it": "Ancora nessuna mod",
+    "pt": "Nenhum mod ainda",
+    "nl": "Nog geen mods",
+    "pl": "Brak modów",
+    "tr": "Henüz mod yok",
+    "ru": "Модов пока нет",
+    "uk": "Модів поки немає",
+    "ja": "MODはまだありません",
+    "ko": "아직 모드가 없습니다",
+    "zh-CN": "暂无模组",
+    "zh-TW": "尚無模組",
+    "ar": "لا توجد تعديلات بعد"
+  },
+  "Deine Bibliothek ist noch leer.\nFüge oben deine erste Mod hinzu.": {
+    "en": "Your library is empty.\nAdd your first mod above.",
+    "es": "Tu biblioteca está vacía.\nAñade tu primer mod arriba.",
+    "fr": "Votre bibliothèque est vide.\nAjoutez votre premier mod ci-dessus.",
+    "it": "La libreria è vuota.\nAggiungi la prima mod in alto.",
+    "pt": "Sua biblioteca está vazia.\nAdicione seu primeiro mod acima.",
+    "nl": "Je bibliotheek is leeg.\nVoeg hierboven je eerste mod toe.",
+    "pl": "Biblioteka jest pusta.\nDodaj swój pierwszy mod powyżej.",
+    "tr": "Kütüphaneniz boş.\nYukarıdan ilk modunuzu ekleyin.",
+    "ru": "Ваша библиотека пуста.\nДобавьте первый мод сверху.",
+    "uk": "Ваша бібліотека порожня.\nДодайте перший мод угорі.",
+    "ja": "ライブラリは空です。\n上から最初のMODを追加してください。",
+    "ko": "라이브러리가 비어 있습니다.\n위에서 첫 모드를 추가하세요.",
+    "zh-CN": "模组库为空。\n请在上方添加第一个模组。",
+    "zh-TW": "模組庫是空的。\n請在上方新增第一個模組。",
+    "ar": "مكتبتك فارغة.\nأضف أول تعديل من الأعلى."
+  },
+  "Prüfergebnis und Hinweise": {
+    "en": "Inspection results and notes"
+  },
+  "Aktivitätsprotokoll": {
+    "en": "Activity log"
+  },
+  "Mod-Auswahl pruefen": {
+    "en": "Inspect mod selection"
+  },
+  "Stapel-Fortschritt nach Mods": {
+    "en": "Batch progress by mod"
+  },
+  "Gepruefte Mods und Importergebnisse": {
+    "en": "Inspected mods and import results"
+  },
+  "Pausiert installieren": {
+    "en": "Install paused",
+    "es": "Instalar en pausa",
+    "fr": "Installer en pause",
+    "it": "Installa in pausa",
+    "pt": "Instalar pausado",
+    "nl": "Gepauzeerd installeren",
+    "pl": "Zainstaluj jako wstrzymany",
+    "tr": "Duraklatılmış olarak yükle",
+    "ru": "Установить без активации",
+    "uk": "Установити без активації",
+    "ja": "無効のままインストール",
+    "ko": "비활성 상태로 설치",
+    "zh-CN": "安装但不启用",
+    "zh-TW": "安裝但不啟用",
+    "ar": "تثبيت دون تفعيل"
+  },
+  "Konfliktpartner ersetzen": {
+    "en": "Replace conflicting mods",
+    "es": "Reemplazar mods en conflicto",
+    "fr": "Remplacer les mods en conflit",
+    "it": "Sostituisci mod in conflitto",
+    "pt": "Substituir mods em conflito",
+    "nl": "Conflicterende mods vervangen",
+    "pl": "Zastąp kolidujące mody",
+    "tr": "Çakışan modları değiştir",
+    "ru": "Заменить конфликтующие моды",
+    "uk": "Замінити конфліктні моди",
+    "ja": "競合するMODを置換",
+    "ko": "충돌 모드 교체",
+    "zh-CN": "替换冲突的模组",
+    "zh-TW": "取代衝突的模組",
+    "ar": "استبدال التعديلات المتعارضة"
+  },
+  "Konflikte werden vor der Installation geklärt.": {
+    "en": "Resolve conflicts before installing."
+  },
+  "Modmanager wird vorbereitet…": {
+    "en": "Preparing mod manager…",
+    "es": "Preparando gestor…",
+    "fr": "Préparation du gestionnaire…",
+    "it": "Preparazione gestore…",
+    "pt": "Preparando gerenciador…",
+    "nl": "Manager voorbereiden…",
+    "pl": "Przygotowywanie menedżera…",
+    "tr": "Yönetici hazırlanıyor…",
+    "ru": "Подготовка менеджера…",
+    "uk": "Підготовка менеджера…",
+    "ja": "マネージャーを準備中…",
+    "ko": "매니저 준비 중…",
+    "zh-CN": "正在准备管理器…",
+    "zh-TW": "正在準備管理器…",
+    "ar": "جارٍ إعداد المدير…"
+  },
+  "Vorgang läuft": {
+    "en": "Operation in progress"
+  },
+  "Vorgang läuft…": {
+    "en": "Working…",
+    "es": "Procesando…",
+    "fr": "Traitement en cours…",
+    "it": "Operazione in corso…",
+    "pt": "Processando…",
+    "nl": "Bezig…",
+    "pl": "Przetwarzanie…",
+    "tr": "İşleniyor…",
+    "ru": "Выполняется…",
+    "uk": "Виконується…",
+    "ja": "処理中…",
+    "ko": "처리 중…",
+    "zh-CN": "处理中…",
+    "zh-TW": "處理中…",
+    "ar": "جارٍ التنفيذ…"
+  },
+  "Mit aktiven Mods starten (F5)": {
+    "en": "Start with active mods (F5)"
+  },
+  "Ohne verwaltete Mods starten (F6)": {
+    "en": "Start without managed mods (F6)"
+  },
+  "GameBanana durchsuchen": {
+    "en": "Search GameBanana"
+  },
+  "Super Smash Bros. Ultimate: Suchbegriff eingeben. Ergebnisse nach Relevanz.": {
+    "en": "Search Super Smash Bros. Ultimate. Results are ranked by relevance."
+  },
+  "GameBanana Kategorie": {
+    "en": "GameBanana category"
+  },
+  "Charakter für Skin-Mods": {
+    "en": "Character for skins"
+  },
+  "Charakterfilter für Skins. Tippen wählt einen Namen. Für Textsuche Alle Charaktere wählen.": {
+    "en": "Filter skins by character. Type to select a name. Choose All characters for text search."
+  },
+  "GameBanana Sortierung": {
+    "en": "GameBanana sort order"
+  },
+  "Vorherige Seite": {
+    "en": "Previous page",
+    "es": "‹ Anterior",
+    "fr": "‹ Précédent",
+    "it": "‹ Precedente",
+    "pt": "‹ Anterior",
+    "nl": "‹ Vorige",
+    "pl": "‹ Poprzedni",
+    "tr": "‹ Önceki",
+    "ru": "‹ Назад",
+    "uk": "‹ Назад",
+    "ja": "‹ 前へ",
+    "ko": "‹ 이전",
+    "zh-CN": "‹ 上一张",
+    "zh-TW": "‹ 上一張",
+    "ar": "‹ السابق"
+  },
+  "Naechste Seite": {
+    "en": "Next page",
+    "es": "Siguiente ›",
+    "fr": "Suivant ›",
+    "it": "Successivo ›",
+    "pt": "Próximo ›",
+    "nl": "Volgende ›",
+    "pl": "Następny ›",
+    "tr": "Sonraki ›",
+    "ru": "Далее ›",
+    "uk": "Далі ›",
+    "ja": "次へ ›",
+    "ko": "다음 ›",
+    "zh-CN": "下一张 ›",
+    "zh-TW": "下一張 ›",
+    "ar": "التالي ›"
+  },
+  "GameBanana wird beim Oeffnen geladen.": {
+    "en": "GameBanana loads when opened."
+  },
+  "GameBanana Ergebnisse": {
+    "en": "GameBanana results"
+  },
+  "Vorschaubild": {
+    "en": "Preview image"
+  },
+  "Dateien für Auswahl…": {
+    "en": "Choose files…",
+    "es": "Elegir archivos…",
+    "fr": "Choisir les fichiers…",
+    "it": "Scegli file…",
+    "pt": "Escolher arquivos…",
+    "nl": "Bestanden kiezen…",
+    "pl": "Wybierz pliki…",
+    "tr": "Dosya seç…",
+    "ru": "Выбрать файлы…",
+    "uk": "Вибрати файли…",
+    "ja": "ファイルを選択…",
+    "ko": "파일 선택…",
+    "zh-CN": "选择文件…",
+    "zh-TW": "選擇檔案…",
+    "ar": "اختيار الملفات…"
+  },
+  "Mehrfachauswahl mit Strg oder Umschalt. Fuer jede Mod eine Datei selbst auswaehlen.": {
+    "en": "Select multiple mods with Ctrl or Shift. Choose a file for each mod."
+  },
+  "Vorheriges Vorschaubild": {
+    "en": "Previous image",
+    "es": "‹ Anterior",
+    "fr": "‹ Précédent",
+    "it": "‹ Precedente",
+    "pt": "‹ Anterior",
+    "nl": "‹ Vorige",
+    "pl": "‹ Poprzedni",
+    "tr": "‹ Önceki",
+    "ru": "‹ Назад",
+    "uk": "‹ Назад",
+    "ja": "‹ 前へ",
+    "ko": "‹ 이전",
+    "zh-CN": "‹ 上一张",
+    "zh-TW": "‹ 上一張",
+    "ar": "‹ السابق"
+  },
+  "Naechstes Vorschaubild": {
+    "en": "Next image",
+    "es": "Siguiente ›",
+    "fr": "Suivant ›",
+    "it": "Successivo ›",
+    "pt": "Próximo ›",
+    "nl": "Volgende ›",
+    "pl": "Następny ›",
+    "tr": "Sonraki ›",
+    "ru": "Далее ›",
+    "uk": "Далі ›",
+    "ja": "次へ ›",
+    "ko": "다음 ›",
+    "zh-CN": "下一张 ›",
+    "zh-TW": "下一張 ›",
+    "ar": "التالي ›"
+  },
+  "Bild im Vollbild öffnen": {
+    "en": "View full screen"
+  },
+  "Vorschaubild im Vollbild öffnen": {
+    "en": "View preview full screen"
+  },
+  "Kompatibilität noch ungeprüft.": {
+    "en": "Compatibility has not been checked yet."
+  },
+  "Abhängigkeiten & Installation": {
+    "en": "Dependencies and installation",
+    "es": "Dependencias e instalación",
+    "fr": "Dépendances et installation",
+    "it": "Dipendenze e installazione",
+    "pt": "Dependências e instalação",
+    "nl": "Afhankelijkheden en installatie",
+    "pl": "Zależności i instalacja",
+    "tr": "Bağımlılıklar ve kurulum",
+    "ru": "Зависимости и установка",
+    "uk": "Залежності та встановлення",
+    "ja": "依存関係とインストール",
+    "ko": "필수 항목 및 설치",
+    "zh-CN": "依赖项与安装",
+    "zh-TW": "相依項目與安裝",
+    "ar": "المتطلبات والتثبيت"
+  },
+  "Dateivariante ausdrücklich auswählen:": {
+    "en": "Choose a file:",
+    "es": "Elige un archivo:",
+    "fr": "Choisissez un fichier :",
+    "it": "Scegli un file:",
+    "pt": "Escolha um arquivo:",
+    "nl": "Kies een bestand:",
+    "pl": "Wybierz plik:",
+    "tr": "Bir dosya seçin:",
+    "ru": "Выберите файл:",
+    "uk": "Виберіть файл:",
+    "ja": "ファイルを選択：",
+    "ko": "파일 선택:",
+    "zh-CN": "选择文件：",
+    "zh-TW": "選擇檔案：",
+    "ar": "اختر ملفاً:"
+  },
+  "GameBanana Dateivariante": {
+    "en": "GameBanana file variant"
+  },
+  "Download einreihen": {
+    "en": "Download",
+    "es": "Descargar",
+    "fr": "Télécharger",
+    "it": "Scarica",
+    "pt": "Baixar",
+    "nl": "Downloaden",
+    "pl": "Pobierz",
+    "tr": "İndir",
+    "ru": "Скачать",
+    "uk": "Завантажити",
+    "ja": "ダウンロード",
+    "ko": "다운로드",
+    "zh-CN": "下载",
+    "zh-TW": "下載",
+    "ar": "تنزيل"
+  },
+  "Quellseite â†—": {
+    "en": "Source page â†—"
+  },
+  "Noch keine Downloads. Mods findest du unter Entdecken.": {
+    "en": "No downloads yet. Find mods in Discover.",
+    "es": "Sin descargas. Busca mods en Descubrir.",
+    "fr": "Aucun téléchargement. Trouvez des mods dans Découvrir.",
+    "it": "Nessun download. Cerca mod in Scopri.",
+    "pt": "Nenhum download. Encontre mods em Descobrir.",
+    "nl": "Nog geen downloads. Vind mods in Ontdekken.",
+    "pl": "Brak pobrań. Znajdź mody w Odkrywaj.",
+    "tr": "İndirme yok. Keşfet bölümünde mod bulun.",
+    "ru": "Загрузок нет. Найдите моды в разделе «Обзор».",
+    "uk": "Завантажень немає. Знайдіть моди в розділі «Огляд».",
+    "ja": "ダウンロードはありません。「見つける」でMODを探せます。",
+    "ko": "다운로드가 없습니다. 탐색에서 모드를 찾아보세요.",
+    "zh-CN": "暂无下载。请到“发现”查找模组。",
+    "zh-TW": "尚無下載。請到「探索」尋找模組。",
+    "ar": "لا توجد تنزيلات. ابحث عن تعديلات في «استكشاف»."
+  },
+  "Downloadwarteschlange": {
+    "en": "Download queue"
+  },
+  "Auswahl installieren…": {
+    "en": "Install selection…",
+    "es": "Instalar selección…",
+    "fr": "Installer la sélection…",
+    "it": "Installa selezione…",
+    "pt": "Instalar seleção…",
+    "nl": "Selectie installeren…",
+    "pl": "Zainstaluj wybrane…",
+    "tr": "Seçimi yükle…",
+    "ru": "Установить выбранное…",
+    "uk": "Установити вибране…",
+    "ja": "選択項目をインストール…",
+    "ko": "선택 항목 설치…",
+    "zh-CN": "安装所选项…",
+    "zh-TW": "安裝選取項目…",
+    "ar": "تثبيت المحدد…"
+  },
+  "Auswahl abbrechen": {
+    "en": "Cancel selection",
+    "es": "Cancelar selección",
+    "fr": "Annuler la sélection",
+    "it": "Annulla selezione",
+    "pt": "Cancelar seleção",
+    "nl": "Selectie annuleren",
+    "pl": "Anuluj wybrane",
+    "tr": "Seçimi iptal et",
+    "ru": "Отменить выбранное",
+    "uk": "Скасувати вибране",
+    "ja": "選択項目をキャンセル",
+    "ko": "선택 항목 취소",
+    "zh-CN": "取消所选项",
+    "zh-TW": "取消選取項目",
+    "ar": "إلغاء المحدد"
+  },
+  "Alle Charaktere": {
+    "en": "All characters",
+    "es": "Todos los personajes",
+    "fr": "Tous les personnages",
+    "it": "Tutti i personaggi",
+    "pt": "Todos os personagens",
+    "nl": "Alle personages",
+    "pl": "Wszystkie postacie",
+    "tr": "Tüm karakterler",
+    "ru": "Все персонажи",
+    "uk": "Усі персонажі",
+    "ja": "すべてのキャラクター",
+    "ko": "모든 캐릭터",
+    "zh-CN": "所有角色",
+    "zh-TW": "所有角色",
+    "ar": "جميع الشخصيات"
+  },
+  "Zuletzt aktualisiert": {
+    "en": "Recently updated",
+    "es": "Actualizados recientemente",
+    "fr": "Mis à jour récemment",
+    "it": "Aggiornati di recente",
+    "pt": "Atualizados recentemente",
+    "nl": "Recent bijgewerkt",
+    "pl": "Ostatnio zaktualizowane",
+    "tr": "Son güncellenenler",
+    "ru": "Недавно обновлённые",
+    "uk": "Нещодавно оновлені",
+    "ja": "最近更新",
+    "ko": "최근 업데이트",
+    "zh-CN": "最近更新",
+    "zh-TW": "最近更新",
+    "ar": "المحدثة مؤخراً"
+  },
+  "Neueste": {
+    "en": "Newest",
+    "es": "Más recientes",
+    "fr": "Plus récents",
+    "it": "Più recenti",
+    "pt": "Mais recentes",
+    "nl": "Nieuwste",
+    "pl": "Najnowsze",
+    "tr": "En yeniler",
+    "ru": "Новые",
+    "uk": "Нові",
+    "ja": "新着",
+    "ko": "최신",
+    "zh-CN": "最新",
+    "zh-TW": "最新",
+    "ar": "الأحدث"
+  },
+  "Meiste Downloads": {
+    "en": "Most downloaded",
+    "es": "Más descargados",
+    "fr": "Plus téléchargés",
+    "it": "Più scaricati",
+    "pt": "Mais baixados",
+    "nl": "Meest gedownload",
+    "pl": "Najczęściej pobierane",
+    "tr": "En çok indirilenler",
+    "ru": "Самые скачиваемые",
+    "uk": "Найпопулярніші завантаження",
+    "ja": "ダウンロード数順",
+    "ko": "다운로드 순",
+    "zh-CN": "下载最多",
+    "zh-TW": "下載最多",
+    "ar": "الأكثر تنزيلاً"
+  },
+  "Meiste Likes": {
+    "en": "Most liked",
+    "es": "Más populares",
+    "fr": "Plus appréciés",
+    "it": "Più apprezzati",
+    "pt": "Mais curtidos",
+    "nl": "Meest gewaardeerd",
+    "pl": "Najwięcej polubień",
+    "tr": "En çok beğenilenler",
+    "ru": "Самые популярные",
+    "uk": "Найбільше вподобань",
+    "ja": "人気順",
+    "ko": "좋아요 순",
+    "zh-CN": "点赞最多",
+    "zh-TW": "按讚最多",
+    "ar": "الأكثر إعجاباً"
+  },
+  "Alle Mods": {
+    "en": "All mods"
+  },
+  "Skins": {
+    "en": "Skins"
+  },
+  "Sounds": {
+    "en": "Sounds"
+  },
+  "Stages": {
+    "en": "Stages"
+  },
+  "Musik": {
+    "en": "Music"
+  },
+  "Datum unbekannt": {
+    "en": "Date unknown"
+  },
+  "Noch ungeprüft": {
+    "en": "Not checked yet"
+  },
+  "Noch ungeprüft · Dateiprüfung nach dem Download.": {
+    "en": "Not checked yet. Files are inspected after downloading."
+  },
+  "Keine Variante vorausgewählt.": {
+    "en": "No file selected.",
+    "es": "Ningún archivo seleccionado.",
+    "fr": "Aucun fichier sélectionné.",
+    "it": "Nessun file selezionato.",
+    "pt": "Nenhum arquivo selecionado.",
+    "nl": "Geen bestand geselecteerd.",
+    "pl": "Nie wybrano pliku.",
+    "tr": "Dosya seçilmedi.",
+    "ru": "Файл не выбран.",
+    "uk": "Файл не вибрано.",
+    "ja": "ファイル未選択。",
+    "ko": "선택한 파일이 없습니다.",
+    "zh-CN": "尚未选择文件。",
+    "zh-TW": "尚未選擇檔案。",
+    "ar": "لم يُحدد ملف."
+  },
+  "Keine öffentlichen Dateivarianten verfügbar. Quellseite prüfen.": {
+    "en": "No public files available. Check the source page."
+  },
+  "Dateivarianten werden geladen…": {
+    "en": "Loading files…"
+  },
+  "Auswahl fertig. Downloads vor Installation prüfen.": {
+    "en": "Selection complete. Inspect downloads before installing."
+  },
+  "Katalog wird geladen…": {
+    "en": "Loading catalog…",
+    "es": "Cargando catálogo…",
+    "fr": "Chargement du catalogue…",
+    "it": "Caricamento catalogo…",
+    "pt": "Carregando catálogo…",
+    "nl": "Catalogus laden…",
+    "pl": "Ładowanie katalogu…",
+    "tr": "Katalog yükleniyor…",
+    "ru": "Загрузка каталога…",
+    "uk": "Завантаження каталогу…",
+    "ja": "カタログを読み込み中…",
+    "ko": "목록 불러오는 중…",
+    "zh-CN": "正在加载目录…",
+    "zh-TW": "正在載入目錄…",
+    "ar": "جارٍ تحميل القائمة…"
+  },
+  "Details werden geladen…": {
+    "en": "Loading details…"
+  },
+  "Keine Ergebnisse. Anderen Suchbegriff versuchen.": {
+    "en": "No results. Try another search term.",
+    "es": "Sin resultados. Prueba otra búsqueda.",
+    "fr": "Aucun résultat. Essayez un autre terme.",
+    "it": "Nessun risultato. Prova un altro termine.",
+    "pt": "Sem resultados. Tente outro termo.",
+    "nl": "Geen resultaten. Probeer een andere zoekterm.",
+    "pl": "Brak wyników. Spróbuj innego hasła.",
+    "tr": "Sonuç yok. Başka bir sözcük deneyin.",
+    "ru": "Нет результатов. Измените запрос.",
+    "uk": "Немає результатів. Змініть запит.",
+    "ja": "結果がありません。別のキーワードをお試しください。",
+    "ko": "결과가 없습니다. 다른 검색어를 입력하세요.",
+    "zh-CN": "没有结果。请尝试其他关键词。",
+    "zh-TW": "沒有結果。請嘗試其他關鍵字。",
+    "ar": "لا توجد نتائج. جرّب عبارة بحث أخرى."
+  },
+  "Dateien und Anbieterprüfsummen verglichen; keine automatische Installation.": {
+    "en": "Files and provider checksums verified. Installation requires confirmation."
+  },
+  "Download eingereiht. Prüfung und Installation folgen separat.": {
+    "en": "Download queued. Inspection and installation follow separately."
+  },
+  "Downloads werden für die Importliste geprüft…": {
+    "en": "Inspecting downloads for import…"
+  },
+  "Downloads geprüft. Importliste und Konflikte prüfen, dann Installation bestätigen.": {
+    "en": "Downloads inspected. Review the import list and conflicts, then confirm installation."
+  },
+  "GameBanana-Link öffnen": {
+    "en": "Open GameBanana link",
+    "es": "Abrir enlace de GameBanana…",
+    "fr": "Ouvrir un lien GameBanana…",
+    "it": "Apri link GameBanana…",
+    "pt": "Abrir link do GameBanana…",
+    "nl": "GameBanana-link openen…",
+    "pl": "Otwórz link GameBanana…",
+    "tr": "GameBanana bağlantısı aç…",
+    "ru": "Открыть ссылку GameBanana…",
+    "uk": "Відкрити посилання GameBanana…",
+    "ja": "GameBananaリンクを開く…",
+    "ko": "GameBanana 링크 열기…",
+    "zh-CN": "打开 GameBanana 链接…",
+    "zh-TW": "開啟 GameBanana 連結…",
+    "ar": "فتح رابط GameBanana…"
+  },
+  "Modseite oder kopierten 1-Click-Link einfügen:": {
+    "en": "Paste a mod page or copied one-click link:"
+  },
+  "Manager-Link zur gewählten Datei kopiert.": {
+    "en": "Manager link copied."
+  },
+  "GameBanana-Link wird geprüft…": {
+    "en": "Checking GameBanana link…"
+  },
+  "GameBanana-Link konnte nicht geöffnet werden.": {
+    "en": "Could not open GameBanana link."
+  },
+  "Verlinkte Datei wird heruntergeladen. Installation anschließend prüfen.": {
+    "en": "Downloading linked file. Review it before installing."
+  },
+  "GameBanana-Dateiversionen werden geprüft…": {
+    "en": "Checking GameBanana file versions…"
+  },
+  "GameBanana-Updateprüfung abgeschlossen.": {
+    "en": "GameBanana update check complete."
+  },
+  "Keine Mods mit GameBanana-Herkunft installiert. Manuell importierte Mods erhalten keine erfundene Zuordnung.": {
+    "en": "No mods with GameBanana provenance installed. Manually imported mods are not assigned a guessed source."
+  },
+  "Schließen (Esc)": {
+    "en": "Close (Esc)",
+    "es": "Cerrar (Esc)",
+    "fr": "Fermer (Esc)",
+    "it": "Chiudi (Esc)",
+    "pt": "Fechar (Esc)",
+    "nl": "Sluiten (Esc)",
+    "pl": "Zamknij (Esc)",
+    "tr": "Kapat (Esc)",
+    "ru": "Закрыть (Esc)",
+    "uk": "Закрити (Esc)",
+    "ja": "閉じる (Esc)",
+    "ko": "닫기 (Esc)",
+    "zh-CN": "关闭 (Esc)",
+    "zh-TW": "關閉 (Esc)",
+    "ar": "إغلاق (Esc)"
+  },
+  "‹ Zurück": {
+    "en": "‹ Previous",
+    "es": "‹ Anterior",
+    "fr": "‹ Précédent",
+    "it": "‹ Precedente",
+    "pt": "‹ Anterior",
+    "nl": "‹ Vorige",
+    "pl": "‹ Poprzedni",
+    "tr": "‹ Önceki",
+    "ru": "‹ Назад",
+    "uk": "‹ Назад",
+    "ja": "‹ 前へ",
+    "ko": "‹ 이전",
+    "zh-CN": "‹ 上一张",
+    "zh-TW": "‹ 上一張",
+    "ar": "‹ السابق"
+  },
+  "Weiter ›": {
+    "en": "Next ›",
+    "es": "Siguiente ›",
+    "fr": "Suivant ›",
+    "it": "Successivo ›",
+    "pt": "Próximo ›",
+    "nl": "Volgende ›",
+    "pl": "Następny ›",
+    "tr": "Sonraki ›",
+    "ru": "Далее ›",
+    "uk": "Далі ›",
+    "ja": "次へ ›",
+    "ko": "다음 ›",
+    "zh-CN": "下一张 ›",
+    "zh-TW": "下一張 ›",
+    "ar": "التالي ›"
+  },
+  "Originalbild wird geladen…": {
+    "en": "Loading full-size image…",
+    "es": "Cargando imagen…",
+    "fr": "Chargement de l’image…",
+    "it": "Caricamento immagine…",
+    "pt": "Carregando imagem…",
+    "nl": "Afbeelding laden…",
+    "pl": "Ładowanie obrazu…",
+    "tr": "Görsel yükleniyor…",
+    "ru": "Загрузка изображения…",
+    "uk": "Завантаження зображення…",
+    "ja": "画像を読み込み中…",
+    "ko": "이미지 불러오는 중…",
+    "zh-CN": "正在加载原图…",
+    "zh-TW": "正在載入原圖…",
+    "ar": "جارٍ تحميل الصورة…"
+  },
+  "OpenSmash verbinden": {
+    "en": "Connect OpenSmash",
+    "es": "Conectar OpenSmash",
+    "fr": "Connecter OpenSmash",
+    "it": "Collega OpenSmash",
+    "pt": "Conectar OpenSmash",
+    "nl": "OpenSmash verbinden",
+    "pl": "Połącz OpenSmash",
+    "tr": "OpenSmash bağla",
+    "ru": "Подключить OpenSmash",
+    "uk": "Підключити OpenSmash",
+    "ja": "OpenSmashを接続",
+    "ko": "OpenSmash 연결",
+    "zh-CN": "连接 OpenSmash",
+    "zh-TW": "連接 OpenSmash",
+    "ar": "ربط OpenSmash"
+  },
+  "Dein OpenSmash verbinden": {
+    "en": "Connect your OpenSmash game",
+    "es": "Conectar OpenSmash",
+    "fr": "Connecter OpenSmash",
+    "it": "Collega OpenSmash",
+    "pt": "Conectar OpenSmash",
+    "nl": "OpenSmash verbinden",
+    "pl": "Połącz OpenSmash",
+    "tr": "OpenSmash bağla",
+    "ru": "Подключить OpenSmash",
+    "uk": "Підключити OpenSmash",
+    "ja": "OpenSmashを接続",
+    "ko": "OpenSmash 연결",
+    "zh-CN": "连接 OpenSmash",
+    "zh-TW": "連接 OpenSmash",
+    "ar": "ربط OpenSmash"
+  },
+  "Waehle deinen eingerichteten OpenSmash-Ordner mit Play SSBU.bat. Spiel und eigene Spieldaten werden separat bereitgestellt.": {
+    "en": "Choose your configured OpenSmash folder containing Play SSBU.bat. The game and game data are provided separately."
+  },
+  "OpenSmash-Projektpfad hier einfuegen": {
+    "en": "Paste your OpenSmash folder path"
+  },
+  "OpenSmash-Pfad": {
+    "en": "OpenSmash path"
+  },
+  "Ordner auswaehlen…": {
+    "en": "Choose folder…",
+    "es": "Elegir carpeta…",
+    "fr": "Choisir un dossier…",
+    "it": "Scegli cartella…",
+    "pt": "Escolher pasta…",
+    "nl": "Map kiezen…",
+    "pl": "Wybierz folder…",
+    "tr": "Klasör seç…",
+    "ru": "Выбрать папку…",
+    "uk": "Вибрати папку…",
+    "ja": "フォルダーを選択…",
+    "ko": "폴더 선택…",
+    "zh-CN": "选择文件夹…",
+    "zh-TW": "選擇資料夾…",
+    "ar": "اختيار مجلد…"
+  },
+  "Pfad pruefen": {
+    "en": "Check path",
+    "es": "Comprobar ruta",
+    "fr": "Vérifier le chemin",
+    "it": "Verifica percorso",
+    "pt": "Verificar caminho",
+    "nl": "Pad controleren",
+    "pl": "Sprawdź ścieżkę",
+    "tr": "Yolu denetle",
+    "ru": "Проверить путь",
+    "uk": "Перевірити шлях",
+    "ja": "パスを確認",
+    "ko": "경로 확인",
+    "zh-CN": "检查路径",
+    "zh-TW": "檢查路徑",
+    "ar": "التحقق من المسار"
+  },
+  "Verbinden und oeffnen": {
+    "en": "Connect and open",
+    "es": "Conectar y abrir",
+    "fr": "Connecter et ouvrir",
+    "it": "Collega e apri",
+    "pt": "Conectar e abrir",
+    "nl": "Verbinden en openen",
+    "pl": "Połącz i otwórz",
+    "tr": "Bağla ve aç",
+    "ru": "Подключить и открыть",
+    "uk": "Підключити й відкрити",
+    "ja": "接続して開く",
+    "ko": "연결하고 열기",
+    "zh-CN": "连接并打开",
+    "zh-TW": "連接並開啟",
+    "ar": "ربط وفتح"
+  },
+  "Der Manager prueft den Ordner und zeigt fehlende Voraussetzungen.": {
+    "en": "The manager checks the folder and reports missing requirements."
+  },
+  "Bitte einen vorhandenen OpenSmash-Ordner auswaehlen.": {
+    "en": "Choose an existing OpenSmash folder."
+  },
+  "Installation wird geprueft…": {
+    "en": "Checking installation…"
+  },
+  "OpenSmash-Projektordner mit Play SSBU.bat": {
+    "en": "OpenSmash folder containing Play SSBU.bat"
+  },
+  "OpenSmash ist bereit. Du kannst den Manager jetzt verbinden.": {
+    "en": "OpenSmash is ready. You can now connect the manager."
+  },
+  "Bitte die kurze Pruefung abschliessen lassen.": {
+    "en": "Please wait for the check to finish."
+  },
+  "Python-Runtime fehlt. Bitte den vollstaendigen Installer verwenden.": {
+    "en": "Python runtime is missing. Use the complete installer."
+  },
+  "Der gewählte Ordner ist kein OpenSmash-Projekt.": {
+    "en": "The selected folder is not an OpenSmash project."
+  },
+  "UI-Komponente fehlt: ": {
+    "en": "Missing UI component: "
+  },
+  "Spiel: ": {
+    "en": "Game: "
+  },
+  "Fehler: ": {
+    "en": "Error: "
+  },
+  "Kompatibilität: ": {
+    "en": "Compatibility: "
+  },
+  "Installationspfad: ": {
+    "en": "Installed at: "
+  },
+  "Quelle: ": {
+    "en": "Source: "
+  },
+  "Autor: ": {
+    "en": "Author: "
+  },
+  "Version: ": {
+    "en": "Version: "
+  },
+  "Geprüft: ": {
+    "en": "Verified: "
+  },
+  "Export: ": {
+    "en": "Export: "
+  },
+  "Netzwerk-Worker: ": {
+    "en": "Network worker: "
+  },
+  "Abgeschlossen: ": {
+    "en": "Completed: "
+  },
+  "Spiel gestartet. Protokoll: ": {
+    "en": "Game started. Log: "
+  },
+  "Abbruch konnte nicht angefordert werden: ": {
+    "en": "Could not request cancellation: "
+  },
+  " · Archiviert": {
+    "en": " · Archived"
+  },
+  " · Manuell": {
+    "en": " · Manual"
+  },
+  " · Experimentell": {
+    "en": " · Experimental"
+  },
+  " · Nicht unterstützt": {
+    "en": " · Unsupported"
+  },
+  " · Datei ": {
+    "en": " · File "
+  },
+  " · Fehler: ": {
+    "en": " · Errors: "
+  },
+  " · Relevanz (Kategorie/Sortierung nicht angewendet)": {
+    "en": " · Relevance (category and sort do not apply)"
+  },
+  " Dateien": {
+    "en": " files"
+  },
+  " Dateien · ": {
+    "en": " files · "
+  },
+  " Mods bereit": {
+    "en": " mods ready"
+  },
+  " Mods in einer ZIP": {
+    "en": " mods in one ZIP"
+  },
+  " Mods installieren": {
+    "en": " mods to install"
+  },
+  " – Bilder": {
+    "en": " – Images"
+  },
+  " beendet. ": {
+    "en": " terminated. "
+  },
+  "{0} Mods · {1} aktiv": {
+    "en": "{0} mods · {1} active",
+    "es": "{0} mods · {1} activos",
+    "fr": "{0} mods · {1} actifs",
+    "it": "{0} mod · {1} attive",
+    "pt": "{0} mods · {1} ativos",
+    "nl": "{0} mods · {1} actief",
+    "pl": "Mody: {0} · aktywne: {1}",
+    "tr": "{0} mod · {1} etkin",
+    "ru": "Модов: {0} · активно: {1}",
+    "uk": "Модів: {0} · активних: {1}",
+    "ja": "MOD {0} 件 · 有効 {1} 件",
+    "ko": "모드 {0}개 · 활성 {1}개",
+    "zh-CN": "{0} 个模组 · {1} 个已启用",
+    "zh-TW": "{0} 個模組 · {1} 個已啟用",
+    "ar": "{0} تعديل · {1} نشط"
+  },
+  "{0} Downloads · {1} in Arbeit.": {
+    "en": "{0} downloads · {1} in progress.",
+    "es": "{0} descargas · {1} en curso.",
+    "fr": "{0} téléchargements · {1} en cours.",
+    "it": "{0} download · {1} in corso.",
+    "pt": "{0} downloads · {1} em andamento.",
+    "nl": "{0} downloads · {1} bezig.",
+    "pl": "Pobrania: {0} · w toku: {1}.",
+    "tr": "{0} indirme · {1} sürüyor.",
+    "ru": "Загрузок: {0} · выполняется: {1}.",
+    "uk": "Завантажень: {0} · виконується: {1}.",
+    "ja": "ダウンロード {0} 件 · 処理中 {1} 件",
+    "ko": "다운로드 {0}개 · 진행 중 {1}개",
+    "zh-CN": "{0} 项下载 · {1} 项进行中",
+    "zh-TW": "{0} 項下載 · {1} 項進行中",
+    "ar": "{0} تنزيل · {1} قيد التنفيذ."
+  },
+  "{0} erkannt · {1} bereit · {2} übersprungen/ungültig": {
+    "en": "{0} found · {1} ready · {2} skipped/invalid"
+  },
+  "{0} erkannt · {1} bereit · Konflikte vor Installation entscheiden": {
+    "en": "{0} found · {1} ready · Resolve conflicts before installing"
+  },
+  "{0} installiert · {1} fehlgeschlagen · {2} übersprungen": {
+    "en": "{0} installed · {1} failed · {2} skipped"
+  },
+  "Seite {0} · {1} Ergebnisse{2}": {
+    "en": "Page {0} · {1} results{2}"
+  },
+  "Stapel {0}/{1}: Datei wählen oder überspringen": {
+    "en": "Batch {0}/{1}: choose a file or skip"
+  },
+  "1 Mod installieren": {
+    "en": "Install 1 mod"
+  },
+  "Abbruch angefordert. Ein laufender Profilwechsel wird sicher beendet.": {
+    "en": "Cancellation requested. Any profile switch will finish safely."
+  },
+  "Abbruch angefordert. Ein Profilwechsel wird sicher beendet.": {
+    "en": "Cancellation requested. Any profile switch will finish safely."
+  },
+  "Aktivierung wird angewendet…": {
+    "en": "Applying activation…"
+  },
+  "Alle Bibliotheks- und Profildateien stimmen mit ihren Prüfsummen überein.": {
+    "en": "All library and profile files match their checksums."
+  },
+  "Alle Dateien werden vollständig geprüft…": {
+    "en": "Verifying all files…"
+  },
+  "Alle installierten Mods exportieren": {
+    "en": "Export all installed mods"
+  },
+  "Alle Mods werden als ZIP exportiert…": {
+    "en": "Exporting all mods as ZIP…"
+  },
+  "Änderungen an der Mod-Auswahl gelten nach einem Neustart.": {
+    "en": "Changes to mod selection apply after restarting the game."
+  },
+  "Auswahl gespeichert": {
+    "en": "Selection saved",
+    "es": "Selección guardada",
+    "fr": "Sélection enregistrée",
+    "it": "Selezione salvata",
+    "pt": "Seleção salva",
+    "nl": "Selectie opgeslagen",
+    "pl": "Zapisano wybór",
+    "tr": "Seçim kaydedildi",
+    "ru": "Выбор сохранён",
+    "uk": "Вибір збережено",
+    "ja": "選択を保存しました",
+    "ko": "선택 저장됨",
+    "zh-CN": "已保存选择",
+    "zh-TW": "已儲存選擇",
+    "ar": "تم حفظ الاختيار"
+  },
+  "Auswahl wird gemeinsam angewendet…": {
+    "en": "Applying selection…"
+  },
+  "Auswahl wird geprueft. Fortschritt nach Quellen/Mods.": {
+    "en": "Inspecting selection. Progress is shown by source/mod."
+  },
+  "Begleitdateien werden ausgelassen:": {
+    "en": "Additional files will be skipped:"
+  },
+  "Bereit zur Installation": {
+    "en": "Ready to install"
+  },
+  "Betroffene Profildateien vorbereiten": {
+    "en": "Preparing affected profile files"
+  },
+  "Bitte den Hinweis prüfen und anschließend erneut versuchen.": {
+    "en": "Review the details, then try again."
+  },
+  "Bitte den laufenden Vorgang beenden lassen, bevor du das Fenster schließt.": {
+    "en": "Wait for the current operation to finish before closing the window."
+  },
+  "Deine Bibliothek wird geladen…": {
+    "en": "Loading your library…"
+  },
+  "Die Dateien sind für die Installation vorbereitet.": {
+    "en": "The files are ready to install."
+  },
+  "Die Mod wird geprüft…": {
+    "en": "Inspecting mod…"
+  },
+  "Die Mod wird zunächst geprüft.": {
+    "en": "The mod will be inspected first."
+  },
+  "Diese Konfliktpartner werden pausiert: ": {
+    "en": "These conflicting mods will be paused: "
+  },
+  "Ein Problem ist aufgetreten. Details stehen rechts.": {
+    "en": "A problem occurred. See the details on the right."
+  },
+  "Erste Loader-Einrichtung erforderlich. Das kann mehrere Minuten dauern.": {
+    "en": "Initial loader setup is required. This can take several minutes."
+  },
+  "Export abgeschlossen": {
+    "en": "Export complete"
+  },
+  "Haken = aktiv. Änderungen gelten beim nächsten Spielstart.": {
+    "en": "Checked means active. Changes apply next time you start the game."
+  },
+  "Hier ablegen": {
+    "en": "Drop here"
+  },
+  "Importentscheidung wird übernommen…": {
+    "en": "Applying import choices…"
+  },
+  "Installiert · ": {
+    "en": "Installed · "
+  },
+  "Keine verwertbare Antwort vom Modmanager. ": {
+    "en": "No usable response from mod manager. "
+  },
+  "Mit „Installieren und aktivieren“ zur Bibliothek hinzufügen.": {
+    "en": "Add to your library using Install."
+  },
+  "Mit Rückgängig kannst du die vorherige Auswahl wiederherstellen.": {
+    "en": "Use Undo to restore the previous selection."
+  },
+  "Mod ist in deiner Bibliothek": {
+    "en": "Mod is in your library"
+  },
+  "Mod wird aus dem Profil in die Rückgängig-Ablage verschoben…": {
+    "en": "Moving mod to undo storage…"
+  },
+  "Mod wird installiert. Die erste Einrichtung kann einige Minuten dauern…": {
+    "en": "Installing mod. First-time setup can take several minutes…"
+  },
+  "Mod-Archive auswählen": {
+    "en": "Choose mod archives"
+  },
+  "Mod-Auswahl wird geprüft…": {
+    "en": "Inspecting mod selection…"
+  },
+  "Mod-Ordner mit fighter, ui, effect oder sound auswählen": {
+    "en": "Choose a mod folder containing fighter, ui, effect or sound"
+  },
+  "Mod-ZIP, RAR oder Mod-Ordner ablegen": {
+    "en": "Drop a mod ZIP, RAR or folder"
+  },
+  "Modmanager wurde mit Fehlercode ": {
+    "en": "Mod manager exited with error code "
+  },
+  "Nach dem ersten Spielstart findest du hier die Protokolle.": {
+    "en": "Logs will be available here after the first game launch."
+  },
+  "Noch keine Spielprotokolle": {
+    "en": "No game logs yet"
+  },
+  "OpenSmash wird gestartet…": {
+    "en": "Starting OpenSmash…"
+  },
+  "OpenSmash wurde gestartet.": {
+    "en": "OpenSmash started."
+  },
+  "Plugin-Übersetzung erforderlich. Das kann mehrere Minuten dauern.": {
+    "en": "Plugin translation is required. This can take several minutes."
+  },
+  "Profil sicher umschalten": {
+    "en": "Switching profile safely"
+  },
+  "Prüfsummen vollständig prüfen": {
+    "en": "Verify all checksums"
+  },
+  "Prüfung abgebrochen.": {
+    "en": "Inspection cancelled."
+  },
+  "Prüfung abgeschlossen. Du kannst die Mod jetzt installieren.": {
+    "en": "Inspection complete. You can now install the mod."
+  },
+  "Prüfung nicht abgeschlossen": {
+    "en": "Inspection incomplete"
+  },
+  "Stapel wird vorbereitet und installiert…": {
+    "en": "Preparing and installing batch…"
+  },
+  "Suche nach Relevanz · ": {
+    "en": "Search by relevance · "
+  },
+  "Viel Spaß beim Spielen.": {
+    "en": "Enjoy the game."
+  },
+  "Vollständige Prüfung": {
+    "en": "Full verification"
+  },
+  "Vollständige Prüfung abgeschlossen.": {
+    "en": "Full verification complete."
+  },
+  "Vorgang nicht ausgeführt": {
+    "en": "Operation not completed"
+  },
+  "Vorherige Auswahl wird wiederhergestellt…": {
+    "en": "Restoring previous selection…"
+  },
+  "Vorschau fertig. Konflikte und vorhandene Mods werden übersprungen.": {
+    "en": "Inspection complete. Conflicting and existing mods will be skipped."
+  },
+  "Wirksam beim nächsten Spielstart.": {
+    "en": "Applies next time you start the game.",
+    "es": "Se aplica al volver a iniciar el juego.",
+    "fr": "Applicable au prochain lancement du jeu.",
+    "it": "Si applica al prossimo avvio del gioco.",
+    "pt": "Aplicado na próxima inicialização do jogo.",
+    "nl": "Geldt bij de volgende spelstart.",
+    "pl": "Zadziała przy następnym uruchomieniu gry.",
+    "tr": "Oyun yeniden başlatıldığında uygulanır.",
+    "ru": "Применится при следующем запуске игры.",
+    "uk": "Застосується під час наступного запуску гри.",
+    "ja": "次回のゲーム起動時に適用されます。",
+    "ko": "다음 게임 실행 시 적용됩니다.",
+    "zh-CN": "下次启动游戏时生效。",
+    "zh-TW": "下次啟動遊戲時生效。",
+    "ar": "يسري عند تشغيل اللعبة مجدداً."
+  },
+  "Deine Mods. Dein Spiel.": {
+    "en": "Your mods. Your game.",
+    "es": "Tus mods. Tu juego.",
+    "fr": "Vos mods. Votre jeu.",
+    "it": "Le tue mod. Il tuo gioco.",
+    "pt": "Seus mods. Seu jogo.",
+    "nl": "Jouw mods. Jouw spel.",
+    "pl": "Twoje mody. Twoja gra.",
+    "tr": "Senin modların. Senin oyunun.",
+    "ru": "Ваши моды. Ваша игра.",
+    "uk": "Ваші моди. Ваша гра.",
+    "ja": "あなたのMOD。あなたのゲーム。",
+    "ko": "나만의 모드. 나만의 게임.",
+    "zh-CN": "你的模组。你的游戏。",
+    "zh-TW": "你的模組。你的遊戲。",
+    "ar": "تعديلاتك. لعبتك."
+  },
+  "OpenSmash-Ordner (optional, spaeter waehlbar)": {
+    "en": "OpenSmash folder (optional; choose later)"
+  },
+  "Auswaehlen …": {
+    "en": "Browse…",
+    "es": "Elegir carpeta…",
+    "fr": "Choisir un dossier…",
+    "it": "Scegli cartella…",
+    "pt": "Escolher pasta…",
+    "nl": "Map kiezen…",
+    "pl": "Wybierz folder…",
+    "tr": "Klasör seç…",
+    "ru": "Выбрать папку…",
+    "uk": "Вибрати папку…",
+    "ja": "フォルダーを選択…",
+    "ko": "폴더 선택…",
+    "zh-CN": "选择文件夹…",
+    "zh-TW": "選擇資料夾…",
+    "ar": "اختيار مجلد…"
+  },
+  "OpenSmash-Ordner mit Play SSBU.bat": {
+    "en": "OpenSmash folder containing Play SSBU.bat"
+  },
+  "Desktop-Verknuepfung mit Programmlogo erstellen": {
+    "en": "Create a desktop shortcut"
+  },
+  "Offizielle C++ Build Tools / Windows SDK": {
+    "en": "Official C++ Build Tools / Windows SDK"
+  },
+  "Schliessen": {
+    "en": "Close",
+    "es": "Cerrar",
+    "fr": "Fermer",
+    "it": "Chiudi",
+    "pt": "Fechar",
+    "nl": "Sluiten",
+    "pl": "Zamknij",
+    "tr": "Kapat",
+    "ru": "Закрыть",
+    "uk": "Закрити",
+    "ja": "閉じる",
+    "ko": "닫기",
+    "zh-CN": "关闭",
+    "zh-TW": "關閉",
+    "ar": "إغلاق"
+  },
+  "Manager oeffnen": {
+    "en": "Open manager",
+    "es": "Abrir gestor",
+    "fr": "Ouvrir le gestionnaire",
+    "it": "Apri gestore",
+    "pt": "Abrir gerenciador",
+    "nl": "Manager openen",
+    "pl": "Otwórz menedżera",
+    "tr": "Yöneticiyi aç",
+    "ru": "Открыть менеджер",
+    "uk": "Відкрити менеджер",
+    "ja": "マネージャーを開く",
+    "ko": "매니저 열기",
+    "zh-CN": "打开管理器",
+    "zh-TW": "開啟管理器",
+    "ar": "فتح المدير"
+  },
+  "Installation sicher abgebrochen.": {
+    "en": "Installation cancelled safely."
+  },
+  "Abbruch wird am sicheren Punkt ausgefuehrt …": {
+    "en": "Cancelling at a safe point…"
+  },
+  "Installation abgebrochen. Vorheriger Zustand bleibt erhalten.": {
+    "en": "Installation cancelled. Previous state preserved."
+  },
+  "Installationsdaten fehlen.": {
+    "en": "Installation payload missing."
+  },
+  "Python und Bibliotheken werden geprueft …": {
+    "en": "Checking Python and libraries…"
+  },
+  "Pruefung fehlgeschlagen: ": {
+    "en": "Check failed: "
+  },
+  "Pruefsumme ungueltig: ": {
+    "en": "Invalid checksum: "
+  },
+  "Ziel: ": {
+    "en": "Destination: "
+  },
+  "Alle Downloads löschen…": {
+    "en": "Clear all downloads…",
+    "es": "Eliminar todas las descargas…",
+    "fr": "Supprimer tous les téléchargements…",
+    "it": "Elimina tutti i download…",
+    "pt": "Excluir todos os downloads…",
+    "nl": "Alle downloads verwijderen…",
+    "pl": "Usuń wszystkie pobrania…",
+    "tr": "Tüm indirmeleri sil…",
+    "ru": "Удалить все загрузки…",
+    "uk": "Видалити всі завантаження…",
+    "ja": "すべてのダウンロードを削除…",
+    "ko": "모든 다운로드 삭제…",
+    "zh-CN": "删除所有下载…",
+    "zh-TW": "刪除所有下載…",
+    "ar": "حذف جميع التنزيلات…"
+  },
+  "Alle Downloads löschen": {
+    "en": "Clear all downloads"
+  },
+  "Alle löschen": {
+    "en": "Delete all",
+    "es": "Eliminar todo",
+    "fr": "Tout supprimer",
+    "it": "Elimina tutto",
+    "pt": "Excluir tudo",
+    "nl": "Alles verwijderen",
+    "pl": "Usuń wszystko",
+    "tr": "Tümünü sil",
+    "ru": "Удалить всё",
+    "uk": "Видалити все",
+    "ja": "すべて削除",
+    "ko": "모두 삭제",
+    "zh-CN": "全部删除",
+    "zh-TW": "全部刪除",
+    "ar": "حذف الكل"
+  },
+  "Datei speichern…": {
+    "en": "Save file…",
+    "es": "Guardar archivo…",
+    "fr": "Enregistrer le fichier…",
+    "it": "Salva file…",
+    "pt": "Salvar arquivo…",
+    "nl": "Bestand opslaan…",
+    "pl": "Zapisz plik…",
+    "tr": "Dosyayı kaydet…",
+    "ru": "Сохранить файл…",
+    "uk": "Зберегти файл…",
+    "ja": "ファイルを保存…",
+    "ko": "파일 저장…",
+    "zh-CN": "保存文件…",
+    "zh-TW": "儲存檔案…",
+    "ar": "حفظ الملف…"
+  },
+  "Datei speichern": {
+    "en": "Save file"
+  },
+  " · Nur Download": {
+    "en": " · Download only",
+    "es": " · Solo descarga",
+    "fr": " · Téléchargement seul",
+    "it": " · Solo download",
+    "pt": " · Apenas download",
+    "nl": " · Alleen downloaden",
+    "pl": " · Tylko pobieranie",
+    "tr": " · Yalnızca indirme",
+    "ru": " · Только загрузка",
+    "uk": " · Лише завантаження",
+    "ja": " · ダウンロードのみ",
+    "ko": " · 다운로드만",
+    "zh-CN": " · 仅下载",
+    "zh-TW": " · 僅下載",
+    "ar": " · تنزيل فقط"
+  },
+  " · Gesperrt": {
+    "en": " · Restricted",
+    "es": " · Restringido",
+    "fr": " · Accès restreint",
+    "it": " · Accesso limitato",
+    "pt": " · Restrito",
+    "nl": " · Beperkt",
+    "pl": " · Zablokowane",
+    "tr": " · Kısıtlı",
+    "ru": " · Ограничено",
+    "uk": " · Обмежено",
+    "ja": " · 制限あり",
+    "ko": " · 제한됨",
+    "zh-CN": " · 受限",
+    "zh-TW": " · 受限",
+    "ar": " · مقيّد"
+  },
+  "Alle Download-Einträge und gespeicherten Archive löschen? Laufende Downloads werden abgebrochen. Installierte Mods bleiben erhalten.": {
+    "en": "Delete all download entries and cached archives? Active transfers will be cancelled. Installed mods are preserved."
+  },
+  "Downloads werden abgebrochen und entfernt…": {
+    "en": "Cancelling and removing downloads…"
+  },
+  "Downloads entfernt.": {
+    "en": "Downloads removed."
+  },
+  "Downloads werden abgebrochen und automatisch entfernt.": {
+    "en": "Cancelling downloads and removing them automatically."
+  },
+  "Alle Downloads entfernt. Installierte Mods bleiben erhalten.": {
+    "en": "All downloads removed. Installed mods are preserved."
+  },
+  "Datei gespeichert.": {
+    "en": "File saved."
+  },
+  "Mod-ZIP, RAR, 7z oder Mod-Ordner ablegen": {
+    "en": "Drop a mod ZIP, RAR, 7z or folder"
+  },
+  "ZIP-, RAR-, 7z-Dateien oder Mod-Ordner ablegen": {
+    "en": "Drop ZIP, RAR, 7z files or mod folders"
+  },
+  "Mehr ⋯": {
+    "es": "Más ⋯",
+    "fr": "Plus ⋯",
+    "it": "Altro ⋯",
+    "pt": "Mais ⋯",
+    "nl": "Meer ⋯",
+    "pl": "Więcej ⋯",
+    "tr": "Diğer ⋯",
+    "ru": "Ещё ⋯",
+    "uk": "Ще ⋯",
+    "ja": "その他 ⋯",
+    "ko": "더 보기 ⋯",
+    "zh-CN": "更多 ⋯",
+    "zh-TW": "更多 ⋯",
+    "ar": "المزيد ⋯"
+  },
+  "Quellseite ↗": {
+    "es": "Página original ↗",
+    "fr": "Page d’origine ↗",
+    "it": "Pagina originale ↗",
+    "pt": "Página original ↗",
+    "nl": "Bronpagina ↗",
+    "pl": "Strona źródłowa ↗",
+    "tr": "Kaynak sayfa ↗",
+    "ru": "Страница мода ↗",
+    "uk": "Сторінка мода ↗",
+    "ja": "配布ページ ↗",
+    "ko": "원본 페이지 ↗",
+    "zh-CN": "来源页面 ↗",
+    "zh-TW": "來源頁面 ↗",
+    "ar": "صفحة المصدر ↗"
+  }
+}

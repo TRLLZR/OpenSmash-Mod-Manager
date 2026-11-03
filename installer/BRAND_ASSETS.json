@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "origin": "Maintainer-supplied ChatGPT-generated composite",
+  "source_sha256": "e34c59325763c1b233e13f4856eb3e43d83314b3302e411ad80003a0f333c82c",
+  "reported_original_prompt": "Dann erstell mir zwei verschiedene neue bilder mit einem rechtlich unbedenklichen logo einmal mit schrift und einmal nur das logo immernoch im fruitger areo style mit mehr helleren pastell farben",
+  "preparation": "Built-in image editing for separate transparent assets; native multi-size ICO encoding.",
+  "asset_prompts": {
+    "BrandLogo.png": "Edit target: attached OpenSmash Mod Manager composite logo. Create a production transparent PNG asset containing ONLY the upper horizontal wordmark from this exact image, including the left glossy orb, orbit, bubbles, star highlights, and exact lettering 'OpenSmash' over 'Mod Manager'. Remove the separate lower standalone icon completely and remove its glow from the wordmark's bottom. Do not redesign, restyle, retype, recolor, or add anything. Preserve the supplied wordmark's composition and artwork as closely as possible. Tightly frame the full upper wordmark as a wide horizontal image, retain complete star highlights, clean transparent alpha outside the logo, no black background, no checkerboard texture, no canvas containing the lower icon.",
+    "BrandIcon.png": "Edit target: supplied composite logo. Produce the standalone app icon shown in the LOWER PART of the source image only. Extract that exact lower glossy blue/cyan orb with white four-point sparkle, lime/cyan orbital ring, small bubbles and bright yellow-white star at lower right. Delete the entire upper wordmark and all its lettering and glow. Do not redesign, change colors, restyle or add anything. Preserve the lower icon's artwork and composition as closely as possible, with genuine clean transparent alpha around it. Center the complete icon on a square canvas with a small even transparent safety margin. No text at all. No black background, no checkerboard texture. This will be used as the Windows program icon."
+  },
+  "files": {
+    "BrandLogo.png": "47776ec3d63029bf65c722289b090d49b213039f3b0a6621e7ee9b3143edb5d6",
+    "BrandIcon.png": "88cec63d6381601d852d1e156b8ffcbe097744c4fecb5bb95180d1a452a89e5f",
+    "BrandIcon.ico": "1cfef0e4b36114ba8b9a65f0f40751a54fb6a86bd2f973fd12439a46d44b4ed4"
+  },
+  "rights_note": "Provenance only. AI generation and this record do not certify originality, trademark clearance or non-infringement."
+}

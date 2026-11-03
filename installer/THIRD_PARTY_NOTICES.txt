@@ -1,0 +1,77 @@
+OpenSmash Mod Manager 3.7.0 - Third-party notices
+
+Original manager, setup and UI code: MIT, see LICENSE.txt.
+
+Redistributed private Windows x64 runtime:
+- CPython 3.14.10: Python Software Foundation License Version 2 and included
+  component notices; runtime/LICENSE.txt.
+- NumPy 2.5.4: BSD 3-Clause and bundled OpenBLAS/component notices;
+  runtime/Lib/site-packages/numpy-2.5.4.dist-info/licenses/.
+- zstandard 0.25.0: BSD licenses and included component notices;
+  runtime/Lib/site-packages/zstandard-0.25.0.dist-info/licenses/.
+- Pillow 13.0.0: HPND and bundled codec/component notices;
+  runtime/Lib/site-packages/pillow-13.0.0.dist-info/licenses/.
+- Capstone 5.0.9: BSD and included architecture notices;
+  runtime/Lib/site-packages/capstone-5.0.9.dist-info/.
+
+All license/notice files supplied in the official distributions are retained.
+runtime/DISTRIBUTION.json records original artifact URLs, versions and SHA256.
+Changes: isolated Python search path enabled, running-script sibling imports
+enabled, package tests and bytecode caches omitted. No pip/system Python install.
+
+.NET Framework 4.8, WPF, PowerShell 5.1 are Windows
+components; they are not redistributed in this package. Supported Windows 10
+2004+ / Windows 11 x64 include .NET Framework 4.8. A separate modern .NET runtime
+does not host this existing WPF/PowerShell application.
+
+OpenSmash, Skyline/ARCropolis and skin assets are separate projects. This package
+contains integration source only, not their downloaded binaries or game content.
+Any required sources/tools are obtained by the existing local game build process.
+Microsoft C++ Build Tools and Windows SDK are not redistributed. Setup provides
+the official Microsoft download link and checks local build prerequisites.
+
+BrandLogo.png and BrandIcon.png are transparent assets prepared from the new
+ChatGPT-generated composite supplied by the maintainer. BrandIcon.ico is a
+multi-resolution Windows encoding of the separate symbol. See BRANDING.md and
+BRAND_ASSETS.json for provenance and rights limits; the code's MIT grant does
+not purport to license rights held by other people. No official game logo or
+character art is intentionally used in this new branding. Trebuchet MS and
+Segoe UI are used from Windows; no font files are redistributed.
+
+
+Version 2.3 optionally downloads official Smashline 2.0.0 and nro-hook 0.4.0
+NROs for local translation, verified by pinned SHA256 (ABHAENGIGKEITEN.md).
+Neither these binaries nor generated plugin/game DLLs are redistributed here.
+Smashline: https://github.com/HDR-Development/smashline
+nro-hook: https://github.com/ultimate-research/nro-hook-plugin
+Their source licenses and upstream project terms apply. User-created modpack
+exports are separate from this installer; respect the original mod authors.
+
+
+UnRAR64.dll 7.23.0, copyright Alexander Roshal, is redistributed unchanged
+under its original freeware library license, included as UNRAR_LICENSE.txt.
+Official package: https://www.rarlab.com/rar/unrardll-723.exe
+Provenance and SHA256: UNRAR_DISTRIBUTION.json. This decoder handles RAR
+archives only; WinRAR/RAR archive-creation software is not redistributed.
+
+Version 3.4 optionally resolves Param Config and One Slot Effects from pinned
+official sources. CSK downloads are gated by game version; the public 5.0.6
+is not approved for 13.0.5. None of these binaries or their generated DLLs are
+redistributed. Upstream author terms apply; this does not grant redistribution
+rights for plugins or cover artwork. Artwork is fetched only into local caches.
+Param Config: https://github.com/CSharpM7/lib_paramconfig
+One Slot Effects: https://gamebanana.com/mods/549058
+The CSK Collection: https://gamebanana.com/mods/499008
+
+
+7-Zip Extra 26.05, copyright (C) 1999-2026 Igor Pavlov, is redistributed
+as the unmodified portable x64 7za.exe. Main license: GNU LGPL 2.1 or later;
+some components use BSD 2-clause / BSD 3-clause terms. All upstream notices
+are reproduced in 7ZIP_LICENSE.txt; the LGPL text is in 7ZIP_LGPL.txt.
+No 7-Zip installation or file association is registered.
+Official distribution: https://github.com/ip7z/7zip/releases/tag/26.05
+Provenance and binary/source SHA-256: 7ZIP_DISTRIBUTION.json.
+Corresponding unmodified source is included alongside the manager source at
+third_party/7zip/7z2605-src.tar.xz in OpenSmash_Mod_Manager_Source_v3.7.0.zip.
+Distributors should publish that source package alongside the installer.
+Upstream source: https://github.com/ip7z/7zip/releases/download/26.05/7z2605-src.tar.xz

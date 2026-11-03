@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem in the manager.
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach game data, keys, saves, private mod libraries or unredacted personal logs.
+  - type: input
+    id: version
+    attributes:
+      label: Manager and Windows version
+      placeholder: Manager 3.7.0, Windows 11 x64
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the mod structure/type and a public source link if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Short relevant log excerpt
+      description: Redact personal paths, identifiers and secrets. A self-authored minimal reproducer is preferred.
+      render: text
