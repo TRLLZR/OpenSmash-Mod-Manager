@@ -10,7 +10,6 @@
 | Microsoft C++ Build Tools / Windows SDK | Header und Windows-Linker für die separate Mod-Laufzeit; müssen vorhanden sein. Kein automatischer systemweiter Installer. |
 | SDL3, Vulkan-Headers, Dear ImGui, zwei Suyu-Referenzdateien | Downloads und SHA-256-Prüfung aus vorhandenem `scripts/install.py`, umgeleitet in das private Mod-Build-Verzeichnis. Die jeweiligen Projektlizenzen gelten. |
 | PowerShell 5.1 / .NET Framework 4.8 / WPF | Windows-Komponenten für die Oberfläche, auf unterstütztem Windows vorhanden. WinForms dient dem nativen Ordnerdialog und Setup. EXE-Host und XAML liegen bei; C#-Quellcode und Buildskripte bleiben im Entwicklungsprojekt. Keine WebView-/Node-Laufzeit erforderlich. |
-| Dry Bowser Full Replacement Release 4 | [Original-Mod von Joe T.E.](https://gamebanana.com/mods/174180). Separat vom Benutzer bereitgestellt; keine Mod-Assets im Paket. |
 
 ARCropolis-Archiv: `https://github.com/Raytwo/ARCropolis/releases/download/v4.1.1/release.zip`
 

@@ -127,6 +127,9 @@
     "SECURITY.md",
     "THIRD_PARTY_NOTICES.txt",
     "docs/LEGAL_REVIEW.md",
-    "docs/RELEASING.md"
+    "docs/RELEASING.md",
+    "docs/images/library-tiles-light.png",
+    "docs/images/library-list-dark.png",
+    "docs/images/downloads-light.png"
   ]
 }

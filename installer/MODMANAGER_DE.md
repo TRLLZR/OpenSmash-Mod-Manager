@@ -44,14 +44,6 @@ Der Link oeffnet den Manager bzw. wird an den laufenden Manager uebergeben.
 Ein funktionierender Spielordner muss zuvor verbunden sein. Browser koennen
 vor dem Oeffnen einer externen Anwendung einmal nachfragen.
 
-Der vorhandene MOSAIC-/FightPlanner-Button auf GameBanana gehoert zu diesem
-anderen Programm und wird nicht umgebogen. Kopierte fightplanner:-Links
-koennen ausdruecklich im Linkdialog eingefuegt werden. Ein eigener OpenSmash-
-Button direkt auf GameBanana erfordert zusaetzlich deren Website-Integration;
-die lokale Installation allein fuegt dort keinen Button hinzu.
-Nur oeffentliche SSBU-Dateien werden ueber die Anbieter-API aufgeloest.
-Links installieren oder aktivieren keine Mods automatisch.
-
 ## Bibliotheksansicht, Titelbilder und Downloads
 
 **Liste / Kacheln** verwendet dieselbe Auswahl, Suche und Aktivierung. Ein Titelbild bleibt reine Darstellung außerhalb der spielbaren Moddateien. Optional: preview/thumbnail/cover als PNG, JPG oder WebP im Modordner. **Mehr > Titelbild auswählen…** akzeptiert ein eigenes Bild bis 8 MiB und 20 Millionen Pixel; gespeichert wird eine verkleinerte PNG-Vorschau. Für GameBanana-Imports wird ausschließlich die gespeicherte Herkunft verwendet. Alte Imports ohne Herkunft erhalten keine erratenen Bilder.
@@ -71,12 +63,6 @@ behalten ihre Aktivierung; Dateikonflikte werden pausiert installiert. Lokale Mo
 ohne gespeicherte Anbieterquelle sowie unveröffentlichte eigene Änderungen
 benötigen weiterhin Originaldateien oder den bisherigen ZIP-Export. Entfernte
 oder veränderte Anbieterdateien werden gemeldet, keine andere Version eingesetzt.
-
-„Dateien für Auswahl…“ heißt jetzt „Ausgewählte Mods herunterladen…“ und erscheint
-nur bei Mehrfachauswahl. Die Downloadliste bleibt beim Aktualisieren ruhig.
-Der gemeldete CSK-Versionskonflikt wird vor der Übersetzung erkannt; unabhängige
-Asset-Imports erzwingen keinen Neuaufbau derselben Plugin-Laufzeit. Näheres:
-BEKANNTE_EINSCHRAENKUNGEN.md. Shadow ist weiterhin nicht als spielbar bestätigt.
 
 
 Neu in 3.6: 7z-Dateien lassen sich wie ZIP und RAR direkt importieren und

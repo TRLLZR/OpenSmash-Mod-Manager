@@ -24,26 +24,25 @@ Fehlende Originaldateien werden nach Bestätigung heruntergeladen und installier
 Konflikte bleiben pausiert, vorhandene Aktivierung erhalten. Stapel-Downloadbutton
 verständlich benannt und nur bei Mehrfachauswahl. Inkompatible Frameworks werden
 vor der Übersetzung erkannt, unveränderte Plugin-Sätze bei Asset-Änderungen
-wiederverwendet. Fehlerfall und Grenzen: BERICHT_3.5_DE.md.
+wiederverwendet.
 
 # 3.4.0 – 02.11.2026
 
-Liste/Kacheln mit gespeicherter Ansicht, kleine Mod-Titelbilder und eigene Bildauswahl. Fertige Downloads samt Archiv entfernbar, installierte Mods bleiben erhalten. Strukturabhängige Gameplay-Bibliotheksprüfung, vollständige dreistellige Kostümslots und klare Versionsfehler. Shadow bleibt wegen fehlender kompatibler CSK-Bibliothek für 13.0.5 unbestätigt. Details: BERICHT_3.4_DE.md.
+Liste/Kacheln mit gespeicherter Ansicht, kleine Mod-Titelbilder und eigene Bildauswahl. Fertige Downloads samt Archiv entfernbar, installierte Mods bleiben erhalten. Strukturabhängige Gameplay-Bibliotheksprüfung, vollständige dreistellige Kostümslots und klare Versionsfehler. Shadow bleibt wegen fehlender kompatibler CSK-Bibliothek für 13.0.5 unbestätigt.
 
 # 3.3.0 – 02.11.2026
 
-Einheitliche runde Buttons in Hauptansicht und Dialogen, einfachere Details, automatische Windows-Anzeigesprache mit 16 Sprachfamilien und dokumentierter Übersetzungsabdeckung. Python 3.14.10, erweiterte Windows-Archivpfadprüfung, Sicherheitsabgleich und englische Architektur-/Build-Dokumentation. Siehe BERICHT_3.3_DE.md.
+Einheitliche runde Buttons in Hauptansicht und Dialogen, einfachere Details, automatische Windows-Anzeigesprache mit 16 Sprachfamilien und dokumentierter Übersetzungsabdeckung. Python 3.14.10, erweiterte Windows-Archivpfadprüfung, Sicherheitsabgleich und englische Architektur-/Build-Dokumentation.
 
 # 3.2.0 – Charakterfilter, Vollbild und Manager-Links
 
 - Echte GameBanana-Skin-Unterkategorien als Charakterfilter mit Sortierung und Seiten.
 - Detailbilder per Klick im Vollbild mit Bildwechsel und Esc.
 - Eigenes benutzerbezogenes opensmashmm:-Protokoll, Uebergabe an laufenden Manager, Link oeffnen/kopieren. Oeffentliche Anbieter-Dateien werden ueber den bisherigen Downloadpfad geprueft.
-- Fremde MOSAIC-Protokollzuordnung bleibt erhalten; keine automatische Installation durch Links.
 
 # 3.1.0 – Übersichtliches Layout und deckende Oberfläche
 
-- Neues bereitgestelltes Schriftlogo ersetzt das bisherige Symbol und die zusätzliche Überschrift im Hauptfenster. Das Originalbild bleibt unverändert; nur seine transparenten Ränder werden in der Anzeige ausgespart.
+- Neue Wortmarke ersetzt das bisherige Symbol und die zusätzliche Überschrift im Hauptfenster. Das Originalbild bleibt unverändert; nur seine transparenten Ränder werden in der Anzeige ausgespart.
 - Vollständig deckende Hell-/Dunkel-/Systemdarstellung. Kein Desktop-Blur, keine Glasoptionen, kein Vordergrund-Schalter.
 - Schmale Importleiste statt großer Ablagefläche; breitere Bibliothek und klar getrennte Navigation.
 - Export, Gruppenaktionen, Vollprüfung, Updateprüfung und Protokolle unter Mehr. Kurzer Spielordnername mit vollständigem Pfad im Tooltip.
@@ -67,7 +66,7 @@ Einheitliche runde Buttons in Hauptansicht und Dialogen, einfachere Details, aut
 
 # 2.3.3 – Weitergabepaket mit Desktop-Verknüpfung
 
-- Setup erstellt standardmäßig eine Desktop-Verknüpfung mit dem bereitgestellten Programmlogo, zusätzlich zum Startmenü-Eintrag. GUI und Kommandozeile nutzen denselben Standard; --no-desktop wählt die Erstellung ab.
+- Setup erstellt standardmäßig eine Desktop-Verknüpfung mit dem Programmlogo, zusätzlich zum Startmenü-Eintrag. GUI und Kommandozeile nutzen denselben Standard; --no-desktop wählt die Erstellung ab.
 - Das Verknüpfungsziel und BrandIcon.ico werden aus dem Installationsordner des Empfängers gebildet. Bestehende eigene Verknüpfungen werden aktualisiert; veraltete feste Spielpfad-Argumente entfallen zugunsten der gespeicherten Einrichtung.
 - Enthält sämtliche Korrekturen bis 2.3.2, einschließlich ZIP/RAR, Modpaketen, Dark Mode sowie korrekter Konfigurations-, DLC- und Save-Pfade ohne erzwungene Lautstärke oder Online-Abschaltung.
 
@@ -97,7 +96,7 @@ Einheitliche runde Buttons in Hauptansicht und Dialogen, einfachere Details, aut
 # 2.2.1 – Neues Emblem und plastische Aqua-Buttons
 
 - Produktname OpenSmash Mod Manager, auch im Startmenü, Fenster und Windows-Deinstallation.
-- Vom Benutzer bereitgestelltes transparentes Emblem als Logo, Fenster-/EXE-Icon und Verknüpfungsicon; Windows-ICO mit neun Auflösungen.
+- Transparentes Emblem als Logo, Fenster-/EXE-Icon und Verknüpfungsicon; Windows-ICO mit neun Auflösungen.
 - Trebuchet MS als gut lesbare humanistische Schrift mit Aero-Anmutung, Segoe UI als Ausweichschrift; keine Schriftdateien beigelegt.
 - Titel und Projektpfad direkt auf dem Glas, ohne weiße Eingabeflächen. Tropfensymbol der Importfläche entfernt.
 - Stärkerer Glanz, abgestufte Lichtkanten und sichtbare Button-Sockel; klarer Druckzustand, Kontrastmodus bleibt vereinfacht.
@@ -131,8 +130,6 @@ Einheitliche runde Buttons in Hauptansicht und Dialogen, einfachere Details, aut
 - Helles und dunkles Design nach Windows-Einstellung, Windows-Kontrastfarben und solide Darstellung ohne Glas. Native Mica-Unterstützung auf geeigneten Windows-11-Versionen, sicherer Fallback auf älteren Systemen.
 - DPI-Manifest, WPF-Skalierung, Windows-Textvergrößerung, skalierbares Layout und erreichbare Scrollbereiche bei kleinem Fenster. Neue Tastenkürzel und sichtbare Fokuszustände.
 - Fehlgeschlagene Vorgänge können über „Erneut versuchen“ wiederholt werden. Python-Ausgaben werden asynchron gelesen; die Oberfläche wartet ohne dauerhaft laufenden Polling-Timer im Leerlauf.
-- Die funktionierende Python-Logik für ZIP-/Ordner-Import, Konfigurationen, Aktivierung, Konflikte, Rückgängig und Spielstart bleibt erhalten. Alle fünf vorhandenen Mods bleiben nutzbar.
+- Die funktionierende Python-Logik für ZIP-/Ordner-Import, Konfigurationen, Aktivierung, Konflikte, Rückgängig und Spielstart bleibt erhalten.
 - Der vorherige Online-Fix bleibt enthalten: beide Spielstarts verwenden die gespeicherten OpenSmash-Einstellungen einschließlich Rollback.
 - Paket enthält XAML, DPI-Manifest, aktualisierten EXE-Host samt Quellcode, diese Versionshinweise, Design-Dokumentation und überarbeitete Anleitung.
-
-Aktuelle Versionsnummer der Oberfläche: 2.2.1. Das interne Zustandsformat bleibt zur Kompatibilität unverändert; bestehende Bibliotheken werden weiterverwendet.

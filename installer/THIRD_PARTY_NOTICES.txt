@@ -30,14 +30,11 @@ Any required sources/tools are obtained by the existing local game build process
 Microsoft C++ Build Tools and Windows SDK are not redistributed. Setup provides
 the official Microsoft download link and checks local build prerequisites.
 
-BrandLogo.png and BrandIcon.png are transparent assets prepared from the new
-ChatGPT-generated composite supplied by the maintainer. BrandIcon.ico is a
-multi-resolution Windows encoding of the separate symbol. See BRANDING.md and
-BRAND_ASSETS.json for provenance and rights limits; the code's MIT grant does
-not purport to license rights held by other people. No official game logo or
-character art is intentionally used in this new branding. Trebuchet MS and
-Segoe UI are used from Windows; no font files are redistributed.
-
+BrandLogo.png and BrandIcon.png are AI-generated artwork created with ChatGPT.
+BrandIcon.ico is the multi-resolution Windows icon. See BRANDING.md and
+BRAND_ASSETS.json for artwork information and checksums. Third-party rights
+remain with their respective owners. Segoe UI and Trebuchet MS are provided
+by Windows; font files are not redistributed.
 
 Version 2.3 optionally downloads official Smashline 2.0.0 and nro-hook 0.4.0
 NROs for local translation, verified by pinned SHA256 (ABHAENGIGKEITEN.md).

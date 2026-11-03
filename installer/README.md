@@ -74,7 +74,7 @@ Windows high contrast, text scaling, reduced animation, native keyboard access,
 hover/pressed feedback and visible focus are supported. Existing light/dark/system
 preferences survive upgrades. New preferences follow Windows by default.
 
-## Sharing a download list (3.5)
+## Sharing a download list
 
 Use **More > Share mod list…** to export `*.opensmash-list.json`. The recipient
 uses **Import mod list…** or drops the file into the library, reviews the summary
@@ -127,9 +127,6 @@ only to presentation text, never to operation keys or mod identities. The browse
 renders provider HTML as plain text and converts images locally before WPF sees
 them. There is no Electron, Node.js runtime, browser/WebView or cloud account.
 
-`opensmashmm:` is this manager's own protocol. Incoming files are verified against
-the provider's mod/game relationship. The MOSAIC/FightPlanner protocol is not
-modified. A GameBanana website button for this manager has not been published.
 Skin character filtering uses actual subcategories. Free-text search is separate
 because the upstream search API does not apply those category filters.
 
@@ -150,7 +147,7 @@ dependency** until a compatible library passes a local probe. Existing selection
 is preserved. Native fighter.json/Windows-DLL packages remain outside the supported
 import formats. Structure recognition does not guarantee gameplay compatibility.
 
-## 7z implementation and redistribution (3.6)
+## 7z implementation and redistribution
 
 The unmodified official portable x64 `7za.exe` 26.05 is pinned by SHA-256. It
 is a child process, not a system installation. `sevenzip_support.py` parses a
