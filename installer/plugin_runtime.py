@@ -104,6 +104,10 @@ def describe(profile):
 
 
 def valid(repo, record):
+    if record.get('source_inputs') != arc_backend.source_inputs(repo):
+        raise ValueError('OpenSmash-Buildquellen geaendert; Plugin-Laufzeit neu erstellen.')
+    if record.get('plugin_builder') != base.digest(Path(__file__)):
+        raise ValueError('Plugin-Builder geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get("app") != APP:
         raise ValueError("Ungueltige Plugin-Laufzeit.")
     key = record.get("key", "")
@@ -182,6 +186,8 @@ def ensure(repo, profile):
         plugins=items,
         configs=configs,
         builder=BUILD_ABI,
+        source_inputs=arc_backend.source_inputs(repo),
+        plugin_builder=base.digest(Path(__file__)),
         arc=arc_backend.signature(),
         native=base.digest(original / "ssbu_native.exe"),
         dependencies={name: DEPENDENCIES[name][2] for name in required_dependencies},
@@ -220,6 +226,7 @@ def ensure(repo, profile):
                 dirs_exist_ok=True,
                 ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
             )
+    arc_backend.stage_sources(repo, work)
     bindir = work / "plugin_bin"
     bindir.mkdir(exist_ok=True)
     for p in (base_work / "plugin_bin").iterdir():
@@ -394,8 +401,12 @@ def ensure(repo, profile):
         bindir / "plugins.txt",
     ]
     outputs += list((work / "nro_bin_sky").glob("*.dll"))
+    if source['source_inputs'] != arc_backend.source_inputs(repo):
+        raise ValueError('OpenSmash-Quellen haben sich waehrend des Builds geaendert; erneut versuchen.')
     record = dict(
         app=APP,
+        source_inputs=source['source_inputs'],
+        plugin_builder=source['plugin_builder'],
         key=key,
         exe=(work / arc_backend.EXE).relative_to(original).as_posix(),
         plugin_bin="plugin_bin",
@@ -409,6 +420,10 @@ def ensure(repo, profile):
 
 
 def validate_log(text, smashline=False):
+    unresolved = re.findall(r'module (\S+) calls (\S+), which nothing provides', text)
+    if unresolved:
+        module, symbol = unresolved[0]
+        raise ValueError('OpenSmash stellt eine benoetigte Plugin-Funktion nicht bereit: ' + symbol + ' (' + module + ').')
     missing = sorted(set(re.findall(r"\b(lib[\w-]+\.nro) not found", text, re.I)))
     if missing:
         raise ValueError("Fehlende Gameplay-Abhaengigkeiten: " + ", ".join(missing))

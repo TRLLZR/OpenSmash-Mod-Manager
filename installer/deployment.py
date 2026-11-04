@@ -76,6 +76,21 @@ def notify(callback, phase, name=""):
         callback(dict(event="progress", phase=phase, name=name, current=0, total=0))
 
 
+def preserve_training_data(m, source_profile, pending):
+    """Keep plugin-owned settings/state outside the immutable mod asset trees."""
+    source = source_profile / 'ultimate/TrainingModpack'
+    if not source.exists():
+        return
+    if source.is_symlink() or source.is_junction() or not source.is_dir():
+        raise ValueError('Unsicherer Trainingsdaten-Ordner; nichts ersetzt.')
+    entries = m.files(source)  # rejects links throughout the tree
+    if len(entries) > 4096 or sum((source / name).stat().st_size for name in entries) > 64 * 1024**2:
+        raise ValueError('Trainingsdaten zu gross fuer einen sicheren Profilwechsel.')
+    target = pending / 'ultimate/TrainingModpack'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, target)
+
+
 def recover_pending(m, repo):
     root = m.root(repo)
     journal = root / "transaction.json"
@@ -340,6 +355,7 @@ def commit(
     if arc and not reuse_arc:
         m.arc_backend.make_sd(repo, pending)
     (pending / asset_dir).mkdir(parents=True, exist_ok=True)
+    preserve_training_data(m, root / 'profile', pending)
     backup = root / "backups" / m.stamp()
     backup.mkdir(parents=True)
     shutil.copy2(root / "state.json", backup / "state.json")

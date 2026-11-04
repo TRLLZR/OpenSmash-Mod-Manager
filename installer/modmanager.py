@@ -890,7 +890,17 @@ def prepare_gameplay(repo, callback=None, cancel=None):
         needed = plugin_dependencies.required_records(repo, records)
         plugin_dependencies.preflight(repo, needed)
         present = (profile.get("plugin_runtime") or {}).get("dependencies", [])
-        if set(needed) - set(present):
+        runtime_changed = False
+        if profile.get('backend') == 'arcropolis':
+            import runtime_cache
+            try:
+                runtime_cache.arc(repo, True)
+                if profile.get('plugin_runtime'):
+                    runtime_cache.plugin(repo, profile['plugin_runtime'])
+            except (ValueError, OSError):
+                runtime_changed = True
+        if runtime_changed or set(needed) - set(present):
+            arc_backend.ensure(repo)
             commit(
                 repo,
                 state,

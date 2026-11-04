@@ -63,6 +63,11 @@ Local loader/plugin builds use OpenSmash's build inputs, LLVM/Clang, Microsoft C
 Build Tools and the Windows SDK. Gameplay plugins may also need matching frameworks;
 see the [compatibility guide](installer/BEKANNTE_EINSCHRAENKUNGEN.md).
 
+Optional **Ultimate Training Modpack v7.1.1** support is available as source
+changes and a companion OpenSmash patch. Follow the
+[installation and compatibility guide](docs/TRAINING_MODPACK.md) before importing
+the original release yourself. The mod is not bundled or automatically installed.
+
 ## Build and contribute
 
 The application uses **C#/.NET Framework**, **PowerShell/WPF** and **CPython**.

@@ -47,6 +47,7 @@ FORBIDDEN_SUFFIXES = {
     ".pyo",
 }
 TEXT_SUFFIXES = {
+    ".patch",
     ".py",
     ".ps1",
     ".cs",

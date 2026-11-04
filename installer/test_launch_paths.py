@@ -4,6 +4,7 @@ import json, unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 import plugin_runtime, test_modmanager as fixture
+import runtime_cache
 
 m = fixture.m
 
@@ -37,7 +38,7 @@ class LaunchPathTests(unittest.TestCase):
         before = {p.name: p.read_bytes() for p in config.iterdir()}
         with patch.object(
             m.subprocess, "Popen", return_value=SimpleNamespace(pid=123)
-        ) as launch, patch.object(plugin_runtime, "valid", return_value={}):
+        ) as launch, patch.object(runtime_cache, "plugin", return_value={}):
             m.play(self.repo, vanilla)
         args = launch.call_args.args[0]
         env = dict(

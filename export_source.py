@@ -72,6 +72,7 @@ def collect():
             raise ValueError("Linked publication source: " + name)
         data = path.read_bytes()
         if path.suffix.lower() in {
+            ".patch",
             ".py",
             ".ps1",
             ".cs",

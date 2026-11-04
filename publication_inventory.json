@@ -90,6 +90,7 @@
     "test_security_paths.py",
     "test_setup_checks.py",
     "test_sevenzip.py",
+    "test_training_port.py",
     "workflow_translations.json"
   ],
   "tools": [
@@ -128,8 +129,13 @@
     "THIRD_PARTY_NOTICES.txt",
     "docs/LEGAL_REVIEW.md",
     "docs/RELEASING.md",
+    "docs/TRAINING_MODPACK.md",
     "docs/images/library-tiles-light.png",
     "docs/images/library-list-dark.png",
-    "docs/images/downloads-light.png"
+    "docs/images/downloads-light.png",
+    "compatibility/opensmash/base-hashes.json",
+    "compatibility/opensmash/LICENSE.txt",
+    "compatibility/opensmash/NOTICE.md",
+    "compatibility/opensmash/training-modpack-v7.1.1.patch"
   ]
 }

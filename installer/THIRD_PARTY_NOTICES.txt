@@ -72,3 +72,11 @@ Corresponding unmodified source is included alongside the manager source at
 third_party/7zip/7z2605-src.tar.xz in OpenSmash_Mod_Manager_Source_v3.7.0.zip.
 Distributors should publish that source package alongside the installer.
 Upstream source: https://github.com/ip7z/7zip/releases/download/26.05/7z2605-src.tar.xz
+
+Optional OpenSmash Training Modpack compatibility source patch:
+- compatibility/opensmash/training-modpack-v7.1.1.patch modifies sources from
+  OpenSmash-Ultimate (https://github.com/Denkishi/ssbu-recomp), GPL-3.0.
+- Original upstream authors retain their copyrights. Changed on 2026-11-04
+  with Codex; see compatibility/opensmash/NOTICE.md and LICENSE.txt.
+- This separate source patch is not covered by the manager application's MIT
+  license. No Ultimate Training Modpack binaries or game data are included.

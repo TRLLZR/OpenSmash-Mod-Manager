@@ -79,6 +79,14 @@ class PublicationTests(unittest.TestCase):
             audit.validate(files)
         self.assertNotIn(value.decode(), str(caught.exception))
 
+    def test_source_patch_is_scanned_as_text(self):
+        files = fixture()
+        files["compatibility/opensmash/example.patch"] = b"ghp_" + b"A" * 40
+        with self.assertRaisesRegex(ValueError, "Possible credential"):
+            audit.validate(files)
+        files["compatibility/opensmash/example.patch"] = b"diff --git a/a.c b/a.c\n"
+        self.assertTrue(audit.validate(files)["ok"])
+
     def test_unsafe_names_and_wrong_powershell_encoding_fail(self):
         for name, data in (
             ("../outside.txt", b"own"),

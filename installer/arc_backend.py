@@ -48,11 +48,33 @@ def signature():
             for name in ('arc_backend.py','arc_simd.py','arc_fs_support.h')}
 
 
+def source_inputs(repo):
+    """Fingerprint portable source paths, never user data or generated game C."""
+    result = {}
+    for directory in ('runtime', 'tools/lifter', 'tools/nro'):
+        for path in sorted((repo / directory).rglob('*')):
+            if path.is_file() and path.suffix in {'.py', '.c', '.cpp', '.h', '.inc', '.def'}:
+                if path.is_symlink() or path.is_junction():
+                    raise ValueError('Verknuepfung in den Build-Quellen: ' + str(path))
+                result[path.relative_to(repo).as_posix()] = base.digest(path)
+    return result
+
+
+def stage_sources(repo, work):
+    """Overlay current repository sources on the private staged build only."""
+    for rel in source_inputs(repo):
+        directory = 'runtime/' if rel.startswith('runtime/') else 'tools/lifter/' if rel.startswith('tools/lifter/') else 'tools/nro/'
+        target = work / ('ro_study' if directory == 'tools/nro/' else '') / rel[len(directory):]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(repo / rel, target)
+
+
 def valid(repo, required=False):
     marker=location(repo)/'runtime.json'
     try:
         record=json.loads(marker.read_text())
         if record['app']!=APP or record['builder']!=signature(): raise ValueError('Builder-Version geaendert')
+        if record.get('source_inputs') != source_inputs(repo): raise ValueError('OpenSmash-Buildquellen geaendert')
         if base.digest(base.build_dir(repo)/'work/ssbu_native.exe')!=record['native_sha256']:
             raise ValueError('OpenSmash-Version geaendert')
         for rel,sha in record['files'].items():
@@ -73,7 +95,7 @@ def seed_config(sd):
 
 
 def make_sd(repo, destination):
-    valid(repo,True)
+    ensure(repo)
     template=location(repo)/'template-sd'
     for name in ('atmosphere','ultimate/arcropolis/resources'):
         shutil.copytree(template/name,destination/name)
@@ -98,6 +120,7 @@ def run(args,cwd,env,log,timeout=900):
 def ensure(repo):
     ready=valid(repo)
     if ready: return ready
+    inputs=source_inputs(repo)
     build=base.build_dir(repo)
     original=build/'work'
     state=json.loads((build/'state.json').read_text())
@@ -130,6 +153,7 @@ def ensure(repo):
         if source.is_dir():
             shutil.copytree(source,work/name,dirs_exist_ok=True,
                             ignore=shutil.ignore_patterns('*.dll','*.exe','*.obj','*.pyc','__pycache__'))
+    stage_sources(repo, work)
     release=folder/'release-4.1.1.zip'
     if not release.is_file() or base.digest(release)!=SHA256:
         temporary=folder/'release.download'
@@ -212,7 +236,8 @@ def ensure(repo):
         raise ValueError('ARCropolis-Laufzeittest nicht bestanden. '+str(probe))
     outputs=[original/EXE,original/DLL,work/'plugin_bin/sky_arcropolis.dll',work/'plugin_bin/plugins.txt']
     outputs += [template/rel for rel in expected]
-    record=dict(app=APP,version=VERSION,builder=signature(),native_sha256=base.digest(original/'ssbu_native.exe'),
+    if source_inputs(repo)!=inputs: raise ValueError('OpenSmash-Quellen haben sich waehrend des Builds geaendert; erneut versuchen.')
+    record=dict(app=APP,version=VERSION,builder=signature(),source_inputs=inputs,native_sha256=base.digest(original/'ssbu_native.exe'),
                 files={file_key(repo,p):base.digest(p) for p in outputs},probe=str(probe.relative_to(repo)))
     base.write_json(folder/'runtime.json',record)
     return record

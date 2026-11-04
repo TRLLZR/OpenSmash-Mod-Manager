@@ -6,6 +6,18 @@ from pathlib import Path, PurePosixPath
 import tomllib
 import drybowser as base
 
+
+def known_package_name(entries):
+    # Official v7.1.1 release: name only exact original contents, never a guess
+    # based on an archive/folder name or a different training plugin build.
+    training = {
+        'libnro_hook.nro': 'ca7aec03aee49fea539dcb92569fea5bc5389f77377ba2a30e4d0b7ebd0255e6',
+        'libparam_hook.nro': '3ed7a2945084176cbb7742d99878f1e8d3a0992feb0fef74be2cfbc68ac8fb88',
+        'libtraining_modpack.nro': '38260daeb8f917c99ea3443b7d533ce2bffd8bae4890fc4baca9b317d9fcf829',
+    }
+    actual = {e['path']: e['sha256'] for e in entries}
+    return 'Ultimate Training Modpack v7.1.1' if actual == training else None
+
 CONFIG_FIELDS = {
     "unshare-blacklist": "list",
     "unshare_blacklist": "list",
@@ -145,7 +157,7 @@ def analyze(repo, asset_root, roots):
             )
         if len(entries) > 16000:
             raise ValueError("Mehr als 16000 Mod-Dateien.")
-        name = asset_root.name
+        name = known_package_name(entries) or asset_root.name
         info = asset_root / "info.toml"
         if info.is_file():
             try:

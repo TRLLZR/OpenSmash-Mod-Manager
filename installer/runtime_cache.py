@@ -1,6 +1,7 @@
 """Validate immutable generated outputs using persistent file fingerprints."""
 
 import json, re
+from pathlib import Path
 import arc_backend, plugin_runtime, catalog
 
 
@@ -15,6 +16,8 @@ def arc(repo, required=True):
             or record["builder"] != arc_backend.signature()
         ):
             raise ValueError("Loader-Buildversion geaendert.")
+        if record.get('source_inputs') != arc_backend.source_inputs(repo):
+            raise ValueError('OpenSmash-Buildquellen geaendert.')
         if (
             catalog.digest(
                 repo, arc_backend.base.build_dir(repo) / "work/ssbu_native.exe"
@@ -33,6 +36,10 @@ def arc(repo, required=True):
 
 
 def plugin(repo, record):
+    if record.get('source_inputs') != arc_backend.source_inputs(repo):
+        raise ValueError('OpenSmash-Buildquellen geaendert; Plugin-Laufzeit neu erstellen.')
+    if record.get('plugin_builder') != plugin_runtime.base.digest(Path(plugin_runtime.__file__)):
+        raise ValueError('Plugin-Builder geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get("app") != plugin_runtime.APP:
         return plugin_runtime.valid(repo, record)
     key = record.get("key", "")

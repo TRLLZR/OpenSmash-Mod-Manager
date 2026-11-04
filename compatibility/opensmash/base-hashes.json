@@ -1,0 +1,44 @@
+{
+  "normalization": "UTF-8 without BOM; CRLF/CR normalized to LF",
+  "upstream": "https://github.com/Denkishi/ssbu-recomp",
+  "base_revision": null,
+  "patch_sha256": "7fdbf8ef128960cdd89b0c2a53ffb6dcd7a7056cc28228cee55de329777f6f06",
+  "files": {
+    "docs/TRAINING_MODPACK.md": {
+      "before_sha256": null,
+      "after_sha256": "478513a2de0448199282956b75ff2001da4b0cf85234ffbe740b711eef51c6e0"
+    },
+    "runtime/nnfs.c": {
+      "before_sha256": "7f3dcf54e78d14f0b167fbe1f6dd6d94d475cde173c7f587012e0ba36e677732",
+      "after_sha256": "a23cc30ed5dbde4ae3542a90a5cf87ec2f9149cac589386e43d086fcf7d5ee6d"
+    },
+    "runtime/nnmisc.c": {
+      "before_sha256": "f923f63b0ce8cda7b0ae360d6df92c703ebbc8dc5e7615636a2ba2aa69c3108a",
+      "after_sha256": "424c543df5f8817d02383e8677a9eb2dc660c28eaf5f8925e56f4edf03081f78"
+    },
+    "runtime/nnnet_c4a.inc": {
+      "before_sha256": "89d7c0677dc68140e2efdcc366ddd2467385fbd31335970527a5271f43f6114f",
+      "after_sha256": "dca35cb066ec455412747bc48e1a26e28d59d9467cd771a3051b30b3a4009e87"
+    },
+    "runtime/nnro.c": {
+      "before_sha256": "4d0e824d5a0427af6199af5a1c8feea19a146b643634271060af6a290a61aef8",
+      "after_sha256": "93a66baef7d6c97a45f3749a4f96e198f6e11ada853ad8fbe1eeac9eac13e88c"
+    },
+    "runtime/nnsdk2.c": {
+      "before_sha256": "3c3baf8cf75fc40b435fc62661ff275393cf4225f5fc0ea2cc1d506e2e4cdafd",
+      "after_sha256": "336ff328f6ba2106381fe7a015f6fa334a4e27fdc4de2fc9a5b9ea88e9c2e0a9"
+    },
+    "tests/simd_immediate_test.py": {
+      "before_sha256": null,
+      "after_sha256": "88af4133acf4b80a86b02a2b971bf16777a33c2ba1b0dad8ebd1c1e7870b0a36"
+    },
+    "tools/lifter/recomp.py": {
+      "before_sha256": "23c81f7303aa538afc1fbaecce23585c769df15e33f903efdb82765043ad007d",
+      "after_sha256": "51a8b496db29987ecea55f2425caf5eba8855385c1afcbecde9ed76e9fa2e999"
+    },
+    "tools/nro/recomp_nro.py": {
+      "before_sha256": "40266c1a90bd9820f554caf106ac86cc62033edc66c0964b22370ac5909d3dbf",
+      "after_sha256": "81778f78331a760e2a0e9af880829f17001668b1ddd7afec2788f31cbee71b3a"
+    }
+  }
+}

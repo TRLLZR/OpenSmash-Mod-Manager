@@ -1,0 +1,418 @@
+diff --git a/docs/TRAINING_MODPACK.md b/docs/TRAINING_MODPACK.md
+new file mode 100644
+--- /dev/null
++++ b/docs/TRAINING_MODPACK.md
+@@ -0,0 +1,55 @@
++# Ultimate Training Modpack v7.1.1 compatibility
++
++This change supports the original Skyline plugins from the
++[official v7.1.1 release](https://github.com/jugeeya/UltimateTrainingModpack/releases/tag/v7.1.1).
++The ZIP SHA-256 used for local validation was
++`edf1ca8fdf479feb801e6afacc3abf440e05263af9f5d872d0d16978fb6590d9`.
++No game data or compiled plugin/game binaries are included in this change.
++
++## Runtime changes
++
++- `nn::account::GetLastOpenedUser(Uid*)` returns the single local account after
++  it has been opened, or the invalid zero Uid beforehand. It writes 16 bytes
++  and does not itself open a user session.
++- `nn::oe::GetPseudoDeviceId` persists a randomly generated, anonymous 16-byte
++  UUID in the selected user-data directory. It does not read hardware IDs.
++- The plugin resolver aliases `nnsocketGetAddrInfo` and `nnsocketFreeAddrInfo`
++  use the existing guest `addrinfo` ABI and offline resolver error handling.
++- Both lifters now handle integer ORR/BIC immediates, REV16, unsigned widening
++  addition/multiplication/accumulation, vector MLA/MLS and by-element MLA/SQDMULH.
++  Sources are captured before destination writes, including aliased registers.
++- `SSBU_NRO_IMPORT_REPORT=1` prints all unresolved module imports for diagnosis.
++  It does not suppress traps or change import resolution.
++
++## Validation and limits
++
++On a local Windows Smash 13.0.5 build, using copied saves and a separate SD
++profile, the unchanged NROs initialize and reach real training gameplay.
++The menu opens and accepts/saves settings; settings reload after a restart;
++the configured CPU Jump/Always action runs; colored hitbox spheres render during
++a Mewtwo aerial; saving, moving and restoring fighter positions works.
++The plugin build reports one untranslated instruction, an intentional UDF,
++and zero untranslated instructions classified as real code.
++
++`tests/simd_immediate_test.py --clang <clang>` compares 868 generated-code cases
++against Unicorn for both lifters, including destination aliasing, saturation
++and upper-half clearing. Requires Unicorn and a Windows C compiler. The SDK
++self-tests also cover account output bounds and persistent UUID output bounds.
++
++This is not a verification of every fighter, stage, training option or mod
++combination. Four lua2cpp imports are initially unresolved and are rebound when
++the common module loads. The weak NRO header symbol and imports on unused
++network/TLS/clock paths remain unresolved; general HTTPS/updater support was
++not added. Offline DNS failures remain real failures, not fabricated successes.
++No hook offsets were added for this mod: the existing discovery and local
++re-lifting mechanism records the sites for the user's own game version.
++
++## Installation
++
++Apply this source change to OpenSmash and the accompanying Mod Manager change.
++Use your own complete 13.0.5 build and the normal local compiler dependencies.
++Import the original `TrainingModpack.zip` in the updated manager, activate
++**Ultimate Training Modpack v7.1.1**, and choose **Mit Mods spielen**.
++The first build records and recompiles the needed hooks and can take minutes.
++Open the training menu with Special + Up Taunt (default keyboard: X + I).
++Vanilla continues to use the original game executable.
+diff --git a/runtime/nnfs.c b/runtime/nnfs.c
+--- a/runtime/nnfs.c
++++ b/runtime/nnfs.c
+@@ -1205,6 +1205,34 @@
+ int account_user_is_open(uint64_t lo, uint64_t hi) { return g_acc_user_open && lo == 1 && hi == 0; }
+ static void acc_TryOpenPreselectedUser(Ctx *c) { wr64(A0, 1); wr64(A0 + 8, 0); wr64(A0 + 16, 0); InterlockedExchange(&g_acc_user_open, 1); RET(1); }
+ static void acc_GetUserId(Ctx *c) { wr64(A0, 1); wr64(A0 + 8, 0); RET(0); }
++/* Result GetLastOpenedUser(Uid *): querying does not open a session. Before
++ * the first successful open the output is the invalid (zero) Uid. The local
++ * account stays the last selected account even when a plugin closes a handle. */
++static void acc_GetLastOpenedUser(Ctx *c) {
++    wr64(A0, InterlockedCompareExchange(&g_acc_user_open, 0, 0) ? 1 : 0);
++    wr64(A0 + 8, 0);
++    RET(0);
++}
++int nnaccount_selftest(Ctx *c) {
++    LONG saved = InterlockedExchange(&g_acc_user_open, 0);
++    uint64_t out[4] = {0x12345678, ~0ULL, ~0ULL, 0x87654321};
++    uint64_t handle[3] = {0};
++    Ctx saved_ctx = *c;
++    int bad = 0;
++    c->x[0] = (uintptr_t)&out[1]; acc_GetLastOpenedUser(c);
++    bad += c->x[0] != 0 || out[1] != 0 || out[2] != 0 || g_acc_user_open != 0;
++    c->x[0] = (uintptr_t)handle; acc_TryOpenPreselectedUser(c);
++    bad += c->x[0] != 1 || handle[0] != 1 || handle[1] != 0 || handle[2] != 0;
++    c->x[0] = (uintptr_t)&out[1]; acc_GetLastOpenedUser(c);
++    bad += c->x[0] != 0 || out[1] != 1 || out[2] != 0;
++    bad += out[0] != 0x12345678 || out[3] != 0x87654321;
++    c->x[0] = (uintptr_t)&out[1]; c->x[1] = (uintptr_t)handle; acc_GetUserId(c);
++    bad += c->x[0] != 0 || out[1] != 1 || out[2] != 0;
++    InterlockedExchange(&g_acc_user_open, saved);
++    *c = saved_ctx;
++    printf("  account: last opened user, 16-byte output and session consistency: %s\n", bad ? "FAILED" : "ok");
++    return bad;
++}
+ /* CloseUser(const UserHandle &): only ARCropolis imports it, for the handle of its own TryOpenPreselectedUser; the game
+  * keeps its own open, so the user stays open here (the console counts opens per handle). */
+ static void acc_CloseUser(Ctx *c) { (void)c; }
+@@ -1290,6 +1318,7 @@
+     {FS("6detail14CheckMountNameEPKc"), fs_CheckMountName}, {FS("6detail8AllocateEm"), fs_detail_Allocate},
+     {FS("6detail10DeallocateEPvm"), fs_detail_Deallocate}, {AC("9CloseUserERKNS0_10UserHandleE"), acc_CloseUser},
+     {AC("10InitializeEv"), fs_ok}, {AC("12ListAllUsersEPiPNS0_3UidEi"), acc_ListAllUsers},
++    {AC("17GetLastOpenedUserEPNS0_3UidE"), acc_GetLastOpenedUser},
+     {AC("22TryOpenPreselectedUserEPNS0_10UserHandleE"), acc_TryOpenPreselectedUser},
+     {AC("9GetUserIdEPNS0_3UidERKNS0_10UserHandleE"), acc_GetUserId}, {AC("11GetNicknameEPNS0_8NicknameERKNS0_3UidE"), acc_GetNickname},
+     {AC("16GetUserExistenceEPbRKNS0_3UidE"), acc_out_true},
+diff --git a/runtime/nnmisc.c b/runtime/nnmisc.c
+--- a/runtime/nnmisc.c
++++ b/runtime/nnmisc.c
+@@ -689,6 +689,49 @@
+     memcpy(&c->x[0], b, 8);
+     memcpy(&c->x[1], b + 8, 8);
+ }
++/* A persistent, anonymous ID for this local user-data directory. Never expose
++ * the PC's hardware identifiers to a guest plugin. Uuid is exactly 16 bytes. */
++static void oe_GetPseudoDeviceId(Ctx *c) {
++    const char *fs_user_root(void);
++    char path[MAX_PATH];
++    uint8_t id[16] = {0};
++    DWORD count = 0;
++    HANDLE file = INVALID_HANDLE_VALUE;
++    int length = snprintf(path, sizeof path, "%s\\pseudo-device-id.bin", fs_user_root());
++    if (length < 0 || length >= (int)sizeof path) { guest_trap("local pseudo-device ID path is too long", c->x[30]); return; }
++    for (int retry = 0; retry < 100; retry++) {
++        file = CreateFileA(path, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
++        if (file != INVALID_HANDLE_VALUE || GetLastError() != ERROR_SHARING_VIOLATION) break;
++        Sleep(1);
++    }
++    if (file == INVALID_HANDLE_VALUE) { guest_trap("cannot open local pseudo-device ID", c->x[30]); return; }
++    LARGE_INTEGER size;
++    int ok = GetFileSizeEx(file, &size) != 0;
++    if (ok && size.QuadPart == 0) {
++        HCRYPTPROV prov = crypt_provider();
++        ok = prov && CryptGenRandom(prov, sizeof id, id);
++        id[6] = (uint8_t)((id[6] & 15) | 0x40); id[8] = (uint8_t)((id[8] & 63) | 0x80);
++        ok = ok && WriteFile(file, id, sizeof id, &count, NULL) && count == sizeof id && FlushFileBuffers(file);
++    } else if (ok && size.QuadPart == sizeof id) {
++        ok = ReadFile(file, id, sizeof id, &count, NULL) && count == sizeof id;
++    } else ok = 0;
++    CloseHandle(file);
++    if (!ok) { guest_trap("invalid or unreadable local pseudo-device ID", c->x[30]); return; }
++    memcpy((void *)(uintptr_t)A0, id, sizeof id);
++    RET(0);
++}
++int nnidentity_selftest(Ctx *c) {
++    Ctx saved = *c;
++    uint8_t a[32], b[32];
++    memset(a, 0x5a, sizeof a); memset(b, 0xa5, sizeof b);
++    c->x[0] = (uintptr_t)(a + 8); oe_GetPseudoDeviceId(c);
++    c->x[0] = (uintptr_t)(b + 8); oe_GetPseudoDeviceId(c);
++    int bad = memcmp(a + 8, b + 8, 16) != 0;
++    for (int i = 0; i < 8; i++) bad += a[i] != 0x5a || a[i+24] != 0x5a || b[i] != 0xa5 || b[i+24] != 0xa5;
++    *c = saved;
++    printf("  identity: stable local UUID, exactly 16 output bytes: %s\n", bad ? "FAILED" : "ok");
++    return bad;
++}
+ /* [sdk] BinaryFileHeader checks (layout in nnsdk.c): signature = first 8 bytes; alignment shift u8 @0xe;
+  * byte-order mark i16 @0xc, reversed when it reads 0xFFFE. BinaryBlockHeader: next-block offset u32 @4. */
+ static void util_BinaryFileHeader_IsSignatureValid(Ctx *c) { RET(rd64(A0) == A1); }
+@@ -903,6 +946,7 @@
+ static void hid_detail_SetSupportedNpadIdType(Ctx *c) { RET(0); }
+ 
+ static const ImportDef plugin_imports[] = {
++    {"_ZN2nn2oe17GetPseudoDeviceIdEPNS_4util4UuidE", oe_GetPseudoDeviceId},
+     {"_ZN2nn2oe17GetDisplayVersionEPNS0_14DisplayVersionE", oe_GetDisplayVersion},
+     {"_ZN2nn2oe15ExitApplicationEv", oe_ExitApplication},
+     {"_ZN2nn3err19ApplicationErrorArgC1EjPKcS3_RKNS_8settings12LanguageCodeE", err_AppErrorArg_ctor},
+diff --git a/runtime/nnnet_c4a.inc b/runtime/nnnet_c4a.inc
+--- a/runtime/nnnet_c4a.inc
++++ b/runtime/nnnet_c4a.inc
+@@ -1078,7 +1078,9 @@
+         {SOK("10GetSockOptEiiiPvPj"), socket_GetSockOpt}, {"nnsocketGetSockOpt", socket_GetSockOpt},
+         {SOK("10SetSockOptEiiiPKvj"), socket_SetSockOpt}, {SOK("10SetSockOptEiNS0_5LevelENS0_6OptionEPKvj"), socket_SetSockOpt}, {"nnsocketSetSockOpt", socket_SetSockOpt},
+         {SOK("11GetAddrInfoEPKcS2_PK8addrinfoPPS3_"), socket_GetAddrInfo2}, {SOK("11GetAddrInfoEPKcS2_PKNS0_8AddrInfoEPPS3_"), socket_GetAddrInfoNn},
++        {"nnsocketGetAddrInfo", socket_GetAddrInfo2},
+         {SOK("12FreeAddrInfoEP8addrinfo"), socket_FreeAddrInfo2}, {SOK("12FreeAddrInfoEPNS0_8AddrInfoE"), socket_FreeAddrInfoNn},
++        {"nnsocketFreeAddrInfo", socket_FreeAddrInfo2},
+         {SOK("11GAIStrErrorENS0_7AiErrnoE"), socket_GAIStrError2},
+         {"nnsocketGetHostByNameWithOptions", socket_GetHostByNameWithOptions},
+         {"nnsocketResolverGetOption", nnsocket_ResolverGetOption}, {"nnsocketResolverSetOption", nnsocket_ResolverSetOption},
+@@ -1144,6 +1146,9 @@
+ #define C4A_CHECK(text) do { printf("  %s: %s\n", text, ok ? "ok" : "FAILED"); bad += !ok; cases++; } while (0)
+ static int c4a_selftest(Ctx *c) {
+     int bad = 0, ok, cases = 0;
++    ok = extra_import_lookup("nnsocketGetAddrInfo") == import_lookup(SOK("11GetAddrInfoEPKcS2_PK8addrinfoPPS3_")) &&
++         extra_import_lookup("nnsocketFreeAddrInfo") == import_lookup(SOK("12FreeAddrInfoEP8addrinfo"));
++    C4A_CHECK("plugin resolver aliases use the tested guest addrinfo ABI");
+     /* ---- nifm */
+     uint32_t ip[5] = {0xeeeeeeee, 0xeeeeeeee, 0xeeeeeeee, 0xeeeeeeee, 0xeeeeeeee};
+     uint8_t proxy[0xb0];
+diff --git a/runtime/nnro.c b/runtime/nnro.c
+--- a/runtime/nnro.c
++++ b/runtime/nnro.c
+@@ -367,6 +367,9 @@
+         m->bind_addr[i] = a;
+         m->bind_fn[i] = a ? function_at(a) : NULL;
+         if (!a && !m->syms[i].defined && m->syms[i].name[0] && strncmp(m->syms[i].name, "__rel_", 6) != 0) {
++            const char *report = getenv("SSBU_NRO_IMPORT_REPORT");
++            if (report && !strcmp(report, "1"))
++                fprintf(stderr, "[nro-import] %s: unresolved %s\n", m->info->name, m->syms[i].name);
+             if ((*unresolved)++ < 8) trace_printf("  %s: unresolved symbol %s\n", m->info->name, m->syms[i].name);
+         }
+     }
+diff --git a/runtime/nnsdk2.c b/runtime/nnsdk2.c
+--- a/runtime/nnsdk2.c
++++ b/runtime/nnsdk2.c
+@@ -527,6 +527,8 @@
+     bad += nnalbum_selftest(c);
+     bad += nnfsdir_selftest(c);
+     bad += nnfs_selftest(c);
++    { int nnaccount_selftest(Ctx *c); bad += nnaccount_selftest(c); }
++    { int nnidentity_selftest(Ctx *c); bad += nnidentity_selftest(c); }
+     bad += bcat_selftest(c);
+     bad += nnhid_selftest(c);
+     bad += nnro_selftest(c);
+diff --git a/tests/simd_immediate_test.py b/tests/simd_immediate_test.py
+new file mode 100644
+--- /dev/null
++++ b/tests/simd_immediate_test.py
+@@ -0,0 +1,66 @@
++"""Compare generated ORR/BIC immediate code against Unicorn; no game data.
++
++Run with --clang <clang executable>. Requires unicorn in the test Python.
++Both lifter copies are extracted by AST so no dumped ELF is imported.
++"""
++import argparse, ast, ctypes, random, struct, subprocess, tempfile
++import _ctypes
++from pathlib import Path
++from unicorn import Uc, UC_ARCH_ARM64, UC_MODE_ARM
++from unicorn.arm64_const import UC_ARM64_REG_Q0
++
++def translator(path):
++    tree = ast.parse(path.read_text())
++    cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == 'Fn')
++    method = next(n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name == 'simd')
++    method.decorator_list = []
++    ns = dict(struct=struct, bits=lambda w, hi, lo: (w >> lo) & ((1 << (hi - lo + 1)) - 1))
++    exec(compile(ast.fix_missing_locations(ast.Module(body=[method], type_ignores=[])), str(path), 'exec'), ns)
++    return lambda word: ns['simd'](None, word, 0)
++
++def main():
++    p = argparse.ArgumentParser()
++    p.add_argument('--clang', required=True)
++    a = p.parse_args()
++    root = Path(__file__).resolve().parents[1]
++    lifters = [translator(root / f) for f in ('tools/lifter/recomp.py', 'tools/nro/recomp_nro.py')]
++    words = [0x0f000400 | (q << 30) | (op << 29) | (mode << 12) | ((imm >> 5) << 16) | ((imm & 31) << 5)
++             for q in range(2) for op in range(2) for mode in (1,3,5,7,9,11) for imm in (0,1,0x55,0x80,0xff)]
++    words += [0x4e201800, 0x0f80c022, 0x2fa00041, 0x4f80c822, 0x6fa00841, 0x4f40c022, 0x6f500041]
++    words += [base | (q << 30) | (size << 22) | (rm << 16) | (rn << 5) | rd
++        for base in (0x2e201000, 0x2e208000, 0x2e20c000, 0x0e209400, 0x2e209400)
++        for q in range(2) for size in range(3) for rd,rn,rm in ((0,0,1),(2,1,2),(3,4,5))]
++    cases = []
++    for i, word in enumerate(words):
++        code = lifters[0](word)
++        assert code == lifters[1](word), 'main and NRO lifters differ'
++        cases.append(f'case {i}: {code} break;')
++    src = '#include <stdint.h>\ntypedef union {uint8_t b[16]; uint16_t h[8]; uint32_t w[4]; uint64_t d[2];} V128; typedef struct {V128 v[32];} Ctx;\n'
++    src += '__declspec(dllexport) void run(int i, Ctx *c) {switch(i){' + '\n'.join(cases) + '}}'
++    rng = random.Random(1984)
++    with tempfile.TemporaryDirectory() as tmp:
++        cfile, dll = Path(tmp) / 'test.c', Path(tmp) / 'test.dll'
++        cfile.write_text(src)
++        subprocess.run([a.clang, '-shared', '-O2', str(cfile), '-o', str(dll)], check=True)
++        lib = ctypes.CDLL(str(dll))
++        lib.run.argtypes = [ctypes.c_int, ctypes.c_void_p]
++        cpu = Uc(UC_ARCH_ARM64, UC_MODE_ARM)
++        cpu.mem_map(0x10000, 4096)
++        for i, word in enumerate(words):
++            for sample in range(4):
++                buf = (ctypes.c_uint64 * 64)()
++                for reg in range(32):
++                    initial = rng.getrandbits(128) if sample < 2 else int.from_bytes((b'\x00\x80' if sample == 2 else b'\x00\x00\x00\x80') * (8 if sample == 2 else 4), 'little')
++                    buf[2*reg], buf[2*reg+1] = initial & ((1 << 64)-1), initial >> 64
++                    cpu.reg_write(UC_ARM64_REG_Q0 + reg, initial)
++                lib.run(i, buf)
++                cpu.mem_write(0x10000, word.to_bytes(4, 'little'))
++                cpu.ctl_remove_cache(0x10000, 0x10004)
++                cpu.emu_start(0x10000, 0x10004, count=1)
++                for reg in range(32):
++                    expected = cpu.reg_read(UC_ARM64_REG_Q0 + reg)
++                    assert buf[2*reg] | (buf[2*reg+1] << 64) == expected, (hex(word), sample, reg)
++        _ctypes.FreeLibrary(lib._handle)
++    print(f'{len(words)*4} integer SIMD differential cases passed (both lifters, all registers).')
++
++if __name__ == '__main__': main()
+diff --git a/tools/lifter/recomp.py b/tools/lifter/recomp.py
+--- a/tools/lifter/recomp.py
++++ b/tools/lifter/recomp.py
+@@ -667,6 +667,47 @@
+ 
+     def simd(self, w, pc):
+         rd, rn, rm = bits(w, 4, 0), bits(w, 9, 5), bits(w, 20, 16)
++        # Integer vector forms emitted by Rust/LLVM (all operands captured before writes).
++        q, size = bits(w, 30, 30), bits(w, 23, 22)
++        if (w & 0xbffffc00) == 0x0e201800:           # REV16 .8b / .16b
++            return '{ V128 a = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn,
++                ' '.join('t.b[%d] = a.b[%d];' % (i, i ^ 1) for i in range(16 if q else 8)), rd)
++        wide = {0x2e201000: 'addw', 0x2e208000: 'mlal', 0x2e20c000: 'mull'}.get(w & 0xbf20fc00)
++        if wide and size < 3:                       # UADDW(2), UMLAL(2), UMULL(2)
++            narrow, dest = ('b', 'h', 'w')[size], ('h', 'w', 'd')[size]
++            lanes = 8 >> size
++            offset = lanes if q else 0
++            body = []
++            for i in range(lanes):
++                left = 'a.%s[%d]' % (dest if wide == 'addw' else narrow, i if wide == 'addw' else i + offset)
++                right = 'b.%s[%d]' % (narrow, i + offset)
++                expr = '(uint64_t)%s %s (uint64_t)%s' % (left, '+' if wide == 'addw' else '*', right)
++                if wide == 'mlal': expr = 'old.%s[%d] + (%s)' % (dest, i, expr)
++                body.append('t.%s[%d] = %s;' % (dest, i, expr))
++            return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn, rm, rd, ' '.join(body), rd)
++        mul = w & 0xbf20fc00
++        if mul in (0x0e209400, 0x2e209400) and size < 3:  # MLA / MLS (vector)
++            member = ('b', 'h', 'w')[size]
++            body = ' '.join('t.%s[%d] = old.%s[%d] %s (uint64_t)a.%s[%d] * b.%s[%d];' %
++                (member, i, member, i, '-' if mul == 0x2e209400 else '+', member, i, member, i)
++                for i in range((16 if q else 8) >> size))
++            return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn, rm, rd, body, rd)
++        if (w & 0x9f000400) == 0x0f000000 and size in (1, 2):
++            opcode, u = bits(w, 15, 12), bits(w, 29, 29)
++            if (opcode, u) in ((0, 1), (12, 0)):     # MLA / SQDMULH (by element)
++                width, member = (16, 'h') if size == 1 else (32, 'w')
++                index = (bits(w, 11, 11) << (2 if size == 1 else 1)) | (bits(w, 21, 21) << (1 if size == 1 else 0))
++                reg = bits(w, 19, 16) if size == 1 else rm
++                if size == 1: index |= bits(w, 20, 20)
++                body = []
++                for i in range((128 if q else 64) // width):
++                    if opcode == 0:
++                        body.append('t.%s[%d] = old.%s[%d] + (uint64_t)a.%s[%d] * b.%s[%d];' % (member,i,member,i,member,i,member,index))
++                    else:
++                        maximum = (1 << (width-1)) - 1
++                        body.append('{ int64_t p = (int64_t)(int%d_t)a.%s[%d] * (int64_t)(int%d_t)b.%s[%d]; int64_t r = p >> %d; if (r > %d) r = %d; t.%s[%d] = r; }' %
++                            (width,member,i,width,member,index,width-1,maximum,maximum,member,i))
++                return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn,reg,rd,' '.join(body),rd)
+         if (w & 0x9ff80c00) == 0x0f000400:               # movi / mvni / orr-imm (modified immediate)
+             q, op, cmode = bits(w, 30, 30), bits(w, 29, 29), bits(w, 15, 12)
+             imm8 = (bits(w, 18, 16) << 5) | bits(w, 9, 5)
+@@ -676,6 +717,14 @@
+                 if double:
+                     return struct.unpack('<Q', struct.pack('<d', value))[0]
+                 return struct.unpack('<I', struct.pack('<f', value))[0] * 0x100000001
++            if cmode in (1, 3, 5, 7, 9, 11):             # ORR / BIC vector, immediate
++                if cmode < 8:
++                    mask = (imm8 << (8 * (cmode >> 1))) * 0x100000001
++                else:
++                    mask = (imm8 << (8 * ((cmode >> 1) & 1))) * 0x0001000100010001
++                operator, value = ('&=', (~mask) & 0xffffffffffffffff) if op else ('|=', mask)
++                return '{ c->v[%d].d[0] %s 0x%xULL; %s }' % (rd, operator, value,
++                    'c->v[%d].d[1] %s 0x%xULL;' % (rd, operator, value) if q else 'c->v[%d].d[1] = 0;' % rd)
+             if cmode == 15:
+                 val = vfp(op == 1)
+             elif cmode == 14 and op == 1:
+diff --git a/tools/nro/recomp_nro.py b/tools/nro/recomp_nro.py
+--- a/tools/nro/recomp_nro.py
++++ b/tools/nro/recomp_nro.py
+@@ -672,6 +672,47 @@
+ 
+     def simd(self, w, pc):
+         rd, rn, rm = bits(w, 4, 0), bits(w, 9, 5), bits(w, 20, 16)
++        # Integer vector forms emitted by Rust/LLVM (all operands captured before writes).
++        q, size = bits(w, 30, 30), bits(w, 23, 22)
++        if (w & 0xbffffc00) == 0x0e201800:           # REV16 .8b / .16b
++            return '{ V128 a = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn,
++                ' '.join('t.b[%d] = a.b[%d];' % (i, i ^ 1) for i in range(16 if q else 8)), rd)
++        wide = {0x2e201000: 'addw', 0x2e208000: 'mlal', 0x2e20c000: 'mull'}.get(w & 0xbf20fc00)
++        if wide and size < 3:                       # UADDW(2), UMLAL(2), UMULL(2)
++            narrow, dest = ('b', 'h', 'w')[size], ('h', 'w', 'd')[size]
++            lanes = 8 >> size
++            offset = lanes if q else 0
++            body = []
++            for i in range(lanes):
++                left = 'a.%s[%d]' % (dest if wide == 'addw' else narrow, i if wide == 'addw' else i + offset)
++                right = 'b.%s[%d]' % (narrow, i + offset)
++                expr = '(uint64_t)%s %s (uint64_t)%s' % (left, '+' if wide == 'addw' else '*', right)
++                if wide == 'mlal': expr = 'old.%s[%d] + (%s)' % (dest, i, expr)
++                body.append('t.%s[%d] = %s;' % (dest, i, expr))
++            return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn, rm, rd, ' '.join(body), rd)
++        mul = w & 0xbf20fc00
++        if mul in (0x0e209400, 0x2e209400) and size < 3:  # MLA / MLS (vector)
++            member = ('b', 'h', 'w')[size]
++            body = ' '.join('t.%s[%d] = old.%s[%d] %s (uint64_t)a.%s[%d] * b.%s[%d];' %
++                (member, i, member, i, '-' if mul == 0x2e209400 else '+', member, i, member, i)
++                for i in range((16 if q else 8) >> size))
++            return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn, rm, rd, body, rd)
++        if (w & 0x9f000400) == 0x0f000000 and size in (1, 2):
++            opcode, u = bits(w, 15, 12), bits(w, 29, 29)
++            if (opcode, u) in ((0, 1), (12, 0)):     # MLA / SQDMULH (by element)
++                width, member = (16, 'h') if size == 1 else (32, 'w')
++                index = (bits(w, 11, 11) << (2 if size == 1 else 1)) | (bits(w, 21, 21) << (1 if size == 1 else 0))
++                reg = bits(w, 19, 16) if size == 1 else rm
++                if size == 1: index |= bits(w, 20, 20)
++                body = []
++                for i in range((128 if q else 64) // width):
++                    if opcode == 0:
++                        body.append('t.%s[%d] = old.%s[%d] + (uint64_t)a.%s[%d] * b.%s[%d];' % (member,i,member,i,member,i,member,index))
++                    else:
++                        maximum = (1 << (width-1)) - 1
++                        body.append('{ int64_t p = (int64_t)(int%d_t)a.%s[%d] * (int64_t)(int%d_t)b.%s[%d]; int64_t r = p >> %d; if (r > %d) r = %d; t.%s[%d] = r; }' %
++                            (width,member,i,width,member,index,width-1,maximum,maximum,member,i))
++                return '{ V128 a = c->v[%d], b = c->v[%d], old = c->v[%d], t = {{0}}; %s c->v[%d] = t; }' % (rn,reg,rd,' '.join(body),rd)
+         if (w & 0x9ff80c00) == 0x0f000400:               # movi / mvni / orr-imm (modified immediate)
+             q, op, cmode = bits(w, 30, 30), bits(w, 29, 29), bits(w, 15, 12)
+             imm8 = (bits(w, 18, 16) << 5) | bits(w, 9, 5)
+@@ -681,6 +722,14 @@
+                 if double:
+                     return struct.unpack('<Q', struct.pack('<d', value))[0]
+                 return struct.unpack('<I', struct.pack('<f', value))[0] * 0x100000001
++            if cmode in (1, 3, 5, 7, 9, 11):             # ORR / BIC vector, immediate
++                if cmode < 8:
++                    mask = (imm8 << (8 * (cmode >> 1))) * 0x100000001
++                else:
++                    mask = (imm8 << (8 * ((cmode >> 1) & 1))) * 0x0001000100010001
++                operator, value = ('&=', (~mask) & 0xffffffffffffffff) if op else ('|=', mask)
++                return '{ c->v[%d].d[0] %s 0x%xULL; %s }' % (rd, operator, value,
++                    'c->v[%d].d[1] %s 0x%xULL;' % (rd, operator, value) if q else 'c->v[%d].d[1] = 0;' % rd)
+             if cmode == 15:
+                 val = vfp(op == 1)
+             elif cmode == 14 and op == 1:
