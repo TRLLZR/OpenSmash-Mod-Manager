@@ -120,6 +120,9 @@
     "compatibility/opensmash/LICENSE.txt",
     "compatibility/opensmash/NOTICE.md",
     "compatibility/opensmash/training-modpack-v7.1.1.patch",
-    "docs/MODS.md"
+    "docs/MODS.md",
+    "docs/images/downloads-light.png",
+    "docs/images/library-list-dark.png",
+    "docs/images/library-tiles-light.png"
   ]
 }

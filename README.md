@@ -1,7 +1,27 @@
+<p align="center">
+  <img src="installer/BrandLogo.png" alt="OpenSmash Mod Manager" width="600">
+</p>
+
 # OpenSmash Mod Manager
 
 A small Windows app for installing and managing OpenSmash mods. This personal
 project was built with help from ChatGPT and Codex.
+
+## Screenshots
+
+Examples use demo mods and sample artwork.
+
+**Library (tiles)**
+
+![Mod library in the light theme with tile view](docs/images/library-tiles-light.png)
+
+**Library (list)**
+
+![Mod library in the dark theme with list view](docs/images/library-list-dark.png)
+
+**Downloads**
+
+![Download queue with completed, active and queued demo entries](docs/images/downloads-light.png)
 
 ## Setup and use
 
