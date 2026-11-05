@@ -59,9 +59,6 @@ names = [
     "Localization.ps1",
     "locales.json",
     "README.md",
-    "BRANDING.md",
-    "LEGAL_REVIEW.md",
-    "SECURITY.md",
     "BrandLogo.png",
     "BrandIcon.png",
     "BRAND_ASSETS.json",
@@ -117,13 +114,6 @@ names = [
     "Mod installieren.bat",
     "Uninstall.bat",
     "Uninstall.exe",
-    "ANLEITUNG.txt",
-    "README_DE.md",
-    "MODMANAGER_DE.md",
-    "ABHAENGIGKEITEN.md",
-    "BEKANNTE_EINSCHRAENKUNGEN.md",
-    "CHANGELOG_DE.md",
-    "DESIGN_DE.md",
     "LICENSE.txt",
     "THIRD_PARTY_NOTICES.txt",
 ]
@@ -193,22 +183,14 @@ subprocess.run(
     check=True,
 )
 for name in (
-    "ANLEITUNG.txt",
     "README.md",
-    "SECURITY.md",
-    "BRANDING.md",
-    "LEGAL_REVIEW.md",
     "THIRD_PARTY_NOTICES.txt",
     "LICENSE.txt",
 ):
     (out / name).write_bytes((src / name).read_bytes())
 release_files = [
     "Setup.exe",
-    "ANLEITUNG.txt",
     "README.md",
-    "SECURITY.md",
-    "BRANDING.md",
-    "LEGAL_REVIEW.md",
     "THIRD_PARTY_NOTICES.txt",
     "LICENSE.txt",
 ]

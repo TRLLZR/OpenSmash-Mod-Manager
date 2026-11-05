@@ -10,7 +10,7 @@ from export_source import check_build_inputs
 
 def fixture():
     files = {name: b"Own fixture\n" for name in audit.REQUIRED}
-    for name in ("LICENSE.txt", "THIRD_PARTY_NOTICES.txt", "BRANDING.md"):
+    for name in ("LICENSE.txt", "THIRD_PARTY_NOTICES.txt"):
         files["installer/" + name] = files[name]
     files["installer/7ZIP_DISTRIBUTION.json"] = json.dumps(
         dict(
@@ -91,7 +91,7 @@ class PublicationTests(unittest.TestCase):
         for name, data in (
             ("../outside.txt", b"own"),
             ("C:/outside.txt", b"own"),
-            ("bad.ps1", "Write-Host 'ä'".encode()),
+            ("bad.ps1", "Write-Host 'Ã¤'".encode()),
         ):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 audit.validate(dict(fixture(), **{name: data}))

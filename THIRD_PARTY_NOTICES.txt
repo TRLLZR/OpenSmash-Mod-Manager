@@ -31,13 +31,14 @@ Microsoft C++ Build Tools and Windows SDK are not redistributed. Setup provides
 the official Microsoft download link and checks local build prerequisites.
 
 BrandLogo.png and BrandIcon.png are AI-generated artwork created with ChatGPT.
-BrandIcon.ico is the multi-resolution Windows icon. See BRANDING.md and
-BRAND_ASSETS.json for artwork information and checksums. Third-party rights
-remain with their respective owners. Segoe UI and Trebuchet MS are provided
-by Windows; font files are not redistributed.
+BrandIcon.ico is the multi-resolution Windows icon. BRAND_ASSETS.json records
+their origin and checksums. No exclusive copyright or registered trademark is
+claimed for this AI-generated artwork. This independent project implies no
+official affiliation. Third-party rights remain with their respective owners.
+Segoe UI and Trebuchet MS are provided by Windows; font files are not bundled.
 
-Version 2.3 optionally downloads official Smashline 2.0.0 and nro-hook 0.4.0
-NROs for local translation, verified by pinned SHA256 (ABHAENGIGKEITEN.md).
+The manager optionally downloads official Smashline 1.6.8 and nro-hook 0.4.0
+NROs for local translation, verified by pinned SHA-256 in plugin_runtime.py.
 Neither these binaries nor generated plugin/game DLLs are redistributed here.
 Smashline: https://github.com/HDR-Development/smashline
 nro-hook: https://github.com/ultimate-research/nro-hook-plugin
@@ -51,7 +52,7 @@ Official package: https://www.rarlab.com/rar/unrardll-723.exe
 Provenance and SHA256: UNRAR_DISTRIBUTION.json. This decoder handles RAR
 archives only; WinRAR/RAR archive-creation software is not redistributed.
 
-Version 3.4 optionally resolves Param Config and One Slot Effects from pinned
+The manager optionally resolves Param Config and One Slot Effects from pinned
 official sources. CSK downloads are gated by game version: 6.0.0 for
 13.0.5 and 5.0.6 for 13.0.4. None of these binaries or their generated DLLs are
 redistributed. Upstream author terms apply; this does not grant redistribution

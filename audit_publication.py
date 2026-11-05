@@ -67,13 +67,12 @@ SECRET_PATTERNS = (
 )
 REQUIRED = {
     "README.md",
+    "installer/README.md",
+    "docs/MODS.md",
     "LICENSE.txt",
-    "SECURITY.md",
-    "CONTRIBUTING.md",
-    "BRANDING.md",
     "THIRD_PARTY_NOTICES.txt",
-    "docs/LEGAL_REVIEW.md",
-    "docs/RELEASING.md",
+    "installer/LICENSE.txt",
+    "installer/THIRD_PARTY_NOTICES.txt",
     ".gitignore",
     ".gitattributes",
     ".github/workflows/validate.yml",
@@ -136,7 +135,7 @@ def validate(files):
     }.items():
         if hashlib.sha256(files[name]).hexdigest() != digest:
             raise ValueError("Pinned dependency changed: " + name)
-    for suffix in ("LICENSE.txt", "THIRD_PARTY_NOTICES.txt", "BRANDING.md"):
+    for suffix in ("LICENSE.txt", "THIRD_PARTY_NOTICES.txt"):
         if files[suffix] != files["installer/" + suffix]:
             raise ValueError("Root/application notice mismatch: " + suffix)
     fixtures = json.loads(files["installer/test_data/rar/fixtures.json"])

@@ -402,10 +402,10 @@ try:
     assert json.loads((test / "settings.json").read_text())["glass"] == "Frosted"
     assert snapshot() == before
     (app / "My file.txt").write_text("preserve")
-    (app / "README_DE.md").write_text("manually edited")
+    (app / "README.md").write_text("manually edited")
     run("--uninstall")
     assert (app / "My file.txt").read_text() == "preserve" and (
-        app / "README_DE.md"
+        app / "README.md"
     ).read_text() == "manually edited"
     assert not (app / "ModManager.exe").exists()
     checks += [
