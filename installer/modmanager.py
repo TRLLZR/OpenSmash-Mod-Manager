@@ -21,6 +21,7 @@ import drybowser as base
 import arc_backend
 import arc_import
 import catalog
+import moveset_support
 
 APP = "OpenSmash-Asset-Modmanager-v1"
 LOCAL = "opensmash_mods"
@@ -100,6 +101,8 @@ TOOLS = [
     "ModLists.ps1",
     "plugin_runtime.py",
     "plugin_dependencies.py",
+    "moveset_support.py",
+    "legacy_addresses.py",
     "library_media.py",
     "LibraryView.ps1",
     "LibraryViews.xaml",
@@ -668,6 +671,11 @@ def listing(repo, verify=False):
                 validation="Metadaten im lokalen Index; betroffene Dateien werden vor Aenderungen geprueft.",
             )
         )
+    active = {key: record for key, record in records.items() if state['mods'][key]['enabled']}
+    try:
+        effective = moveset_support.overlay_groups(active, state['mods'], repo=repo)
+    except (ValueError, OSError):
+        effective = None
     for row in mods:
         key = row["id"]
         record = records[key]
@@ -677,6 +685,7 @@ def listing(repo, verify=False):
             if not entry.get("metadata")
             for other, sha in owners.get(entry["path"], [])
             if other != key and sha != entry["sha256"]
+            and effective is None
         ][:100]
         row["costume_overlaps"] = [
             dict(slot=slot, mod_id=other, name=state["mods"][other]["name"])
@@ -685,6 +694,14 @@ def listing(repo, verify=False):
             if other != key
         ][:100]
         warnings = list(row["warnings"])
+        hint = moveset_support.selection_hint(record)
+        if hint:
+            warnings.append(hint)
+        row['selection_hint'] = hint
+        row['overlays'] = state['mods'][key].get('overlays', [])
+        if row['overlays']:
+            warnings.append('Ausdrueckliche Asset-Ueberlagerung: ' + ', '.join(state['mods'].get(k, {}).get('name', k) for k in row['overlays'])
+                            + '. Bei Pause werden die Basisdateien wiederhergestellt.')
         if row["known_conflicts"]:
             warnings.append(
                 "Konflikte mit aktiven Zielpfaden: "
@@ -704,6 +721,12 @@ def listing(repo, verify=False):
                 + ". Verschiedene Dateien koennen kombinierbar sein; Spielverhalten pruefen."
             )
         row["warnings"] = warnings
+    issues = moveset_support.diagnostics(repo, active)
+    for row in mods:
+        if row['id'] in issues:
+            row['compatibility'] = 'NeedsDependencies'
+            row['warnings'].append(issues[row['id']])
+        row['dependency_issue'] = issues.get(row['id'], '')
     catalog.summaries(repo, mods)
     return dict(mods=mods, can_undo=bool(state.get("history")), root=str(root(repo)))
 
@@ -888,6 +911,7 @@ def prepare_gameplay(repo, callback=None, cancel=None):
             if value["enabled"]
         }
         needed = plugin_dependencies.required_records(repo, records)
+        moveset_support.preflight(repo, records)
         plugin_dependencies.preflight(repo, needed)
         present = (profile.get("plugin_runtime") or {}).get("dependencies", [])
         runtime_changed = False

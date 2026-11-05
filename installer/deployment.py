@@ -3,6 +3,7 @@
 import json, os, re, shutil, time, uuid
 from pathlib import Path
 import catalog, plugin_runtime, runtime_cache
+import moveset_support
 
 BUSY = set()
 
@@ -60,13 +61,15 @@ def runtime_signature(records, manifest=None, repo=None):
             )
             if sha:
                 values.append((key, e["path"], sha, e.get("module", "")))
-    if repo is not None and values:
-        import plugin_dependencies
-
+    import plugin_dependencies
+    asset_dependencies = plugin_dependencies.required([], [e['path'] for record in records.values() for e in record['entries']])
+    if asset_dependencies:
+        values.append(('asset-frameworks', asset_dependencies))
+    if repo is not None:
         extra = plugin_dependencies.required_records(repo, records)
         if extra:
             values.append(
-                ("framework-dependencies", plugin_dependencies.fingerprint(extra))
+                ("framework-dependencies", plugin_dependencies.fingerprint(extra, repo))
             )
     return catalog.fingerprint(sorted(values)) if values else None
 
@@ -256,32 +259,8 @@ def commit(
         for key, value in desired["mods"].items()
         if value["enabled"]
     }
-    owners = {}
-    groups = {}
     arc = any(r.get("backend") == "arcropolis" for r in records.values())
-    for key, record in records.items():
-        for e in record["entries"]:
-            identity = (
-                ("plugin", e["module"])
-                if e.get("kind") == "plugin"
-                else (
-                    (key, e["path"])
-                    if e.get("metadata")
-                    else ("path:" + e["path"] if arc else e["info"])
-                )
-            )
-            if identity in owners:
-                if owners[identity][1] != e["sha256"]:
-                    raise ValueError(
-                        "Konflikt: "
-                        + record["name"]
-                        + " und "
-                        + owners[identity][0]
-                        + ". Zuerst eine der Mods deaktivieren."
-                    )
-                continue
-            owners[identity] = (record["name"], e["sha256"])
-            groups.setdefault(key, {})[e["path"]] = e["sha256"]
+    groups = moveset_support.overlay_groups(records, desired['mods'], arc, repo)
     if sum(map(len, groups.values())) > (16000 if arc else 4096):
         raise ValueError("Gemeinsames Profil enthaelt zu viele Dateien.")
     if arc and old.get("backend") != "arcropolis":
@@ -323,13 +302,13 @@ def commit(
                     if not any(
                         e.get("kind") == "plugin" or e["path"].startswith("flags/")
                         for e in record["entries"]
-                    ):
+                    ) and not any('/model/body/c' in e['path'] or e['path'].startswith('effect/') for e in record['entries']):
                         continue
                     m.metadata(repo, key)
-                    shutil.copytree(
-                        catalog.location(repo, key) / "assets",
-                        inputs / "ultimate/mods" / key,
-                    )
+                    for name in groups.get(key, {}):
+                        target=inputs/'ultimate/mods'/key/name
+                        target.parent.mkdir(parents=True,exist_ok=True)
+                        shutil.copy2(catalog.location(repo,key)/'assets'/name,target)
                 try:
                     runtime = plugin_runtime.ensure(repo, inputs)
                 except Exception as exc:

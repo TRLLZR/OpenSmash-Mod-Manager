@@ -5,6 +5,7 @@ from pathlib import Path
 import drybowser as base
 import arc_backend
 import plugin_dependencies
+import legacy_addresses
 
 APP = "OpenSmash-PluginSet-v1"
 BUILD_ABI = "2.3-plugins-v1"
@@ -17,8 +18,8 @@ class PluginBuildError(ValueError):
 DEPENDENCIES = {
     "smashline": (
         "libsmashline_plugin.nro",
-        "https://github.com/HDR-Development/smashline/releases/download/v2.0.0/libsmashline_plugin.nro",
-        "d57a437000d13a85192b79941880b4e3b671d0e4a0291951d426f0f6773e6b92",
+        "https://github.com/HDR-Development/smashline/releases/download/v1.6.8/libsmashline_plugin.nro",
+        "a83636e565be0729271aa7c21817da9aa3b8b3e9b3abed7499c1eeae4cb57d5c",
     ),
     "nro_hook": (
         "libnro_hook.nro",
@@ -30,6 +31,9 @@ DEPENDENCIES = {
 
 for _key, _record in plugin_dependencies.REGISTRY.items():
     DEPENDENCIES[_key] = (_record["filename"], _record["url"], _record["sha256"])
+
+SMASHLINE2_ONLY = (b'smashline_clone_article_descriptor', b'smashline_replace_article_descriptor_func',
+                   b'smashline_set_weapon_module_factory', b'smashline_clone_fighter')
 
 
 def inspect_nro(path):
@@ -60,7 +64,21 @@ def inspect_nro(path):
     name = "sky_" + "".join(c if c.isascii() and c.isalnum() else "_" for c in name)
     if len(name) > 120:
         raise ValueError("NRO-Modulname ist zu lang.")
-    return dict(module=name, smashline=b"smashline_" in data)
+    result = dict(module=name, smashline=b"smashline_" in data)
+    if any(symbol in data for symbol in SMASHLINE2_ONLY):
+        result['smashline_api'] = '2.0'
+    return result
+
+
+def core_dependencies(items, extra):
+    # A named, user-provided framework follows the ordinary validation/probe
+    # path; never silently replace it with an incompatible automatic version.
+    supplied = {Path(i['path']).name.casefold() for i in items}
+    if any(i.get('smashline_api') == '2.0' and i['module'] != 'sky_smashline' for i in items):
+        if 'libsmashline_plugin.nro' not in supplied:
+            raise ValueError('Dieses Plugin verwendet Smashline-2.0-APIs. Die passende offizielle Bibliothek ausdruecklich importieren; die automatische 1.6.8 ist fuer die bisherige Moveset-ABI. Inkompatible ABI-Versionen nicht mischen.')
+    core = ['smashline', 'nro_hook'] if any(i['smashline'] for i in items) or extra else []
+    return [name for name in core if DEPENDENCIES[name][0].casefold() not in supplied]
 
 
 def plugins(profile):
@@ -104,10 +122,14 @@ def describe(profile):
 
 
 def valid(repo, record):
+    if record.get('legacy_alias_inputs', {}) != legacy_addresses.inputs(repo):
+        raise ValueError('Spielabbilder fuer gepruefte Versions-Aliase geaendert; Laufzeit neu erstellen.')
     if record.get('source_inputs') != arc_backend.source_inputs(repo):
         raise ValueError('OpenSmash-Buildquellen geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get('plugin_builder') != base.digest(Path(__file__)):
         raise ValueError('Plugin-Builder geaendert; Plugin-Laufzeit neu erstellen.')
+    if record.get('dependency_fingerprint', {}) != dependency_hashes(repo, record.get('dependencies', [])):
+        raise ValueError('Gameplay-Bibliotheken oder Spielversion geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get("app") != APP:
         raise ValueError("Ungueltige Plugin-Laufzeit.")
     key = record.get("key", "")
@@ -129,10 +151,20 @@ def valid(repo, record):
 def boot_name(item):
     """Preserve shared library names that plugins check on the SD card."""
     filename = Path(item["path"]).name.casefold()
-    for record in plugin_dependencies.REGISTRY.values():
-        if filename == record["filename"].casefold():
-            return record["filename"]
-    return item["module"] + ".nro"
+    return filename if filename != 'plugin.nro' else item['module'] + '.nro'
+
+
+def copy_boot_plugin(source, target):
+    if target.exists():
+        if base.digest(source) != base.digest(target):
+            raise ValueError('Zwei verschiedene Boot-Plugins mit gleichem Dateinamen: ' + target.name)
+        return
+    shutil.copy2(source, target)
+
+
+def dependency_hashes(repo, keys):
+    return {name: (plugin_dependencies.definition(repo, name)['sha256']
+                   if name in plugin_dependencies.REGISTRY else DEPENDENCIES[name][2]) for name in keys}
 
 
 def deploy_dependencies(repo, profile, record):
@@ -142,16 +174,14 @@ def deploy_dependencies(repo, profile, record):
     target.mkdir(parents=True, exist_ok=True)
     for name in record["dependencies"]:
         src = dependency(repo, name)
-        shutil.copy2(src, target / DEPENDENCIES[name][0])
+        copy_boot_plugin(src, target / DEPENDENCIES[name][0])
     for item in describe(profile):
         if Path(item["path"]).name != "plugin.nro":
-            shutil.copy2(profile / item["path"], target / boot_name(item))
+            copy_boot_plugin(profile / item["path"], target / boot_name(item))
 
 
 def ensure(repo, profile):
     items = describe(profile)
-    if not items:
-        return None
     plugin_dependencies.check_provided(repo, plugins(profile))
     extra = plugin_dependencies.required(
         plugins(profile),
@@ -161,7 +191,10 @@ def ensure(repo, profile):
             if p.is_file()
         ],
     )
+    if not items and not extra:
+        return None
     plugin_dependencies.preflight(repo, extra)
+    required_dependencies = core_dependencies(items, extra) + extra
     arc_backend.ensure(repo)
     build = base.build_dir(repo)
     original = build / "work"
@@ -179,18 +212,16 @@ def ensure(repo, profile):
             or p.relative_to(profile / "ultimate/mods").parts[1] == "flags"
         )
     }
-    required_dependencies = (
-        ["smashline", "nro_hook"] if any(i["smashline"] for i in items) or extra else []
-    ) + extra
     source = dict(
         plugins=items,
         configs=configs,
         builder=BUILD_ABI,
         source_inputs=arc_backend.source_inputs(repo),
+        legacy_alias_inputs=legacy_addresses.inputs(repo),
         plugin_builder=base.digest(Path(__file__)),
         arc=arc_backend.signature(),
         native=base.digest(original / "ssbu_native.exe"),
-        dependencies={name: DEPENDENCIES[name][2] for name in required_dependencies},
+        dependencies=dependency_hashes(repo, required_dependencies),
     )
     key = hashlib.sha256(json.dumps(source, sort_keys=True).encode()).hexdigest()[:20]
     container = base.contained(original, original / "modmanager_plugins")
@@ -227,6 +258,9 @@ def ensure(repo, profile):
                 ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
             )
     arc_backend.stage_sources(repo, work)
+    alias_inputs=legacy_addresses.generate(repo,work)
+    if alias_inputs!=source['legacy_alias_inputs']:
+        raise ValueError('Spielabbilder waehrend der Vorbereitung geaendert.')
     bindir = work / "plugin_bin"
     bindir.mkdir(exist_ok=True)
     for p in (base_work / "plugin_bin").iterdir():
@@ -238,17 +272,17 @@ def ensure(repo, profile):
             raise ValueError("Unsichere Plugin-Testkopie.")
         shutil.rmtree(sd)
     shutil.copytree(profile, sd)
-    need_smashline = "smashline" in required_dependencies
+    need_smashline = "smashline" in required_dependencies or any(i['module'] == 'sky_smashline' for i in items)
     plugin_dir = sd / "atmosphere/contents/01006A800016E000/romfs/skyline/plugins"
     plugin_dir.mkdir(parents=True, exist_ok=True)
     for name in required_dependencies:
         src = dependency(repo, name)
-        shutil.copy2(src, plugin_dir / DEPENDENCIES[name][0])
+        copy_boot_plugin(src, plugin_dir / DEPENDENCIES[name][0])
     # Mod-local NROs are also placed in Skyline's boot folder. Content deduplication
     # and stable module names prevent two different modules from sharing a slot.
     for item in items:
         if Path(item["path"]).name != "plugin.nro":
-            shutil.copy2(sd / item["path"], plugin_dir / boot_name(item))
+            copy_boot_plugin(sd / item["path"], plugin_dir / boot_name(item))
     # The builder discovers the boot folder and mod-local NROs. Remove just its
     # duplicate discovery through an application-owned adapter, not plugin code.
     adapter = work / "build_plugin_set.py"
@@ -403,10 +437,14 @@ def ensure(repo, profile):
     outputs += list((work / "nro_bin_sky").glob("*.dll"))
     if source['source_inputs'] != arc_backend.source_inputs(repo):
         raise ValueError('OpenSmash-Quellen haben sich waehrend des Builds geaendert; erneut versuchen.')
+    if source['legacy_alias_inputs'] != legacy_addresses.inputs(repo) or source['plugin_builder'] != base.digest(Path(__file__)):
+        raise ValueError('Build-Werkzeug oder Spielabbilder waehrend des Builds geaendert; erneut versuchen.')
     record = dict(
         app=APP,
         source_inputs=source['source_inputs'],
+        legacy_alias_inputs=source['legacy_alias_inputs'],
         plugin_builder=source['plugin_builder'],
+        dependency_fingerprint=source['dependencies'],
         key=key,
         exe=(work / arc_backend.EXE).relative_to(original).as_posix(),
         plugin_bin="plugin_bin",

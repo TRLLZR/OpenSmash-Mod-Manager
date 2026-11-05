@@ -91,7 +91,12 @@
     "test_setup_checks.py",
     "test_sevenzip.py",
     "test_training_port.py",
-    "workflow_translations.json"
+    "workflow_translations.json",
+    "moveset_support.py",
+    "test_moveset_support.py",
+    "test_plugin_romfs.py",
+    "legacy_addresses.py",
+    "test_legacy_addresses.py"
   ],
   "tools": [
     "build_release.py",
@@ -136,6 +141,7 @@
     "compatibility/opensmash/base-hashes.json",
     "compatibility/opensmash/LICENSE.txt",
     "compatibility/opensmash/NOTICE.md",
-    "compatibility/opensmash/training-modpack-v7.1.1.patch"
+    "compatibility/opensmash/training-modpack-v7.1.1.patch",
+    "docs/MOVESET_MODS.md"
   ]
 }

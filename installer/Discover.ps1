@@ -534,6 +534,10 @@ function Configure-Conflict([string]$choice) {
     if ($item.Raw.status -notin @('ready', 'conflict')) {
         return
     }
+    if ($choice -in @('overlay', 'underlay')) {
+        $answer = [System.Windows.MessageBox]::Show($window, ((L 'Nur gleiche Asset-Dateien werden ueberlagert. Die vorhandene Basismod und ihre Gameplay-Plugins bleiben aktiv. Bitte nur fuer einen passenden Skin oder Patch verwenden.') + "`n" + $item.Raw.message), (L 'Als Skin/Patch ueberlagern'), 'OKCancel', 'Question')
+        if ($answer -ne 'OK') { return }
+    }
     if ($choice -eq 'replace') {
         $answer = [System.Windows.MessageBox]::Show($window, ((L 'Diese Konfliktpartner werden pausiert: ') + ($item.Raw.message) + ("`n" + (L 'Die neue Mod wird aktiviert. Rückgängig bleibt möglich.'))), (L 'Konfliktpartner ersetzen'), 'OKCancel', 'Question')
         if ($answer -ne 'OK') {
@@ -593,6 +597,8 @@ $ui.RefreshButton.add_Click({ if (!$script:busy) {
         } })
 $ui.ConflictDisabled.add_Click({ Configure-Conflict 'disabled' })
 $ui.ConflictReplace.add_Click({ Configure-Conflict 'replace' })
+$ui.ConflictOverlay.add_Click({ Configure-Conflict 'overlay' })
+$ui.ConflictUnderlay.add_Click({ Configure-Conflict 'underlay' })
 $ui.BatchList.add_SelectionChanged({ Update-ImportActions })
 $ui.DQList.add_SelectionChanged({ Update-DownloadActions })
 $ui.LibraryNav.add_Click({ Show-Workspace 'Library' })

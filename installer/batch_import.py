@@ -14,6 +14,13 @@ class Cancelled(Exception):
     pass
 
 
+def conflicting_owners(entry, owners, records, text_conflicts):
+    if entry['path'].endswith('.xmsbt'):
+        return [(None, records[key]['name'], key) for key in text_conflicts.get(entry['path'], [])]
+    owner = owners.get(target(entry))
+    return [owner] if owner and owner[0] != entry['sha256'] else []
+
+
 def checkpoint(cancel):
     if cancel and cancel():
         raise Cancelled("Import abgebrochen")
@@ -285,6 +292,7 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
     seen_sources = set()
     seen_signatures = {}
     owners = {}
+    text_records, text_roots = {}, {}
     names = set()
     slots = {}
     budget = dict(files=0, bytes=0)
@@ -305,6 +313,8 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
         seen_signatures[signature(record)] = ("existing", status["name"])
         names.add(status["name"].casefold())
         if status["enabled"]:
+            text_records[key] = record
+            text_roots[key] = m.catalog.location(repo, key) / 'assets'
             for slot in m.catalog.costume_slots(record):
                 slots.setdefault(slot, set()).add(status["name"])
             for entry in record["entries"]:
@@ -412,13 +422,14 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
                                 )
                                 items.append(item)
                                 continue
+                            text_conflicts = m.moveset_support.text_patch_conflicts(
+                                record, root, text_records, text_roots) if item['enabled'] else {}
                             conflicts = (
                                 sorted(
                                     {
-                                        owners[target(e)][1]
+                                        owner[1]
                                         for e in record["entries"]
-                                        if target(e) in owners
-                                        and owners[target(e)][0] != e["sha256"]
+                                        for owner in conflicting_owners(e, owners, text_records, text_conflicts)
                                     }
                                 )
                                 if item["enabled"]
@@ -435,17 +446,15 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
                                             {
                                                 str(target(e))
                                                 for e in record["entries"]
-                                                if target(e) in owners
-                                                and owners[target(e)][0] != e["sha256"]
+                                                if conflicting_owners(e, owners, text_records, text_conflicts)
                                             }
                                         )[:8]
                                     ),
                                     conflict_ids=sorted(
                                         {
-                                            owners[target(e)][2]
+                                            owner[2]
                                             for e in record["entries"]
-                                            if target(e) in owners
-                                            and owners[target(e)][0] != e["sha256"]
+                                            for owner in conflicting_owners(e, owners, text_records, text_conflicts)
                                         }
                                     ),
                                 )
@@ -494,6 +503,8 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
                                 )
                             seen_signatures[sig] = ("duplicate", item["name"])
                             if item["status"] == "ready" and item["enabled"]:
+                                text_records[record['id']] = record
+                                text_roots[record['id']] = cached
                                 for slot in m.catalog.costume_slots(record):
                                     slots.setdefault(slot, set()).add(item["name"])
                             for entry in record["entries"]:
@@ -587,12 +598,16 @@ def configure(m, repo, job_id, expected, choices):
                 continue
             if choice == "disabled":
                 item.pop("replacement_ids", None)
+                item.pop("overlay_ids", None)
+                item.pop("underlay_ids", None)
                 item.update(
                     enabled=False,
                     status="ready",
                     message="Wird pausiert installiert; keine aktiven Dateien ersetzt.",
                 )
             elif choice == "replace":
+                item.pop("overlay_ids", None)
+                item.pop("underlay_ids", None)
                 ids = item.get("conflict_ids", [])
                 if not ids or any(key not in state["mods"] for key in ids):
                     raise ValueError(
@@ -605,6 +620,25 @@ def configure(m, repo, job_id, expected, choices):
                     status="ready",
                     message="Konfliktpartner werden pausiert. Rueckgaengig bleibt moeglich.",
                 )
+            elif choice in ('overlay', 'underlay'):
+                ids = item.get('conflict_ids', [])
+                if not ids or any(key not in state['mods'] for key in ids):
+                    raise ValueError('Ueberlagern erfordert installierte Konfliktpartner; Vorschau wiederholen.')
+                others = {key: m.metadata(repo, key, verify=False) for key in ids}
+                candidate = item['record']['id']
+                others[candidate] = item['record']
+                statuses = {key: state['mods'][key] for key in ids}
+                statuses[candidate] = dict(overlays=ids if choice == 'overlay' else [])
+                if choice == 'underlay':
+                    for key in ids:
+                        statuses[key] = dict(statuses[key], overlays=list(set(statuses[key].get('overlays', [])) | {candidate}))
+                m.moveset_support.overlay_groups(others, statuses)
+                item.pop('replacement_ids', None)
+                item.pop('overlay_ids', None)
+                item.pop('underlay_ids', None)
+                item['overlay_ids' if choice == 'overlay' else 'underlay_ids'] = ids
+                item.update(enabled=True, status='ready',
+                            message='Dateiprioritaet und ARC-Dateiverknuepfungen des Patches gelten vor der Basis; Gameplay-Plugins bleiben aktiv. Rueckgaengig bleibt moeglich.')
             elif choice == "enable" and not item.get("conflict_ids"):
                 item.update(enabled=True, status="ready")
             else:
@@ -694,9 +728,12 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                 signature(m.metadata(repo, k, verify=False)) for k in desired["mods"]
             }
             owners = {}
+            text_records, text_roots = {}, {}
             for key, status in desired["mods"].items():
                 if status["enabled"]:
-                    for entry in m.metadata(repo, key, verify=False)["entries"]:
+                    text_records[key] = m.metadata(repo, key, verify=False)
+                    text_roots[key] = m.catalog.location(repo, key) / 'assets'
+                    for entry in text_records[key]["entries"]:
                         if target(entry):
                             owners.setdefault(
                                 target(entry), (entry["sha256"], status["name"], key)
@@ -725,13 +762,16 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                         )
                         results.append(result)
                         continue
+                    assets = m.base.contained(folder, folder / item["assets_rel"])
+                    text_conflicts = m.moveset_support.text_patch_conflicts(
+                        record, assets, text_records, text_roots) if item.get('enabled', True) else {}
                     conflicts = (
                         sorted(
                             {
-                                owners[target(e)][1]
+                                owner[1]
                                 for e in record["entries"]
-                                if target(e) in owners
-                                and owners[target(e)][0] != e["sha256"]
+                                for owner in conflicting_owners(e, owners, text_records, text_conflicts)
+                                if owner[2] not in item.get('overlay_ids', []) + item.get('underlay_ids', [])
                             }
                         )
                         if item.get("enabled", True)
@@ -770,11 +810,20 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                     desired["mods"][key] = dict(
                         name=item["name"], enabled=item.get("enabled", True)
                     )
+                    if item.get('overlay_ids'):
+                        desired['mods'][key]['overlays'] = list(item['overlay_ids'])
+                    for higher in item.get('underlay_ids', []):
+                        if higher not in desired['mods']:
+                            raise ValueError('Ueberlagernde Mod wurde entfernt; Vorschau wiederholen.')
+                        desired['mods'][higher]['overlays'] = sorted(set(desired['mods'][higher].get('overlays', [])) | {key})
                     prepared.append(item)
+                    if item.get('enabled', True):
+                        text_records[key] = record
+                        text_roots[key] = m.catalog.location(repo, key) / 'assets'
                     for entry in record["entries"]:
                         if item.get("enabled", True) and target(entry):
                             owners.setdefault(
-                                target(entry), (entry["sha256"], item["name"])
+                                target(entry), (entry["sha256"], item["name"], key)
                             )
                 except Cancelled:
                     raise

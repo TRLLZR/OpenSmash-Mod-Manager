@@ -52,8 +52,8 @@ Provenance and SHA256: UNRAR_DISTRIBUTION.json. This decoder handles RAR
 archives only; WinRAR/RAR archive-creation software is not redistributed.
 
 Version 3.4 optionally resolves Param Config and One Slot Effects from pinned
-official sources. CSK downloads are gated by game version; the public 5.0.6
-is not approved for 13.0.5. None of these binaries or their generated DLLs are
+official sources. CSK downloads are gated by game version: 6.0.0 for
+13.0.5 and 5.0.6 for 13.0.4. None of these binaries or their generated DLLs are
 redistributed. Upstream author terms apply; this does not grant redistribution
 rights for plugins or cover artwork. Artwork is fetched only into local caches.
 Param Config: https://github.com/CSharpM7/lib_paramconfig

@@ -42,7 +42,7 @@ class GameplayDependencies(unittest.TestCase):
             [],
         )
         self.assertEqual(
-            dependencies.required([], ["effect/fighter/example/example_c120.eff"]), []
+            dependencies.required([], ["effect/fighter/example/example_c120.eff"]), ['one_slot_effects']
         )
 
     def test_explicitly_provided_framework_is_not_duplicated(self):
@@ -92,9 +92,10 @@ class GameplayDependencies(unittest.TestCase):
         definition = dict(
             dependencies.REGISTRY["csk"],
             nro_sha256=hashlib.sha256(self.plugin.read_bytes()).hexdigest(),
+            game_versions=['13.0.4'], version='5.0.6',
         )
         with patch.dict(dependencies.REGISTRY, {"csk": definition}):
-            with self.assertRaisesRegex(ValueError, "6.0.0"):
+            with self.assertRaisesRegex(ValueError, "13.0.5"):
                 dependencies.check_provided(self.folder, [self.plugin])
 
     def test_early_probe_crash_is_identified_in_message(self):
@@ -104,15 +105,15 @@ class GameplayDependencies(unittest.TestCase):
             plugin_runtime.boot_name(
                 dict(path="ultimate/mods/own/ordinary.nro", module="sky_ordinary")
             ),
-            "sky_ordinary.nro",
+            "ordinary.nro",
         )
 
     def test_incompatible_framework_fails_before_network_or_build(self):
         state = self.folder / "build/state.json"
         state.parent.mkdir()
-        state.write_text(json.dumps(dict(game_version="13.0.5")), encoding="utf-8")
+        state.write_text(json.dumps(dict(game_version="13.0.3")), encoding="utf-8")
         with patch.object(dependencies, "_download") as download:
-            with self.assertRaisesRegex(ValueError, "6.0.0"):
+            with self.assertRaisesRegex(ValueError, "13.0.3"):
                 dependencies.obtain(self.folder, "csk")
             download.assert_not_called()
 

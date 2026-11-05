@@ -22,7 +22,7 @@ Eigene Hilfsskripte, Vektor-Ergänzungen und GUI-Starter stehen unter der beilie
 
 ## Plugin-Abhängigkeiten ab 2.3.0 (nur lokal geladen)
 
-- Smashline 2.0.0: https://github.com/HDR-Development/smashline/releases/download/v2.0.0/libsmashline_plugin.nro — SHA-256 `d57a437000d13a85192b79941880b4e3b671d0e4a0291951d426f0f6773e6b92`.
+- Smashline 1.6.8 (Moveset-ABI vor 2.0): https://github.com/HDR-Development/smashline/releases/download/v1.6.8/libsmashline_plugin.nro — SHA-256 `a83636e565be0729271aa7c21817da9aa3b8b3e9b3abed7499c1eeae4cb57d5c`.
 - nro-hook 0.4.0: https://github.com/ultimate-research/nro-hook-plugin/releases/download/v0.4.0/libnro_hook.nro — SHA-256 `ca7aec03aee49fea539dcb92569fea5bc5389f77377ba2a30e4d0b7ebd0255e6`.
 
 Diese Binärdateien und die daraus lokal erzeugten DLLs liegen nicht in der Installer-ZIP. Quellen, Lizenzen und technische Grundlagen der Projekte gelten weiterhin; OpenSmashs SKYLINE.md beschreibt die Übersetzung und den SDK-Unwind-Ersatz. Es werden keine Windows-Sicherheitsfunktionen abgeschaltet.
@@ -45,4 +45,4 @@ CPython 3.14.10 ersetzt 3.13.16 (offizielle TLS-Sicherheitskorrektur). Alle vier
 
 Param Config 6.5: https://github.com/CSharpM7/lib_paramconfig/releases/tag/6.5 . One Slot Effects 13.0.5: https://gamebanana.com/mods/549058 . Downloads, SHA-256 und exakter NRO-Archivpfad stehen in plugin_dependencies.py. Nur diese NRO wird verwendet; optionale Flags und fremde Mods bleiben ausgeschlossen. Keine dieser Binärdateien wird im Installer oder Quellpaket weitergegeben. Die Bedingungen der jeweiligen Autoren gelten.
 
-The CSK Collection: https://gamebanana.com/mods/499008 . Die dort angebotene 5.0.6 ist für 13.0.4 und wird für 13.0.5 blockiert. Die Autorendokumentation nennt 6.0.0 für 13.0.5, für die beim Prüfen kein offizieller Download vorlag. Keine Versionskompatibilität durch pauschales Umbenennen oder Modtitel-Sonderregeln.
+The CSK Collection: https://gamebanana.com/mods/499008 . Version 6.0.0 fuer 13.0.5 ist jetzt offiziell verfuegbar und wird per SHA-256 gepinnt. Fuer 13.0.4 bleibt 5.0.6 erhalten. Versionswahl, Archiv-/NRO-Pruefsummen und exakte Archivpfade stehen in plugin_dependencies.py. Keine Versionskompatibilitaet durch Umbenennen oder Modtitel-Sonderregeln.

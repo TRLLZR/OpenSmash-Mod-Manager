@@ -139,13 +139,13 @@ validation/build path. The runtime cache includes framework pins; unrelated
 plugin sets retain their existing keys. Missing-library messages, host crashes,
 guest traps and inactive required hooks cannot pass the ready check.
 
-Gameplay limitation in 3.7.0: the available CSK 5.0.6 download targets 13.0.4 and
-failed the isolated 13.0.5 probe. The author documents CSK 6.0.0 for 13.0.5, but
-that binary was not available on the official download page during this review.
-CSK-dependent movesets therefore remain **unverified and blocked by their
-dependency** until a compatible library passes a local probe. Existing selection
-is preserved. Native fighter.json/Windows-DLL packages remain outside the supported
-import formats. Structure recognition does not guarantee gameplay compatibility.
+Moveset integration now selects CSK 6.0.0 for 13.0.5 and retains 5.0.6 for
+13.0.4. Marker-based skins report missing base gameplay code before play; the
+private runtime exposes real Skyline boot files in its read-only RomFS view.
+Explicit asset overlay/underlay choices keep base gameplay plugins enabled.
+See [the moveset guide](../docs/MOVESET_MODS.md). Native fighter.json/Windows-DLL
+packages remain outside the supported import formats. Structure recognition
+does not guarantee gameplay compatibility.
 
 ## 7z implementation and redistribution
 

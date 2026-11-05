@@ -68,6 +68,10 @@ changes and a companion OpenSmash patch. Follow the
 [installation and compatibility guide](docs/TRAINING_MODPACK.md) before importing
 the original release yourself. The mod is not bundled or automatically installed.
 
+For new-character movesets, visual patches and costume selection, see the
+[moveset setup guide](docs/MOVESET_MODS.md). It explains required base plugins,
+versioned frameworks and explicit skin/base overlay choices.
+
 ## Build and contribute
 
 The application uses **C#/.NET Framework**, **PowerShell/WPF** and **CPython**.

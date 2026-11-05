@@ -91,6 +91,8 @@ names = [
     "ModLists.ps1",
     "plugin_runtime.py",
     "plugin_dependencies.py",
+    "moveset_support.py",
+    "legacy_addresses.py",
     "library_media.py",
     "LibraryView.ps1",
     "LibraryViews.xaml",

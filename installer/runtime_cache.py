@@ -36,6 +36,10 @@ def arc(repo, required=True):
 
 
 def plugin(repo, record):
+    if record.get('legacy_alias_inputs', {}) != plugin_runtime.legacy_addresses.inputs(repo):
+        raise ValueError('Spielabbilder fuer gepruefte Versions-Aliase geaendert; Laufzeit neu erstellen.')
+    if record.get('dependency_fingerprint', {}) != plugin_runtime.dependency_hashes(repo, record.get('dependencies', [])):
+        raise ValueError('Gameplay-Bibliotheken oder Spielversion geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get('source_inputs') != arc_backend.source_inputs(repo):
         raise ValueError('OpenSmash-Buildquellen geaendert; Plugin-Laufzeit neu erstellen.')
     if record.get('plugin_builder') != plugin_runtime.base.digest(Path(plugin_runtime.__file__)):

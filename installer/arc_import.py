@@ -180,6 +180,12 @@ def analyze(repo, asset_root, roots):
                 str(new_files)
                 + " neue oder zusammenzufuehrende Archivdateien werden an ARCropolis uebergeben."
             )
+        import moveset_support
+        hint = moveset_support.selection_hint(dict(entries=entries))
+        if hint:
+            warnings.append(hint)
+        if any(e['path'].endswith('.marker') for e in entries) and not plugin_files:
+            warnings.append('Moveset-Zusatzpaket: passende Basismod mit Gameplay-Plugin erforderlich; Download und Dateistruktur allein bestaetigen keine Spielbereitschaft.')
         token = hashlib.sha256(
             json.dumps(
                 dict(entries=entries, ignored=ignored, backend="arcropolis"),

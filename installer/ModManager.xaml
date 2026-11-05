@@ -330,7 +330,7 @@
             <TextBlock Text="{Binding Message}" Foreground="{DynamicResource SecondaryText}" TextWrapping="Wrap" FontSize="{DynamicResource MetaSize}" Margin="0,3,0,0"/>
            </StackPanel></DataTemplate></ListBox.ItemTemplate>
           </ListBox>
-          <StackPanel Grid.Row="3" Margin="0,9,0,0"><WrapPanel x:Name="ConflictActions" Visibility="Collapsed" Margin="0,0,0,6"><Button x:Name="ConflictDisabled" Content="Pausiert installieren" Margin="0,0,6,0"/><Button x:Name="ConflictReplace" Content="Konfliktpartner ersetzen"/></WrapPanel>
+          <StackPanel Grid.Row="3" Margin="0,9,0,0"><WrapPanel x:Name="ConflictActions" Visibility="Collapsed" Margin="0,0,0,6"><Button x:Name="ConflictDisabled" Content="Pausiert installieren" Margin="0,0,6,0"/><Button x:Name="ConflictReplace" Content="Konfliktpartner ersetzen" Margin="0,0,6,0"/><Button x:Name="ConflictOverlay" Content="Als Skin/Patch ueberlagern" Margin="0,0,6,0"/><Button x:Name="ConflictUnderlay" Content="Als Basis ergaenzen"/></WrapPanel>
           <DockPanel><Button x:Name="BatchCancel" Content="Abbrechen" IsEnabled="False" DockPanel.Dock="Right" Margin="10,0,0,0"/>
            
           </DockPanel></StackPanel>

@@ -151,10 +151,12 @@ def check_packaged_launch_paths():
 from pathlib import Path
 from types import SimpleNamespace
 sys.path.insert(0,os.getcwd())
-import modmanager as m,plugin_runtime
+import modmanager as m,runtime_cache
 m.idle=lambda:None
 m.arc_backend.valid=lambda *args,**kwargs:{}
-plugin_runtime.valid=lambda *args,**kwargs:{}
+# This fixture checks packaged launch routing with an owned synthetic EXE.
+# Runtime compatibility is exercised by the separate backend/build tests.
+runtime_cache.plugin=lambda *args,**kwargs:{}
 seen=[]
 def launch(args,**kwargs):seen.append(args);return SimpleNamespace(pid=1)
 m.subprocess.Popen=launch

@@ -23,13 +23,20 @@ REGISTRY = {
     },
     "csk": {
         "filename": "libthe_csk_collection.nro",
-        "version": "5.0.6",
-        "game_versions": ["13.0.4"],
-        "nro_sha256": "4d91c3d771b5c846a58ba31e123ff2aca5847614493235e754930a621c19c892",
-        "unavailable": "The CSK Collection 6.0.0 fuer Smash 13.0.5 fehlt. Die oeffentliche Version 5.0.6 ist inkompatibel. Bitte die passende Bibliothek vom Autor beziehen und als Mod importieren: https://gamebanana.com/mods/499008",
-        "url": "https://gamebanana.com/dl/1745532",
-        "sha256": "6a4c07f206d4b42945d08d86f1d5959c39d0c6f784b04236ee7f5e006b1cd64f",
+        "version": "6.0.0",
+        "game_versions": ["13.0.5"],
+        "nro_sha256": "5c4e39ef3cbc6f03792483a23542e34a4ce9212b77a9cf265380339d39787efc",
+        "url": "https://gamebanana.com/dl/1875621",
+        "sha256": "5ebf9d1426494e901da3fe2c1a291de1d2e5258efe77d4eefeb100ea3762d3ab",
         "member": "atmosphere/contents/01006A800016E000/romfs/skyline/plugins/libthe_csk_collection.nro",
+        "variants": [{
+            "filename": "libthe_csk_collection.nro", "version": "5.0.6",
+            "game_versions": ["13.0.4"],
+            "nro_sha256": "4d91c3d771b5c846a58ba31e123ff2aca5847614493235e754930a621c19c892",
+            "url": "https://gamebanana.com/dl/1745532",
+            "sha256": "6a4c07f206d4b42945d08d86f1d5959c39d0c6f784b04236ee7f5e006b1cd64f",
+            "member": "atmosphere/contents/01006A800016E000/romfs/skyline/plugins/libthe_csk_collection.nro",
+        }],
     },
     "one_slot_effects": {
         "filename": "libone_slot_eff.nro",
@@ -44,6 +51,7 @@ MAX_ARTIFACT = 16 * 1024**2
 
 
 def required(plugins, asset_paths=()):
+    plugins, asset_paths = list(plugins), list(asset_paths)
     result = set()
     provided = {Path(p).name.casefold() for p in plugins}
     for plugin in plugins:
@@ -54,9 +62,14 @@ def required(plugins, asset_paths=()):
                 and record["filename"].casefold() not in provided
             ):
                 result.add(key)
+    if any(re.search(r'(?:^|/)fighter/[^/]+/model/body/c(\d{2,})(?:/|$)', p, re.I)
+           and any(int(n) > 7 for n in re.findall(r'/model/body/c(\d+)', p, re.I))
+           for p in asset_paths):
+        if REGISTRY['csk']['filename'].casefold() not in provided:
+            result.add('csk')
     # Slotted effects need a shared effect loader even when the gameplay NRO
     # does not import that library directly. Standard slots remain untouched.
-    if plugins and any(
+    if any(
         re.search(r"(?:^|/)effect/.*(?:[/_]c)(\d{2,})(?:[/. _]|$)", p, re.I)
         and any(int(n) > 7 for n in re.findall(r"(?:[/_]c)(\d{2,})", p, re.I))
         for p in asset_paths
@@ -66,40 +79,36 @@ def required(plugins, asset_paths=()):
     return sorted(result)
 
 
-def fingerprint(keys):
-    return {key: REGISTRY[key]["sha256"] for key in sorted(keys)}
+def game_version(repo):
+    import drybowser as base
+    return json.loads((base.build_dir(Path(repo)) / 'state.json').read_text(encoding='utf-8'))['game_version']
+
+
+def definition(repo, key):
+    record = REGISTRY[key]
+    if not record.get('game_versions'):
+        return record
+    version = game_version(repo)
+    for candidate in [record, *record.get('variants', [])]:
+        if version in candidate.get('game_versions', []):
+            return candidate
+    raise ValueError(record['filename'] + ' ist nicht fuer Spielversion ' + str(version) + ' freigegeben.')
+
+
+def fingerprint(keys, repo=None):
+    return {key: (definition(repo, key) if repo is not None else REGISTRY[key])["sha256"] for key in sorted(keys)}
 
 
 def preflight(repo, keys):
     """Reject known game-version mismatches before downloading or compiling."""
-    if not any(REGISTRY[key].get("game_versions") for key in keys):
-        return
-    import drybowser as base
-
-    state = json.loads(
-        (base.build_dir(Path(repo)) / "state.json").read_text(encoding="utf-8")
-    )
-    version = state.get("game_version")
     for key in keys:
-        record = REGISTRY[key]
-        if record.get("game_versions") and version not in record["game_versions"]:
-            raise ValueError(
-                record.get("unavailable")
-                or (
-                    record["filename"]
-                    + " ist nicht fuer Spielversion "
-                    + str(version)
-                    + " freigegeben."
-                )
-            )
+        definition(repo, key)
 
 
 def check_provided(repo, plugins):
     """Recognize incompatible upstream binaries even when supplied or renamed."""
-    by_hash = {
-        r["nro_sha256"]: key for key, r in REGISTRY.items() if r.get("nro_sha256")
-    }
-    found = set()
+    by_hash = {r['nro_sha256']: r for main in REGISTRY.values()
+               for r in [main, *main.get('variants', [])] if r.get('nro_sha256')}
     for path in plugins:
         path = Path(path)
         if (
@@ -110,10 +119,10 @@ def check_provided(repo, plugins):
         ):
             continue
         with path.open("rb") as stream:
-            key = by_hash.get(hashlib.file_digest(stream, "sha256").hexdigest())
-        if key:
-            found.add(key)
-    preflight(repo, found)
+            record = by_hash.get(hashlib.file_digest(stream, "sha256").hexdigest())
+        if record and record.get('game_versions') and game_version(repo) not in record['game_versions']:
+            raise ValueError(record['filename'] + ' ' + record['version'] + ' ist nicht fuer Spielversion '
+                             + str(game_version(repo)) + ' freigegeben. Passende Version vom Autor beziehen.')
 
 
 def _download(record):
@@ -139,7 +148,7 @@ def _download(record):
 
 def obtain(repo, key):
     preflight(repo, [key])
-    record = REGISTRY[key]
+    record = definition(repo, key)
     folder = Path(repo) / "opensmash_mods/plugin-dependencies"
     folder.mkdir(exist_ok=True)
     if folder.is_symlink() or folder.is_junction():
@@ -165,6 +174,8 @@ def obtain(repo, key):
         if entry.file_size > MAX_ARTIFACT:
             raise ValueError("Gameplay-Bibliothek ist zu gross.")
         data = archive.read(entry)
+    if record.get('nro_sha256') and hashlib.sha256(data).hexdigest() != record['nro_sha256']:
+        raise ValueError('Pruefsumme der extrahierten Gameplay-Bibliothek stimmt nicht.')
     target = folder / (record["sha256"] + "-" + record["filename"])
     if target.is_symlink() or target.is_junction():
         raise ValueError("Verknuepfung im Abhaengigkeitscache.")

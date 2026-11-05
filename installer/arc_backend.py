@@ -45,7 +45,7 @@ def resolve_file(repo,key):
 
 def signature():
     return {name:base.digest(Path(__file__).with_name(name))
-            for name in ('arc_backend.py','arc_simd.py','arc_fs_support.h')}
+            for name in ('arc_backend.py','arc_simd.py','arc_fs_support.h','legacy_addresses.py')}
 
 
 def source_inputs(repo):
@@ -121,6 +121,7 @@ def ensure(repo):
     ready=valid(repo)
     if ready: return ready
     inputs=source_inputs(repo)
+    builder_signature=signature()
     build=base.build_dir(repo)
     original=build/'work'
     state=json.loads((build/'state.json').read_text())
@@ -237,7 +238,8 @@ def ensure(repo):
     outputs=[original/EXE,original/DLL,work/'plugin_bin/sky_arcropolis.dll',work/'plugin_bin/plugins.txt']
     outputs += [template/rel for rel in expected]
     if source_inputs(repo)!=inputs: raise ValueError('OpenSmash-Quellen haben sich waehrend des Builds geaendert; erneut versuchen.')
-    record=dict(app=APP,version=VERSION,builder=signature(),source_inputs=inputs,native_sha256=base.digest(original/'ssbu_native.exe'),
+    if signature()!=builder_signature: raise ValueError('Loader-Buildwerkzeug waehrend des Builds geaendert; erneut versuchen.')
+    record=dict(app=APP,version=VERSION,builder=builder_signature,source_inputs=inputs,native_sha256=base.digest(original/'ssbu_native.exe'),
                 files={file_key(repo,p):base.digest(p) for p in outputs},probe=str(probe.relative_to(repo)))
     base.write_json(folder/'runtime.json',record)
     return record
@@ -271,11 +273,34 @@ def build_worker(kind,work,original):
     marker='static const ImportDef fs_imports[] = {'
     if source.count(marker)!=1: raise ValueError('Unbekannte OpenSmash-Dateisystem-Version.')
     header=Path(__file__).with_name('arc_fs_support.h')
-    source=source.replace(marker,'#include "'+header.as_posix()+'"\n'+marker+
+    view='static int view_path(Mount *m, const char *rel, char *out) {'
+    directories='if (m->work[0]) { join(roots[n], m->work, rel); if (is_dir(roots[n])) n++; }'
+    committed='if (!m->work[0] || !tomb_hides(m, rel)) { join(roots[n], m->root, rel); if (is_dir(roots[n])) n++; }'
+    if source.count(view)!=1 or source.count(directories)!=1 or source.count(committed)!=1:
+        raise ValueError('Unbekannte OpenSmash-RomFS-Version; Plugin-Sicht nicht eingebaut.')
+    source=source.replace(view, view[:-1]+';\n#include "'+header.as_posix()+'"\n'+view+
+        '\n    int overlay = arc_plugin_view(m, rel, out);\n    if (overlay >= 0) return overlay;')
+    source=source.replace(directories,
+        'if (arc_plugin_view(m, rel, host) >= 0) { snprintf(roots[n++], MAX_PATH, "%s", host); }\n'
+        '            else '+directories)
+    source=source.replace(committed,
+        'if (arc_plugin_view(m, rel, host) < 0 && (!m->work[0] || !tomb_hides(m, rel))) { join(roots[n], m->root, rel); if (is_dir(roots[n])) n++; }')
+    source=source.replace(marker,marker+
                           '\n {FS("24GetFileTimeStampForDebugEPNS0_13FileTimeStampEPKc"),arc_GetFileTimeStamp},')
     custom=work/'nnfs_modmanager.c'
     custom.write_text(source)
     build.HOST_SOURCES=[str(custom) if p=='nnfs.c' else p for p in build.HOST_SOURCES]
+    alias_header=work/'legacy_main_aliases.h'
+    if alias_header.is_file():
+        rt=(work/'hostrt.c').read_text()
+        call='void call_indirect(Ctx *c, uint64_t addr) {'
+        failure='if (!fn) guest_trap("indirect call to an address that is not a known function", addr);'
+        if rt.count(call)!=1 or rt.count(failure)!=2:
+            raise ValueError('Unbekannte OpenSmash-Aufrufaufloesung; keine Kompatibilitaets-Aliase eingebaut.')
+        rt=rt.replace(call,'#include "'+alias_header.as_posix()+'"\n'+call)
+        rt=rt.replace(failure,'if (!fn) { uint64_t mapped=arc_legacy_target(c,addr); if(mapped!=addr) fn=lookup_guest(mapped); }\n        '+failure,1)
+        patched=work/'hostrt_modmanager.c';patched.write_text(rt)
+        build.HOST_SOURCES=[str(patched) if p=='hostrt.c' else p for p in build.HOST_SOURCES]
     build.GAME_DLL=DLL
     os.environ['RECOMP_EXE']=EXE
     return build.cmd_link(host_only=True)
