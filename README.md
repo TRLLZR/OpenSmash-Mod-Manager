@@ -45,8 +45,9 @@ Mod lists can be shared without bundling the mod files.
 The installed manager checks GitHub Releases on startup, downloads a newer stable
 installer, verifies its SHA-256 and reopens after installation. You can skip the
 download. Install an updater-enabled build once to enable this on older copies.
-For a new release, use a matching `vX.Y.Z` tag and attach the built
-`OpenSmash_Mod_Manager_Installer_vX.Y.Z.zip` and its accompanying source ZIP.
+To publish a new version, update the build version and create
+`release/vX.Y.Z` from the verified main commit. GitHub builds and publishes the
+guided Setup executable, installer ZIP and matching source ZIP.
 
 ## Compatibility
 

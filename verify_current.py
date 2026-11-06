@@ -11,7 +11,7 @@ import modmanager as m
 r = configured_repo()
 app = installed_app()
 installation = json.loads((app / "install-state.json").read_text(encoding="utf-8"))
-assert installation["version"] == "3.7.0"
+assert installation["version"] == "3.7.1"
 with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Classes\opensmashmm") as key:
     assert winreg.QueryValueEx(key, "URL Protocol")[0] == ""
     assert winreg.QueryValueEx(key, "OpenSmashOwner")[0] == "OpenSmash.Mods.Desktop"
@@ -43,13 +43,13 @@ if profile.get("plugin_runtime"):
     import plugin_runtime
 
     plugin_runtime.valid(r, profile["plugin_runtime"])
-archive = r.parent / "OpenSmash_Mod_Manager_Installer_v3.7.0.zip"
+archive = r.parent / "OpenSmash_Mod_Manager_Installer_v3.7.1.zip"
 assert (
     m.base.digest(archive) == archive.with_suffix(".zip.sha256").read_text().split()[0]
 )
 result = dict(
     ok=True,
-    version="3.7.0",
+    version="3.7.1",
     mods=len(state["mods"]),
     active=sum(v["enabled"] for v in state["mods"].values()),
     app_files_verified=len(installation["files"]),

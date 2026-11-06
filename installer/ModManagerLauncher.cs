@@ -20,8 +20,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-[assembly:AssemblyVersion("3.7.0.0")]
-[assembly:AssemblyFileVersion("3.7.0.0")]
+[assembly:AssemblyVersion("3.7.1.0")]
+[assembly:AssemblyFileVersion("3.7.1.0")]
 [assembly:AssemblyProduct("OpenSmash Mod Manager")]
 
 namespace OpenSmash

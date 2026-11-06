@@ -1,4 +1,4 @@
-OpenSmash Mod Manager 3.7.0 - Third-party notices
+OpenSmash Mod Manager 3.7.1 - Third-party notices
 
 Original manager, setup and UI code: MIT, see LICENSE.txt.
 
@@ -70,7 +70,7 @@ No 7-Zip installation or file association is registered.
 Official distribution: https://github.com/ip7z/7zip/releases/tag/26.05
 Provenance and binary/source SHA-256: 7ZIP_DISTRIBUTION.json.
 Corresponding unmodified source is included alongside the manager source at
-third_party/7zip/7z2605-src.tar.xz in OpenSmash_Mod_Manager_Source_v3.7.0.zip.
+third_party/7zip/7z2605-src.tar.xz in OpenSmash_Mod_Manager_Source_v3.7.1.zip.
 Distributors should publish that source package alongside the installer.
 Upstream source: https://github.com/ip7z/7zip/releases/download/26.05/7z2605-src.tar.xz
 

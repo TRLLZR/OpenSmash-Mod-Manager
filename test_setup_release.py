@@ -16,7 +16,7 @@ test = Path(tempfile.mkdtemp(prefix="Setup lifecycle ", dir=work / "test-scratch
     json.dumps(dict(app="OpenSmash.Mods.Desktop"))
 )
 app = test / "App with spaces"
-setup = work / "release-3.7.0/Setup.exe"
+setup = work / "release-3.7.1/Setup.exe"
 checks = []
 reg = (
     "Software\\OpenSmashModsInstallerTests\\"
@@ -80,12 +80,12 @@ def run(*args, ok=True):
 
 def stage_update():
     """Feed the real updater an offline GitHub response and the built release ZIP."""
-    release = work / "OpenSmash_Mod_Manager_Installer_v3.7.0.zip"
+    release = work / "OpenSmash_Mod_Manager_Installer_v3.7.1.zip"
     metadata = test / "latest-release.json"
-    metadata.write_text(json.dumps(dict(tag_name="v3.7.0", draft=False, prerelease=False, assets=[
+    metadata.write_text(json.dumps(dict(tag_name="v3.7.1", draft=False, prerelease=False, assets=[
         dict(name=release.name, state="uploaded", size=release.stat().st_size,
              digest="sha256:" + hashlib.sha256(release.read_bytes()).hexdigest(),
-             browser_download_url="https://github.com/TRLLZR/OpenSmash-Mod-Manager/releases/download/v3.7.0/" + release.name)
+             browser_download_url="https://github.com/TRLLZR/OpenSmash-Mod-Manager/releases/download/v3.7.1/" + release.name)
     ])), encoding="utf-8")
     src = work / "installer"
     tester = test / "StageUpdate.exe"
@@ -232,30 +232,30 @@ try:
     with zipfile.ZipFile(previous_package) as archive:
         old_setup = test / "Previous Setup.exe"
         old_setup.write_bytes(
-            archive.read("OpenSmash_Mod_Manager_Installer_v3.6.0/Setup.exe")
+            archive.read("OpenSmash_Mod_Manager_Installer_v3.7.0/Setup.exe")
         )
     new_setup = setup
     setup = old_setup
     run("--install")
     setup = new_setup
-    assert json.loads((app / "install-state.json").read_text())["version"] == "3.6.0"
+    assert json.loads((app / "install-state.json").read_text())["version"] == "3.7.0"
     prefs = json.loads((test / "settings.json").read_text())
     prefs.update(glass="Frosted", theme="Dark", repo=str(repo))
     (test / "settings.json").write_text(json.dumps(prefs))
     old_snapshot = snapshot()
     setup = stage_update()
-    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.0")
+    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.1")
     setup = new_setup
     assert snapshot() == old_snapshot
-    assert json.loads((app / "install-state.json").read_text())["version"] == "3.7.0"
+    assert json.loads((app / "install-state.json").read_text())["version"] == "3.7.1"
     check_protocol()
     assert json.loads((test / "settings.json").read_text())["theme"] == "Dark"
     check_links()
     checks += [
-        "verified release ZIP upgrades 3.6.0 to 3.7.0 and preserves game data, preferences and shortcuts"
+        "verified release ZIP upgrades 3.7.0 to 3.7.1 and preserves game data, preferences and shortcuts"
     ]
     installed = (app / "install-state.json").read_bytes()
-    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.0", ok=False)
+    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.1", ok=False)
     assert (app / "install-state.json").read_bytes() == installed
     checks += ["automatic reinstall of the same version is rejected"]
     run("--uninstall")
@@ -401,7 +401,7 @@ try:
         + hashlib.sha256(str(test).encode()).hexdigest()[:16]
     )
     with winreg.OpenKey(winreg.HKEY_CURRENT_USER, reg) as k:
-        assert winreg.QueryValueEx(k, "DisplayVersion")[0] == "3.7.0"
+        assert winreg.QueryValueEx(k, "DisplayVersion")[0] == "3.7.1"
         assert winreg.QueryValueEx(k, "DisplayName")[0] == "OpenSmash Mod Manager"
         uninstall = winreg.QueryValueEx(k, "UninstallString")[0]
         assert "--test-root" in uninstall and str(app) in uninstall

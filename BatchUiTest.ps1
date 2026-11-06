@@ -155,7 +155,7 @@ $testTimer.add_Tick({
    7 {
     Check ($script:rows.Count -eq 0 -and $ui.BatchSummary.Text -match '0 installiert') 'cancelled queue leaves profile unchanged'
     Check (!$script:busy -and $ui.ZipButton.IsEnabled) 'controls recover after cancellation'
-    @{ok=$true;version='3.7.0';checks=$script:testChecks;batchRows=$ui.BatchList.Items.Count;downloadPollMilliseconds=$script:downloadPollMilliseconds}|ConvertTo-Json -Depth 4|Set-Content -LiteralPath $script:testReport -Encoding UTF8
+    @{ok=$true;version='3.7.1';checks=$script:testChecks;batchRows=$ui.BatchList.Items.Count;downloadPollMilliseconds=$script:downloadPollMilliseconds}|ConvertTo-Json -Depth 4|Set-Content -LiteralPath $script:testReport -Encoding UTF8
     $testTimer.Stop();$window.Close()
    }
   }

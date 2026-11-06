@@ -1077,7 +1077,7 @@ $timer.add_Tick({
             $window.UpdateLayout()
             $report = @{language  =[OpenSmash.Localizer]::Language
                 unifiedButtons    =($ui.ZipButton.Template -eq $ui.PlayButton.Template -and $ui.MoreButton.Template -eq $ui.VanillaButton.Template)
-                version           ='3.7.0'
+                version           ='3.7.1'
                 ready             =($null -ne $script:state)
                 theme             =$VisualTestTheme
                 dark              =$script:dark
