@@ -67,14 +67,14 @@ for theme, solid in [
 assert (repo / "opensmash_mods/state.json").read_bytes() == before
 flow = json.loads((work / "native-ui-3.7-result.json").read_text(encoding="utf-8-sig"))
 assert flow["ok"] and len(flow["checks"]) >= 6
-assert flow["version"] == "3.7.1"
+assert flow["version"] == "3.7.2"
 empty = dict(
     ready=True, mods=0, verified_by="isolated fresh setup and native view test"
 )
 (work / "ui-release-result.json").write_text(
     json.dumps(
         dict(
-            version="3.7.1",
+            version="3.7.2",
             variants=reports,
             flow=flow,
             empty=empty,
@@ -87,7 +87,7 @@ print(
     json.dumps(
         dict(
             ok=True,
-            version="3.7.1",
+            version="3.7.2",
             view_variants=4,
             layout_cases=80,
             ui_flow_checks=len(flow["checks"]),

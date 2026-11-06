@@ -5,7 +5,7 @@ from pathlib import Path
 
 work = Path(__file__).resolve().parent
 src = work / "installer"
-out = work / "release-3.7.1"
+out = work / "release-3.7.2"
 out.mkdir(exist_ok=True)
 compiler = Path(os.environ["WINDIR"]) / "Microsoft.NET/Framework64/v4.0.30319/csc.exe"
 manifest = src / "Setup.manifest"
@@ -167,7 +167,7 @@ with zipfile.ZipFile(payload, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
     z.writestr(
         "PAYLOAD.json",
         json.dumps(
-            dict(app="OpenSmash.Mods.Desktop", version="3.7.1", files=sums), indent=2
+            dict(app="OpenSmash.Mods.Desktop", version="3.7.2", files=sums), indent=2
         ),
     )
 with zipfile.ZipFile(payload) as z:
@@ -204,10 +204,10 @@ release_files = [
     ),
     encoding="ascii",
 )
-target = work / "OpenSmash_Mod_Manager_Installer_v3.7.1.zip"
+target = work / "OpenSmash_Mod_Manager_Installer_v3.7.2.zip"
 with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
     for n in release_files + ["SHA256SUMS.txt"]:
-        z.write(out / n, "OpenSmash_Mod_Manager_Installer_v3.7.1/" + n)
+        z.write(out / n, "OpenSmash_Mod_Manager_Installer_v3.7.2/" + n)
 with zipfile.ZipFile(target) as z:
     assert z.testzip() is None
 sha = hashlib.sha256(target.read_bytes()).hexdigest()

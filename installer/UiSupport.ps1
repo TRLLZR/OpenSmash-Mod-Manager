@@ -313,8 +313,8 @@ function Update-ImportActions {
     }
     $ui.ConflictDisabled.IsEnabled = [bool]$canChoose
     $ui.ConflictReplace.IsEnabled = ([bool]$canChoose -and @($selected.Raw.conflict_ids).Count -gt 0)
-    $ui.ConflictOverlay.IsEnabled = $ui.ConflictReplace.IsEnabled
-    $ui.ConflictUnderlay.IsEnabled = $ui.ConflictReplace.IsEnabled
+    $ui.ConflictOverlay.IsEnabled = ($ui.ConflictReplace.IsEnabled -and !$selected.Raw.framework_conflict)
+    $ui.ConflictUnderlay.IsEnabled = $ui.ConflictOverlay.IsEnabled
 }
 function Set-BatchRows($items) {
     $labels = @{ready =(L 'Bereit')

@@ -12,11 +12,11 @@ internal static class StageUpdate
     static int Main(string[] args)
     {
         string metadata = File.ReadAllText(args[0]);
-        var current = new Version("3.7.0");
+        var current = new Version("3.7.1");
         var release = OpenSmash.StartupUpdate.SelectRelease(metadata, current);
-        Assert(release != null && release.Version == new Version("3.7.1"), "Stable update was not selected.");
+        Assert(release != null && release.Version == new Version("3.7.2"), "Stable update was not selected.");
         Assert(OpenSmash.StartupUpdate.SelectRelease(metadata, release.Version) == null, "Same-version update accepted.");
-        Assert(OpenSmash.StartupUpdate.SelectRelease(metadata, new Version("3.7.2")) == null, "Downgrade accepted.");
+        Assert(OpenSmash.StartupUpdate.SelectRelease(metadata, new Version("3.7.3")) == null, "Downgrade accepted.");
         Assert(OpenSmash.StartupUpdate.SelectRelease(metadata.Replace("\"prerelease\": false",
             "\"prerelease\": true"), current) == null, "Prerelease accepted.");
         Assert(!OpenSmash.StartupUpdate.DownloadHost(new Uri("https://github.com.example/update")), "Foreign host accepted.");

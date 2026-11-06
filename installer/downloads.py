@@ -570,7 +570,7 @@ class Queue:
                     time.sleep(0.1)
 
     def preview(self, ids, callback=None, cancel=None):
-        import modmanager as m, batch_import
+        import modmanager as m
 
         if not isinstance(ids, list) or not ids or len(ids) > 1024:
             raise ValueError("Bitte abgeschlossene Downloads auswaehlen.")
@@ -591,20 +591,7 @@ class Queue:
                 )
             sources.append(str(path))
             origins[str(path.resolve())] = job["origin"]
-        result = m.batch_preview(self.repo, sources, callback, cancel)
-        folder = batch_import.path(m, self.repo, result["job_id"])
-        plan = json.loads((folder / "plan.json").read_text(encoding="utf-8"))
-        for item in plan["items"]:
-            if "record" in item:
-                item["origin"] = origins.get(str(Path(item["source"]).resolve()))
-                item.update(
-                    compatibility="Experimental",
-                    evidence="Importstruktur geprueft; Spielverhalten nicht bestaetigt.",
-                )
-        m.base.write_json(folder / "plan.json", plan)
-        result["token"] = m.base.digest(folder / "plan.json")
-        result["items"] = [batch_import.public(i) for i in plan["items"]]
-        return result
+        return m.batch_preview(self.repo, sources, callback, cancel, origins=origins)
 
 
 def updates(repo, client):

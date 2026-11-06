@@ -35,10 +35,10 @@ GameBanana requirements or the packaged `info.toml`. Framework downloads use
 pinned checksums. The first plugin build can take several minutes.
 
 Smashline 2 changed its cloning ABI. For mods such as the
-[Gogeta Moveset](https://gamebanana.com/mods/493356), pause older movesets that use
-the incompatible or unversioned cloning API before enabling the new mod. Use
-**Install paused** in the preview if you want to keep both in the library and
-switch between them later.
+[Gogeta Moveset](https://gamebanana.com/mods/493356), the import preview lists
+incompatible active movesets and their overlays. Choose **Replace conflicting mods**
+to pause those entries and enable the new mod, or **Install paused** to keep the
+current selection. Undo restores the previous selection.
 
 Older Cuphead binaries also call fixed 13.0.4 game addresses. On 13.0.5, the
 manager's conservative compatibility pass requires your own `main.elf` files in

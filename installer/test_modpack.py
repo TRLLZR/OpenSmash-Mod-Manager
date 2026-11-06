@@ -2,7 +2,7 @@ import hashlib, json, struct, unittest, zipfile
 from pathlib import Path
 from unittest.mock import patch
 import test_modmanager as fixture
-import library_export, plugin_runtime
+import batch_import, library_export, plugin_runtime
 
 m = fixture.m
 
@@ -88,6 +88,39 @@ class ModpackTests(unittest.TestCase):
         source.mkdir()
         (source / "plugin.nro").write_bytes(nro("different_plugin"))
         self.assertEqual(1, m.batch_preview(self.repo, [source])["ready"])
+
+    def test_smashline_conflict_lists_active_base_and_dependent_overlay(self):
+        legacy = self.mod("Legacy moveset", "fighter/example/model/body/c120/old.marker")
+        (legacy / "plugin.nro").write_bytes(nro("legacy") + b"smashline_clone_weapon\0old.marker")
+        overlay = self.mod("Legacy overlay", "fighter/example/model/body/c120/old.marker", "patch")
+        current = self.mod("Current moveset", "fighter/example/model/body/c121/new.marker")
+        (current / "plugin.nro").write_bytes(nro("current"))
+        origin = dict(provider="GameBanana", requirements=[dict(
+            name="Smashline 2", url="https://github.com/HDR-Development/smashline/releases"
+        )])
+        with patch.object(plugin_runtime, "ensure", return_value=None):
+            installed = m.install(self.repo, legacy)
+            base = installed["state"]["mods"][0]["id"]
+            plan = m.batch_preview(self.repo, [overlay])
+            plan = batch_import.configure(m, self.repo, plan["job_id"], plan["token"], {"0": "overlay"})
+            result = m.batch_install(self.repo, plan["job_id"], plan["token"])
+            self.assertEqual(1, result["installed"])
+            skin = next(i["id"] for i in result["state"]["mods"] if i["id"] != base)
+            plan = m.batch_preview(self.repo, [current], origins={str(current): origin})
+            item = plan["items"][0]
+            self.assertEqual("conflict", item["status"])
+            self.assertTrue(item["framework_conflict"])
+            self.assertEqual({base, skin}, set(item["conflict_ids"]))
+            with self.assertRaisesRegex(ValueError, "Smashline-Konflikt"):
+                batch_import.configure(m, self.repo, plan["job_id"], plan["token"], {"0": "overlay"})
+            plan = batch_import.configure(m, self.repo, plan["job_id"], plan["token"], {"0": "replace"})
+            result = m.batch_install(self.repo, plan["job_id"], plan["token"])
+            self.assertEqual(1, result["installed"])
+            self.assertEqual(["Current moveset"], [
+                i["name"] for i in result["state"]["mods"] if i["enabled"]
+            ])
+            m.undo(self.repo)
+            self.assertEqual({base, skin}, {i["id"] for i in m.listing(self.repo)["mods"] if i["enabled"]})
 
     def test_windows_program_still_rejected(self):
         source = self.mod()

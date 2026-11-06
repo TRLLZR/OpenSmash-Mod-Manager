@@ -13,13 +13,13 @@ using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-[assembly:AssemblyVersion("3.7.1.0")]
+[assembly:AssemblyVersion("3.7.2.0")]
 [assembly:AssemblyProduct("OpenSmash Mod Manager Setup")]
 [assembly:System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.8")]
 
 internal static class Setup
 {
-    internal const string App = "OpenSmash.Mods.Desktop", Version = "3.7.1";
+    internal const string App = "OpenSmash.Mods.Desktop", Version = "3.7.2";
     internal const string DisplayName = "OpenSmash Mod Manager";
     internal const bool DefaultDesktopShortcut = true;
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = 16 * 1024 * 1024 };

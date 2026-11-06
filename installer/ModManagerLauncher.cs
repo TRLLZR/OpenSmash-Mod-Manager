@@ -20,8 +20,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-[assembly:AssemblyVersion("3.7.1.0")]
-[assembly:AssemblyFileVersion("3.7.1.0")]
+[assembly:AssemblyVersion("3.7.2.0")]
+[assembly:AssemblyFileVersion("3.7.2.0")]
 [assembly:AssemblyProduct("OpenSmash Mod Manager")]
 
 namespace OpenSmash
@@ -701,7 +701,7 @@ internal static class ModManagerLauncher
                     else if (drops.Count > 1)
                         shell.AddParameter("DropPaths", drops.ToArray());
                     shell.Invoke();
-                    if (shell.HadErrors)
+                    if (shell.Streams.Error.Count != 0)
                         throw new InvalidOperationException(shell.Streams.Error[0].ToString());
                 }
             }

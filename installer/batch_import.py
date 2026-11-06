@@ -252,7 +252,7 @@ def active(folder):
         lock.unlink(missing_ok=True)
 
 
-def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
+def preview(m, repo, sources, callback=None, cancel=None, previous_job=None, origins=None):
     if not sources or len(sources) > MAX_ITEMS:
         raise ValueError(
             "Bitte 1 bis 1024 ZIP-/RAR-/7z-Dateien oder Mod-Ordner auswaehlen."
@@ -308,6 +308,40 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
         return destination
 
     state = m.load(repo)
+    from plugin_runtime import SmashlineConflict, core_dependencies, package_plugins
+
+    origins = origins or {}
+    plugin_claims = {}
+
+    def framework_conflicts(record, root):
+        claims = package_plugins(record, root)
+        if not claims:
+            return set()
+        core_dependencies(claims, [])
+        plugin_claims[record["id"]] = claims
+        conflicts = set()
+        for key, active_record in text_records.items():
+            if key not in plugin_claims:
+                plugin_claims[key] = package_plugins(
+                    active_record, text_roots[key], installed=key in state["mods"]
+                )
+            try:
+                core_dependencies(claims + plugin_claims[key], [])
+            except SmashlineConflict:
+                conflicts.add(key)
+        if conflicts:
+            # Pausing a base must also pause its active overlays. Otherwise
+            # their gameplay markers would block launching the new selection.
+            while True:
+                overlays = {
+                    key for key, status in state["mods"].items()
+                    if status["enabled"] and conflicts.intersection(status.get("overlays", []))
+                }
+                if overlays <= conflicts:
+                    break
+                conflicts.update(overlays)
+        return conflicts
+
     for key, status in state["mods"].items():
         record = m.metadata(repo, key, verify=False)
         seen_signatures[signature(record)] = ("existing", status["name"])
@@ -378,6 +412,8 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
                         try:
                             record = m.analyze(repo, root)
                             record.pop("assets_root")
+                            if str(source) in origins:
+                                record["origin"] = origins[str(source)]
                             import library_media
 
                             library_media.capture(repo, record["id"], root)
@@ -458,16 +494,29 @@ def preview(m, repo, sources, callback=None, cancel=None, previous_job=None):
                                         }
                                     ),
                                 )
+                            framework_ids = framework_conflicts(record, root) if item["enabled"] else set()
+                            if framework_ids:
+                                names_in_conflict = sorted(text_records[key]["name"] for key in framework_ids)
+                                message = "Smashline-Konflikt: " + ", ".join(names_in_conflict)
+                                if item["status"] == "conflict":
+                                    message += "\n" + item["message"]
+                                item.update(
+                                    status="conflict", message=message,
+                                    framework_conflict=True,
+                                    conflict_ids=sorted(framework_ids | set(item.get("conflict_ids", []))),
+                                )
                             original_name = item["name"]
                             suffix = 2
                             while item["name"].casefold() in names:
                                 item["name"] = original_name[:125] + " (%d)" % suffix
                                 suffix += 1
                             if item["name"] != original_name:
-                                item["message"] = (
+                                name_message = (
                                     "Gleicher Name, anderer Inhalt: separater Eintrag "
                                     + item["name"]
                                 )
+                                item["message"] = (item["message"] + "\n" + name_message
+                                                   if item["status"] == "conflict" else name_message)
                             names.add(item["name"].casefold())
                             record["name"] = item["name"]
                             if source.is_dir():
@@ -621,6 +670,8 @@ def configure(m, repo, job_id, expected, choices):
                     message="Konfliktpartner werden pausiert. Rueckgaengig bleibt moeglich.",
                 )
             elif choice in ('overlay', 'underlay'):
+                if item.get("framework_conflict"):
+                    raise ValueError("Ein Smashline-Konflikt kann nicht ueberlagert werden.")
                 ids = item.get('conflict_ids', [])
                 if not ids or any(key not in state['mods'] for key in ids):
                     raise ValueError('Ueberlagern erfordert installierte Konfliktpartner; Vorschau wiederholen.')
@@ -801,7 +852,7 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                             raise ValueError("Datei fehlt in der geprueften Importkopie.")
                     was_present = (m.root(repo) / "library" / key).exists()
                     if item.get("origin"):
-                        record["origin"] = item["origin"]
+                        record["origin"] = item["origin"]  # Existing queued previews
                     # save_library verifies the copied bytes before publishing
                     # the library entry. A separate hash of the snapshot here
                     # would read every asset twice without protecting the copy.

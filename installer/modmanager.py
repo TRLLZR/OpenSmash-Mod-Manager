@@ -1027,12 +1027,12 @@ def play(repo, vanilla=False, callback=None, cancel=None):
     )
 
 
-def batch_preview(repo, sources, callback=None, cancel=None, previous_job=None):
+def batch_preview(repo, sources, callback=None, cancel=None, previous_job=None, origins=None):
     import batch_import
     from types import SimpleNamespace
 
     return batch_import.preview(
-        SimpleNamespace(**globals()), repo, sources, callback, cancel, previous_job
+        SimpleNamespace(**globals()), repo, sources, callback, cancel, previous_job, origins
     )
 
 

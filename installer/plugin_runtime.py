@@ -15,6 +15,10 @@ class PluginBuildError(ValueError):
     pass
 
 
+class SmashlineConflict(ValueError):
+    pass
+
+
 DEPENDENCIES = {
     "smashline": (
         "libsmashline_plugin.nro",
@@ -124,6 +128,34 @@ def packaged_api(info):
     )
 
 
+def apply_api_requirement(item, package_version, provider_version):
+    if item["module"] == "sky_smashline":
+        return item
+    versions = {item.get("smashline_api"), package_version, provider_version} - {None}
+    if len(versions) > 1:
+        raise ValueError("Widerspruechliche Smashline-Versionen fuer " + item["module"] + ".")
+    if versions:
+        item["smashline_api"] = versions.pop()
+    return item
+
+
+def package_plugins(record, root, installed=False):
+    entries = [entry for entry in record["entries"] if entry.get("kind") == "plugin"]
+    if not entries:
+        return []
+    origin = record.get("origin") or {}
+    provider_version = declared_api(origin.get("requirements") or []) if origin.get("provider") == "GameBanana" else None
+    info = next((entry for entry in record["entries"] if entry["path"] == "info.toml"), None)
+
+    def source(entry):
+        name = entry["path"] if installed else entry.get("source_path", entry["path"])
+        return base.contained(root, root / name)
+
+    package_version = packaged_api(source(info)) if info else None
+    return [apply_api_requirement(dict(path=entry["path"], **inspect_nro(source(entry))),
+                                  package_version, provider_version) for entry in entries]
+
+
 def core_dependencies(items, extra):
     supplied = {Path(i["path"]).name.casefold(): i for i in items}
     framework = supplied.get("libsmashline_plugin.nro")
@@ -134,13 +166,13 @@ def core_dependencies(items, extra):
     if framework:
         versions.add(framework.get("smashline_api", "1"))
     if len(versions) > 1:
-        raise ValueError("Smashline 1 und 2 benoetigen getrennte Mod-Auswahlen.")
+        raise SmashlineConflict("Smashline 1 und 2 benoetigen getrennte Mod-Auswahlen.")
     version = next(iter(versions), "1")
     if version == "2":
         ambiguous = [i["module"] for i in clients
                      if i.get("smashline_abi_changed") and not i.get("smashline_api")]
         if ambiguous:
-            raise ValueError(
+            raise SmashlineConflict(
                 "Smashline 2: unbekannte Klon-API in " + ", ".join(ambiguous)
                 + ". Passende Mod-Version verwenden oder diese Plugins getrennt aktivieren."
             )
@@ -253,18 +285,9 @@ def ensure(repo, profile, requirements=None):
     items = describe(profile)
     requirements = requirements or {}
     for item in items:
-        if item["module"] == "sky_smashline":
-            continue
         path = profile / item["path"]
-        versions = {
-            item.get("smashline_api"),
-            packaged_api(path.with_name("info.toml")),
-            requirements.get(path.parent.name),
-        } - {None}
-        if len(versions) > 1:
-            raise ValueError("Widerspruechliche Smashline-Versionen fuer " + item["module"] + ".")
-        if versions:
-            item["smashline_api"] = versions.pop()
+        apply_api_requirement(item, packaged_api(path.with_name("info.toml")),
+                              requirements.get(path.parent.name))
     plugin_dependencies.check_provided(repo, plugins(profile))
     extra = plugin_dependencies.required(
         plugins(profile),
