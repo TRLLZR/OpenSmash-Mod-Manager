@@ -33,6 +33,7 @@
     "Setup.cs",
     "Setup.manifest",
     "Start.ps1",
+    "StartupUpdate.cs",
     "THIRD_PARTY_NOTICES.txt",
     "Theme.ps1",
     "UNRAR_DISTRIBUTION.json",

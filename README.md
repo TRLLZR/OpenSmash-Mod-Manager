@@ -40,6 +40,14 @@ Pause mods to disable them, use Undo to restore a change, or choose Play vanilla
 The manager keeps your game saves and settings. Back up anything important.
 Mod lists can be shared without bundling the mod files.
 
+## Updates
+
+The installed manager checks GitHub Releases on startup, downloads a newer stable
+installer, verifies its SHA-256 and reopens after installation. You can skip the
+download. Install an updater-enabled build once to enable this on older copies.
+For a new release, use a matching `vX.Y.Z` tag and attach the built
+`OpenSmash_Mod_Manager_Installer_vX.Y.Z.zip` and its accompanying source ZIP.
+
 ## Compatibility
 
 Standard ARCropolis assets and locally translatable Skyline NRO plugins are

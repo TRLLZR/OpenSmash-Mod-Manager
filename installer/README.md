@@ -16,6 +16,10 @@ Mod builds also need OpenSmash build inputs, LLVM/Clang,
 Microsoft C++ Build Tools and the Windows SDK. The first build can take minutes.
 Not every gameplay plugin is compatible. Read the mod author's requirements.
 
+On startup the installed manager checks GitHub Releases and installs newer
+stable builds after verifying the download. Select Skip update to open the
+current version. Update details are in `%LOCALAPPDATA%/OpenSmashMods/update.log`.
+
 Your game, saves, settings and mod library are kept separate from app upgrades.
 Keep backups. Only install mods you trust; do not run downloaded installers/scripts.
 

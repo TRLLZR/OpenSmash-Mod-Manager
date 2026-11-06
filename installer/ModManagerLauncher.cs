@@ -627,6 +627,9 @@ internal static class ModManagerLauncher
     {
         try
         {
+            bool skipUpdate = args.Length > 0 && args[0] == "--skip-update";
+            if (skipUpdate)
+                args = args.Skip(1).ToArray();
             string incoming = null;
             if (args.Any(a => a == "--gamebanana-link"))
             {
@@ -638,6 +641,8 @@ internal static class ModManagerLauncher
                     return 0;
                 args = new string[0];
             }
+            if (!skipUpdate && incoming == null && OpenSmash.StartupUpdate.TryStart(args))
+                return 0;
             OpenSmash.LinkInbox.Start();
             OpenSmash.UiNative.ConfigureDpi();
             string script = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ModManager.ps1");

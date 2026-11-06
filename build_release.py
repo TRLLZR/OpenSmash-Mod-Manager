@@ -28,6 +28,7 @@ common = [
     "/reference:System.Drawing.dll",
     "/reference:System.Web.Extensions.dll",
     "/reference:System.IO.Compression.dll",
+    "/reference:System.IO.Compression.FileSystem.dll",
     "/reference:System.Core.dll",
     "/reference:Microsoft.CSharp.dll",
 ]
@@ -49,6 +50,7 @@ subprocess.run(
         "/define:UNINSTALL",
         f'/out:{src / "Uninstall.exe"}',
         str(src / "Setup.cs"),
+        str(src / "StartupUpdate.cs"),
         str(src / "Localization.cs"),
         str(src / "AeroButton.cs"),
         f'/resource:{src / "locales.json"},OpenSmash.Locales.json',
@@ -176,6 +178,7 @@ subprocess.run(
         f"/resource:{payload},OpenSmash.Payload.zip",
         f'/out:{out / "Setup.exe"}',
         str(src / "Setup.cs"),
+        str(src / "StartupUpdate.cs"),
         str(src / "Localization.cs"),
         str(src / "AeroButton.cs"),
         f'/resource:{src / "locales.json"},OpenSmash.Locales.json',

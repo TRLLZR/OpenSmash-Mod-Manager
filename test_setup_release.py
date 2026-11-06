@@ -78,6 +78,30 @@ def run(*args, ok=True):
     return result
 
 
+def stage_update():
+    """Feed the real updater an offline GitHub response and the built release ZIP."""
+    release = work / "OpenSmash_Mod_Manager_Installer_v3.7.0.zip"
+    metadata = test / "latest-release.json"
+    metadata.write_text(json.dumps(dict(tag_name="v3.7.0", draft=False, prerelease=False, assets=[
+        dict(name=release.name, state="uploaded", size=release.stat().st_size,
+             digest="sha256:" + hashlib.sha256(release.read_bytes()).hexdigest(),
+             browser_download_url="https://github.com/TRLLZR/OpenSmash-Mod-Manager/releases/download/v3.7.0/" + release.name)
+    ])), encoding="utf-8")
+    src = work / "installer"
+    tester = test / "StageUpdate.exe"
+    compiler = Path(os.environ["WINDIR"]) / "Microsoft.NET/Framework64/v4.0.30319/csc.exe"
+    subprocess.run([
+        str(compiler), "/nologo", f"/out:{tester}",
+        "/reference:System.Windows.Forms.dll", "/reference:System.Drawing.dll",
+        "/reference:System.Web.Extensions.dll", "/reference:System.IO.Compression.dll",
+        "/reference:System.IO.Compression.FileSystem.dll",
+        str(src / "StartupUpdate.cs"), str(src / "test_data/update/StageUpdate.cs"),
+    ], check=True, timeout=30)
+    staged = test / "Downloaded Setup.exe"
+    subprocess.run([str(tester), str(metadata), str(release), str(staged)], check=True, timeout=30)
+    return staged
+
+
 def snapshot():
     return {
         str(p.relative_to(repo)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -219,15 +243,21 @@ try:
     prefs.update(glass="Frosted", theme="Dark", repo=str(repo))
     (test / "settings.json").write_text(json.dumps(prefs))
     old_snapshot = snapshot()
-    run("--install", "--repo", str(repo))
+    setup = stage_update()
+    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.0")
+    setup = new_setup
     assert snapshot() == old_snapshot
     assert json.loads((app / "install-state.json").read_text())["version"] == "3.7.0"
     check_protocol()
     assert json.loads((test / "settings.json").read_text())["theme"] == "Dark"
     check_links()
     checks += [
-        "genuine 3.6.0 to 3.7.0 upgrade preserves game data, preferences and shortcuts"
+        "verified release ZIP upgrades 3.6.0 to 3.7.0 and preserves game data, preferences and shortcuts"
     ]
+    installed = (app / "install-state.json").read_bytes()
+    run("--install", "--update", "--wait-pid", "2147483647", "--expected-version", "3.7.0", ok=False)
+    assert (app / "install-state.json").read_bytes() == installed
+    checks += ["automatic reinstall of the same version is rejected"]
     run("--uninstall")
     run("--install", "--no-desktop")
     assert not (test / "Desktop/OpenSmash Mod Manager.lnk").exists()

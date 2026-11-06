@@ -217,6 +217,8 @@ internal static class Setup
             }
         }
         var manifest = Read(Path.Combine(destination, "PAYLOAD.json"));
+        if (!Object.Equals(manifest["app"], App) || !Object.Equals(manifest["version"], Version))
+            throw new InvalidDataException("The installer payload does not match this application version.");
         var files = (Dictionary<string, object>)manifest["files"];
         foreach (var file in files)
         {
@@ -633,6 +635,8 @@ internal static class Setup
     {
         AppContext.SetSwitch("Switch.System.IO.UseLegacyPathHandling", false);
         AppContext.SetSwitch("Switch.System.IO.BlockLongPaths", false);
+        string restartRoot = null, launchRepo = null;
+        bool updated = false, automatic = false;
         try
         {
             var options = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -641,6 +645,8 @@ internal static class Setup
             {
                 if (args[i] == "--install")
                     install = true;
+                else if (args[i] == "--update")
+                    automatic = true;
                 else if (args[i] == "--uninstall")
                     uninstall = true;
                 else if (args[i] == "--desktop")
@@ -661,6 +667,17 @@ internal static class Setup
             string test = options.ContainsKey("--test-root") ? options["--test-root"] : null;
             string repo = options.ContainsKey("--repo") ? options["--repo"] : "";
             var context = new Context(root, test);
+            if (automatic)
+            {
+                int waiting;
+                if (!install || uninstall || !options.ContainsKey("--expected-version") ||
+                    !options.ContainsKey("--wait-pid") || !Int32.TryParse(options["--wait-pid"], out waiting) ||
+                    waiting <= 0 || waiting == Process.GetCurrentProcess().Id || Under(OwnExe, context.Root))
+                    throw new ArgumentException("Invalid automatic update arguments.");
+                SafeRoot(context.Root);
+                Owned(context.Root);
+                options.TryGetValue("--launch-repo", out launchRepo);
+            }
             if (uninstall && !quiet &&
                 MessageBox.Show(DisplayName +
                                     " deinstallieren? Mods, Spiel-Einstellungen und Saves bleiben erhalten.",
@@ -670,12 +687,16 @@ internal static class Setup
             {
                 try
                 {
-                    Process.GetProcessById(Int32.Parse(options["--wait-pid"])).WaitForExit(15000);
+                    using (var manager = Process.GetProcessById(Int32.Parse(options["--wait-pid"])))
+                        if (!manager.WaitForExit(15000) && automatic)
+                            throw new IOException("The manager did not close for the update.");
                 }
                 catch (ArgumentException)
                 {
                 }
             }
+            if (automatic && test == null)
+                restartRoot = context.Root;
             if (uninstall && Under(OwnExe, context.Root))
             {
                 string helper =
@@ -702,7 +723,20 @@ internal static class Setup
                     }
                     if (install)
                     {
+                        if (automatic)
+                        {
+                            Owned(context.Root);
+                            var installed = Read(Path.Combine(context.Root, "install-state.json"));
+                            System.Version current;
+                            if (options["--expected-version"] != Version ||
+                                !System.Version.TryParse(Convert.ToString(installed["version"]), out current) ||
+                                current >= new System.Version(Version))
+                                throw new InvalidOperationException("The update does not match a newer manager version.");
+                            repo = "";
+                            desktop = false;
+                        }
                         Install(context, repo, desktop, CancellationToken.None, Console.WriteLine);
+                        updated = automatic;
                         return 0;
                     }
                     Application.EnableVisualStyles();
@@ -719,6 +753,8 @@ internal static class Setup
         }
         catch (Exception error)
         {
+            if (automatic && !args.Contains("--test-root"))
+                OpenSmash.StartupUpdate.Log("Automatic installation failed. " + error.Message);
             string message =
                 error is OperationCanceledException
                     ? OpenSmash.Localizer.Text("Installation abgebrochen. Vorheriger Zustand bleibt erhalten.")
@@ -730,6 +766,27 @@ internal static class Setup
             else
                 MessageBox.Show(message, DisplayName + " Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 1;
+        }
+        finally
+        {
+            if (restartRoot != null)
+            {
+                if (updated)
+                    OpenSmash.StartupUpdate.Log("Installed OpenSmash Mod Manager " + Version + ".");
+                try
+                {
+                    string launcher = Path.Combine(restartRoot, "ModManager.exe");
+                    string parameters = "--skip-update" +
+                        (String.IsNullOrEmpty(launchRepo) ? "" : " -Repo " + Arg(launchRepo));
+                    using (Process.Start(new ProcessStartInfo(launcher, parameters) {
+                        UseShellExecute = false, WorkingDirectory = restartRoot
+                    })) { }
+                }
+                catch (Exception error)
+                {
+                    OpenSmash.StartupUpdate.Log("Could not reopen the manager. " + error.Message);
+                }
+            }
         }
     }
     sealed class SetupWindow : Form
