@@ -22,8 +22,9 @@ def _marker_tokens(path, modified, size):
 
 def diagnostics(repo, records):
     import catalog
-    tokens, result = [], {}
+    tokens, result = {}, {}
     for key, record in records.items():
+        tokens[key] = set()
         for entry in record['entries']:
             if entry.get('kind') == 'plugin':
                 path = catalog.location(repo, key) / 'assets' / entry['path']
@@ -31,13 +32,18 @@ def diagnostics(repo, records):
                     stat = path.stat()
                     if path.is_symlink() or path.is_junction():
                         raise ValueError('Plugin ist eine Verknuepfung.')
-                    tokens.extend(_marker_tokens(str(path), stat.st_mtime_ns, stat.st_size))
+                    tokens[key].update(_marker_tokens(str(path), stat.st_mtime_ns, stat.st_size))
                 except (OSError, ValueError):
                     result[key] = 'Gameplay-Plugin fehlt oder ist nicht sicher lesbar: ' + entry['path'] + '. Originalpaket erneut pruefen.'
+    all_tokens = set().union(*tokens.values())
     for key, record in records.items():
         markers = sorted({Path(e['path']).name.lower() for e in record['entries']
                           if re.fullmatch(r'fighter/[^/]+/model/body/c\d+/[^/]+\.marker', e['path'], re.I)})
-        missing = [m for m in markers if not any(t in (m, 'c' + m) for t in tokens)]
+        # Rust may concatenate string literals in the NRO's read-only data.
+        # Accept a suffix within the same package, but require a stronger match
+        # before treating an unrelated plugin as the base for an asset-only mod.
+        missing = [m for m in markers if m not in all_tokens and 'c' + m not in all_tokens
+                   and not any(token.endswith(m) for token in tokens[key])]
         if missing:
             result[key] = ('Moveset-Basismod fehlt oder ist nicht aktiviert: ' + ', '.join(missing)
                            + '. Dieses Paket enthaelt Zusatzmodelle fuer ein eigenes Moveset. '

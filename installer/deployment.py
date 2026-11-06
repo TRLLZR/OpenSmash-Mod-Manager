@@ -41,6 +41,19 @@ def grouped(manifest):
     return out
 
 
+def plugin_requirements(records):
+    hints = {}
+    for key, record in records.items():
+        origin = record.get("origin") or {}
+        if origin.get("provider") == "GameBanana" and any(
+            e.get("kind") == "plugin" for e in record["entries"]
+        ):
+            version = plugin_runtime.declared_api(origin.get("requirements") or [])
+            if version:
+                hints[key] = version
+    return hints
+
+
 def runtime_signature(records, manifest=None, repo=None):
     values = []
     for key, record in records.items():
@@ -50,9 +63,9 @@ def runtime_signature(records, manifest=None, repo=None):
         ):
             continue
         for e in record["entries"]:
-            if e.get("kind") not in ("plugin", "plugin-config") and not e[
-                "path"
-            ].startswith("flags/"):
+            if e.get("kind") not in ("plugin", "plugin-config") and not (
+                e["path"] == "info.toml" or e["path"].startswith("flags/")
+            ):
                 continue
             sha = (
                 manifest["files"].get(key + "/" + e["path"])
@@ -62,6 +75,9 @@ def runtime_signature(records, manifest=None, repo=None):
             if sha:
                 values.append((key, e["path"], sha, e.get("module", "")))
     import plugin_dependencies
+    hints = plugin_requirements(records)
+    if hints:
+        values.append(("smashline-requirements", sorted(hints.items())))
     asset_dependencies = plugin_dependencies.required([], [e['path'] for record in records.values() for e in record['entries']])
     if asset_dependencies:
         values.append(('asset-frameworks', asset_dependencies))
@@ -310,7 +326,8 @@ def commit(
                         target.parent.mkdir(parents=True,exist_ok=True)
                         shutil.copy2(catalog.location(repo,key)/'assets'/name,target)
                 try:
-                    runtime = plugin_runtime.ensure(repo, inputs)
+                    hints = plugin_requirements(records)
+                    runtime = plugin_runtime.ensure(repo, inputs, requirements=hints)
                 except Exception as exc:
                     raise plugin_runtime.PluginBuildError(str(exc)) from exc
             if runtime:

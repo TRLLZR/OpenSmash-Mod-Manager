@@ -1,6 +1,6 @@
 """General Skyline NRO preparation, isolated by plugin content; no game files shipped."""
 
-import hashlib, json, os, re, shutil, struct, subprocess, sys, urllib.request
+import hashlib, json, os, re, shutil, struct, subprocess, sys, tomllib, urllib.request
 from pathlib import Path
 import drybowser as base
 import arc_backend
@@ -21,6 +21,11 @@ DEPENDENCIES = {
         "https://github.com/HDR-Development/smashline/releases/download/v1.6.8/libsmashline_plugin.nro",
         "a83636e565be0729271aa7c21817da9aa3b8b3e9b3abed7499c1eeae4cb57d5c",
     ),
+    "smashline_v2": (
+        "libsmashline_plugin.nro",
+        "https://github.com/HDR-Development/smashline/releases/download/v2.0.0/libsmashline_plugin.nro",
+        "d57a437000d13a85192b79941880b4e3b671d0e4a0291951d426f0f6773e6b92",
+    ),
     "nro_hook": (
         "libnro_hook.nro",
         "https://github.com/ultimate-research/nro-hook-plugin/releases/download/v0.4.0/libnro_hook.nro",
@@ -32,8 +37,23 @@ DEPENDENCIES = {
 for _key, _record in plugin_dependencies.REGISTRY.items():
     DEPENDENCIES[_key] = (_record["filename"], _record["url"], _record["sha256"])
 
-SMASHLINE2_ONLY = (b'smashline_clone_article_descriptor', b'smashline_replace_article_descriptor_func',
-                   b'smashline_set_weapon_module_factory', b'smashline_clone_fighter')
+SMASHLINE2_ONLY = (
+    b"smashline_clone_article_descriptor",
+    b"smashline_enable_weapon_module",
+    b"smashline_get_original_fighter_vtable",
+    b"smashline_get_original_weapon_vtable",
+    b"smashline_load_weapon_lvd",
+    b"smashline_refresh_weapon_lvd",
+    b"smashline_replace_article_descriptor_func",
+    b"smashline_replace_fighter_vtable",
+    b"smashline_replace_fighter_vtable_costume",
+    b"smashline_replace_weapon_vtable",
+    b"smashline_set_weapon_lvd_nodes",
+    b"smashline_set_weapon_module_factory",
+)
+SMASHLINE_ABI_CHANGED = (b"smashline_clone_weapon", b"smashline_update_weapon_count")
+SMASHLINE_URL = r"https://github\.com/HDR-Development/smashline(?:/releases(?:/tag/v[12](?:\.\d+){0,2})?)?/?"
+SMASHLINE_NAME = r"\bSmashline[ \t-]+v?([12])(?:\.\d+){0,2}\b"
 
 
 def inspect_nro(path):
@@ -66,18 +86,67 @@ def inspect_nro(path):
         raise ValueError("NRO-Modulname ist zu lang.")
     result = dict(module=name, smashline=b"smashline_" in data)
     if any(symbol in data for symbol in SMASHLINE2_ONLY):
-        result['smashline_api'] = '2.0'
+        result["smashline_api"] = "2"
+    if any(symbol in data for symbol in SMASHLINE_ABI_CHANGED):
+        result["smashline_abi_changed"] = True
     return result
 
 
+def declared_api(requirements):
+    versions = set()
+    for row in requirements:
+        if not isinstance(row, dict):
+            continue
+        if not re.fullmatch(SMASHLINE_URL, str(row.get("url", "")), re.I):
+            continue
+        match = re.search(SMASHLINE_NAME, str(row.get("name", "")), re.I)
+        if match:
+            versions.add(match[1])
+    if len(versions) > 1:
+        raise ValueError("Widerspruechliche Smashline-Versionen in den Mod-Anforderungen.")
+    return next(iter(versions), None)
+
+
+def packaged_api(info):
+    if not info.is_file():
+        return None
+    if info.stat().st_size > 16 * 1024**2:
+        raise ValueError("info.toml ist zu gross.")
+    description = tomllib.loads(info.read_text(encoding="utf-8-sig")).get("description", "")
+    if not isinstance(description, str):
+        return None
+    return declared_api(
+        {"name": match[1], "url": match[2]}
+        for match in re.finditer(
+            r"^(?:[ \t]*[-*])?[ \t]*\[?(Smashline[ \t-]+v?[12](?:\.\d+){0,2})\]?[ \t]*\(?("
+            + SMASHLINE_URL + r")\)?[ \t]*$", description, re.I | re.M
+        )
+    )
+
+
 def core_dependencies(items, extra):
-    # A named, user-provided framework follows the ordinary validation/probe
-    # path; never silently replace it with an incompatible automatic version.
-    supplied = {Path(i['path']).name.casefold() for i in items}
-    if any(i.get('smashline_api') == '2.0' and i['module'] != 'sky_smashline' for i in items):
-        if 'libsmashline_plugin.nro' not in supplied:
-            raise ValueError('Dieses Plugin verwendet Smashline-2.0-APIs. Die passende offizielle Bibliothek ausdruecklich importieren; die automatische 1.6.8 ist fuer die bisherige Moveset-ABI. Inkompatible ABI-Versionen nicht mischen.')
-    core = ['smashline', 'nro_hook'] if any(i['smashline'] for i in items) or extra else []
+    supplied = {Path(i["path"]).name.casefold(): i for i in items}
+    framework = supplied.get("libsmashline_plugin.nro")
+    if framework and framework["module"] != "sky_smashline":
+        raise ValueError("libsmashline_plugin.nro enthaelt kein Smashline-Modul.")
+    clients = [i for i in items if i["module"] != "sky_smashline"]
+    versions = {i["smashline_api"] for i in clients if i.get("smashline_api")}
+    if framework:
+        versions.add(framework.get("smashline_api", "1"))
+    if len(versions) > 1:
+        raise ValueError("Smashline 1 und 2 benoetigen getrennte Mod-Auswahlen.")
+    version = next(iter(versions), "1")
+    if version == "2":
+        ambiguous = [i["module"] for i in clients
+                     if i.get("smashline_abi_changed") and not i.get("smashline_api")]
+        if ambiguous:
+            raise ValueError(
+                "Smashline 2: unbekannte Klon-API in " + ", ".join(ambiguous)
+                + ". Passende Mod-Version verwenden oder diese Plugins getrennt aktivieren."
+            )
+    if not extra and not versions and not any(i["smashline"] for i in items):
+        return []
+    core = ["smashline_v2" if version == "2" else "smashline", "nro_hook"]
     return [name for name in core if DEPENDENCIES[name][0].casefold() not in supplied]
 
 
@@ -91,7 +160,7 @@ def dependency(repo, name):
     filename, url, sha = DEPENDENCIES[name]
     cache = base.contained(repo, repo / "opensmash_mods/plugin-dependencies")
     cache.mkdir(exist_ok=True)
-    target = cache / filename
+    target = cache / (sha + "-" + filename if name == "smashline_v2" else filename)
     if not target.is_file() or base.digest(target) != sha:
         temporary = target.with_suffix(".download")
         urllib.request.urlretrieve(url, temporary)
@@ -180,8 +249,22 @@ def deploy_dependencies(repo, profile, record):
             copy_boot_plugin(profile / item["path"], target / boot_name(item))
 
 
-def ensure(repo, profile):
+def ensure(repo, profile, requirements=None):
     items = describe(profile)
+    requirements = requirements or {}
+    for item in items:
+        if item["module"] == "sky_smashline":
+            continue
+        path = profile / item["path"]
+        versions = {
+            item.get("smashline_api"),
+            packaged_api(path.with_name("info.toml")),
+            requirements.get(path.parent.name),
+        } - {None}
+        if len(versions) > 1:
+            raise ValueError("Widerspruechliche Smashline-Versionen fuer " + item["module"] + ".")
+        if versions:
+            item["smashline_api"] = versions.pop()
     plugin_dependencies.check_provided(repo, plugins(profile))
     extra = plugin_dependencies.required(
         plugins(profile),
@@ -272,7 +355,9 @@ def ensure(repo, profile):
             raise ValueError("Unsichere Plugin-Testkopie.")
         shutil.rmtree(sd)
     shutil.copytree(profile, sd)
-    need_smashline = "smashline" in required_dependencies or any(i['module'] == 'sky_smashline' for i in items)
+    need_smashline = any(n in required_dependencies for n in ("smashline", "smashline_v2")) or any(
+        i["module"] == "sky_smashline" for i in items
+    )
     plugin_dir = sd / "atmosphere/contents/01006A800016E000/romfs/skyline/plugins"
     plugin_dir.mkdir(parents=True, exist_ok=True)
     for name in required_dependencies:

@@ -44,6 +44,31 @@ class ModpackTests(unittest.TestCase):
             1, m.batch_install(self.repo, p["job_id"], p["token"])["installed"]
         )
 
+    def test_streaming_and_credits_survive_install_pause_reenable_remove(self):
+        assets = {
+            "stream;/sound/bgm/example.nus3audio": b"own music",
+            "standard/staffroll/texture/example.nutexb": b"own credits",
+        }
+        archive = Path(self.tmp.name) / "Wrapped assets.zip"
+        with zipfile.ZipFile(archive, "w") as output:
+            for name, data in assets.items():
+                output.writestr("bundle/ultimate/mods/Example/" + name, data)
+        plan = m.batch_preview(self.repo, [archive])
+        result = m.batch_install(self.repo, plan["job_id"], plan["token"])
+        self.assertEqual(1, result["installed"])
+        key = result["state"]["mods"][0]["id"]
+        profile = m.root(self.repo) / "profile/ultimate/mods" / key
+        for name, data in assets.items():
+            self.assertEqual(data, (profile / name).read_bytes())
+        m.change(self.repo, key, "enable", False)
+        self.assertFalse(profile.exists())
+        m.change(self.repo, key, "enable", True)
+        for name, data in assets.items():
+            self.assertEqual(data, (profile / name).read_bytes())
+        m.change(self.repo, key, "remove")
+        self.assertFalse(profile.exists())
+        self.assertEqual([], m.listing(self.repo)["mods"])
+
     def test_plugin_and_arbitrary_named_configuration_preserved(self):
         source = self.mod("Generic effect", "effect/system/common/a.eff")
         (source / "plugin.nro").write_bytes(nro())
@@ -75,7 +100,7 @@ class ModpackTests(unittest.TestCase):
         (plugin / "plugin.nro").write_bytes(nro())
         plain = self.mod("Audio Pack", "sound/a.nus3audio")
 
-        def prepare(repo, profile):
+        def prepare(repo, profile, requirements=None):
             if plugin_runtime.plugins(profile):
                 raise ValueError("Unsupported synthetic plugin")
             return None
@@ -94,7 +119,7 @@ class ModpackTests(unittest.TestCase):
         before = (m.root(self.repo) / "state.json").read_bytes()
         import batch_import
 
-        def prepare(repo, profile):
+        def prepare(repo, profile, requirements=None):
             (batch_import.path(m, repo, plan["job_id"]) / "cancel.request").write_text(
                 "cancel"
             )

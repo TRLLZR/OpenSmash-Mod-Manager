@@ -785,7 +785,6 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                         )
                         results.append(result)
                         continue
-                    assets = m.base.contained(folder, folder / item["assets_rel"])
                     for entry in record["entries"]:
                         checkpoint(is_cancel)
                         safe_name(entry["path"])
@@ -798,11 +797,14 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                         src = m.base.contained(
                             assets, assets / entry.get("source_path", entry["path"])
                         )
-                        if not src.is_file() or m.base.digest(src) != entry["sha256"]:
-                            raise ValueError("Gepruefte Importkopie wurde veraendert.")
+                        if not src.is_file():
+                            raise ValueError("Datei fehlt in der geprueften Importkopie.")
                     was_present = (m.root(repo) / "library" / key).exists()
                     if item.get("origin"):
                         record["origin"] = item["origin"]
+                    # save_library verifies the copied bytes before publishing
+                    # the library entry. A separate hash of the snapshot here
+                    # would read every asset twice without protecting the copy.
                     m.save_library(repo, record, assets)
                     if not was_present:
                         created_keys.append(key)
@@ -888,7 +890,7 @@ def install(m, repo, job_id, expected=None, callback=None, cancel=None):
                         message=(
                             "Installiert und aktiviert."
                             if item.get("enabled", True)
-                            else "Installiert und wie im Export pausiert."
+                            else "Installiert und pausiert."
                         ),
                     )
                     results.append(result)

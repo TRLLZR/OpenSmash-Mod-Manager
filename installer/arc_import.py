@@ -136,7 +136,8 @@ def analyze(repo, asset_root, roots):
                     json.loads(source.read_text(encoding="utf-8-sig"))
             if source.stat().st_size >= 2**32:
                 raise ValueError("Mod-Einzeldatei ist zu gross: " + path)
-            if not metadata and arc.path_index_from_hash(h40(path)) is None:
+            archive_path = path.replace(";", ":") if path.startswith("stream;/") else path
+            if not metadata and arc.path_index_from_hash(h40(archive_path)) is None:
                 new_files += 1
             entry = dict(
                 path=path,
@@ -160,6 +161,8 @@ def analyze(repo, asset_root, roots):
         name = known_package_name(entries) or asset_root.name
         info = asset_root / "info.toml"
         if info.is_file():
+            if info.stat().st_size > 16 * 1024**2:
+                raise ValueError("info.toml ist zu gross.")
             try:
                 name = str(
                     tomllib.loads(info.read_text(encoding="utf-8-sig")).get(

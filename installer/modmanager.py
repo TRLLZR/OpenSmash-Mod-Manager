@@ -38,6 +38,8 @@ ROOTS = {
     "camera",
     "system",
     "stream",
+    "stream;",
+    "standard",
     "flags",
 }
 CODE = {

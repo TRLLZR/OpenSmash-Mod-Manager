@@ -23,13 +23,22 @@ Luigi Streetwear Hoodie uses Luigi's second costume.
 
 ## Plugin requirements
 
-The manager currently targets OpenSmash 13.0.5. Its automatic dependencies use
-Smashline 1.6.8 and nro-hook 0.4.0; CSK 6.0.0 is selected for 13.0.5. CSK 5.0.6 is
-reserved for 13.0.4. URLs and checksums are kept in `installer/plugin_runtime.py`
-and `installer/plugin_dependencies.py`.
+The manager targets OpenSmash 13.0.5. Import the original ZIP, RAR, 7z or extracted
+folder, then review the preview. Keep the author's folder structure, including
+`stream;/` for streamed audio and `standard/` for credits assets.
 
-Smashline 2.0 changed its API and can break older movesets. Plugins using its new
-APIs need a matching explicitly imported framework. Do not mix incompatible versions.
+OpenSmash provides the Skyline-compatible loader. The manager prepares ARCropolis,
+NRO Hook and recognized gameplay libraries, including CSK, Param Config and
+One Slot Effects when required. It uses Smashline 1.6.8 by default and selects
+2.0.0 when a plugin uses a 2.0-only API or its author declares Smashline 2 in
+GameBanana requirements or the packaged `info.toml`. Framework downloads use
+pinned checksums. The first plugin build can take several minutes.
+
+Smashline 2 changed its cloning ABI. For mods such as the
+[Gogeta Moveset](https://gamebanana.com/mods/493356), pause older movesets that use
+the incompatible or unversioned cloning API before enabling the new mod. Use
+**Install paused** in the preview if you want to keep both in the library and
+switch between them later.
 
 Older Cuphead binaries also call fixed 13.0.4 game addresses. On 13.0.5, the
 manager's conservative compatibility pass requires your own `main.elf` files in
@@ -38,9 +47,9 @@ directory. It derives only verified function aliases locally; no game code or
 address table is distributed. Missing functions, changed APIs and arbitrary old
 hook/data offsets are not automatically supported.
 
-If a build or launch fails, check the reported missing dependency/symbol and the
-mod author's game-version requirements. Short local tests covered Cuphead, Bandana
-Dee and Luigi in training; they do not cover every move, stage or future mod.
+If a build or launch fails, check the reported missing dependency or symbol and the
+mod author's game-version requirements. Local tests covered character selection
+and short training sessions with Gogeta, Cuphead, Bandana Dee and the Luigi costume.
 
 ## Ultimate Training Modpack v7.1.1
 

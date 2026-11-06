@@ -50,6 +50,22 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual({}, support.diagnostics(Path('.'), {SKIN:skin}))
         self.assertIn('120',support.selection_hint(dict(entries=[dict(path='fighter/example/model/body/c120/model.numdlb')])))
 
+    def test_concatenated_marker_matches_only_its_own_package(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            plugin = root / "assets/own.nro"
+            plugin.parent.mkdir()
+            plugin.write_bytes(b"other_literalsfuture.marker")
+            marker = dict(path="fighter/example/model/body/c120/future.marker")
+            gameplay = dict(path="own.nro", kind="plugin")
+            with patch("catalog.location", return_value=root):
+                self.assertEqual({}, support.diagnostics(
+                    root, {BASE: dict(entries=[marker, gameplay])}
+                ))
+                self.assertIn(SKIN, support.diagnostics(root, {
+                    BASE: dict(entries=[gameplay]), SKIN: dict(entries=[marker])
+                }))
+
     def test_versions_and_fingerprints_follow_game_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             repo=Path(tmp);(repo/'build').mkdir()
@@ -76,13 +92,40 @@ class EvidenceTests(unittest.TestCase):
                 plugin_runtime.copy_boot_plugin(b,dest)
             self.assertEqual(b'own one',dest.read_bytes())
 
-    def test_new_smashline_api_requires_explicit_matching_framework(self):
-        item=dict(path='ultimate/mods/own/plugin.nro',module='sky_own',smashline=True,smashline_api='2.0')
-        with self.assertRaisesRegex(ValueError,'2.0-APIs'):
-            plugin_runtime.core_dependencies([item],[])
-        supplied=dict(path='ultimate/mods/framework/libsmashline_plugin.nro',module='sky_smashline',smashline=True)
-        self.assertEqual(['nro_hook'],plugin_runtime.core_dependencies([item,supplied],[]))
-        self.assertIn('/v1.6.8/',plugin_runtime.DEPENDENCIES['smashline'][1])
+    def test_smashline_major_selection_preserves_legacy_and_rejects_mixed_abi(self):
+        legacy = dict(path="legacy/plugin.nro", module="sky_legacy",
+                      smashline=True, smashline_abi_changed=True)
+        modern = dict(path="modern/plugin.nro", module="sky_modern",
+                      smashline=True, smashline_api="2")
+        supplied = dict(path="framework/libsmashline_plugin.nro",
+                        module="sky_smashline", smashline=True)
+        select = plugin_runtime.core_dependencies
+        self.assertEqual(["smashline", "nro_hook"], select([legacy], []))
+        self.assertEqual(["smashline_v2", "nro_hook"], select([modern], []))
+        self.assertEqual(["nro_hook"], select([modern, dict(supplied, smashline_api="2")], []))
+        with self.assertRaisesRegex(ValueError, "sky_legacy"):
+            select([modern, legacy], [])
+        with self.assertRaisesRegex(ValueError, "getrennte"):
+            select([modern, supplied], [])
+
+    def test_smashline_author_metadata_and_runtime_signature(self):
+        import deployment
+
+        url = "https://github.com/HDR-Development/smashline/releases"
+        requirement = dict(name="Smashline 2", url=url)
+        with tempfile.TemporaryDirectory() as tmp:
+            info = Path(tmp) / "info.toml"
+            info.write_text(
+                'description = """\n' + " " * 100_000
+                + '\nRequired:\n- Smashline 2 ' + url + '\n"""'
+            )
+            self.assertEqual("2", plugin_runtime.packaged_api(info))
+        self.assertIsNone(plugin_runtime.declared_api([dict(requirement, url=url + ".invalid")]))
+        plugin = record("Example", "same hash", plugin=True)
+        supplied = dict(plugin, origin=dict(provider="GameBanana", requirements=[requirement]))
+        self.assertEqual({BASE: "2"}, deployment.plugin_requirements({BASE: supplied}))
+        self.assertNotEqual(deployment.runtime_signature({BASE: plugin}),
+                            deployment.runtime_signature({BASE: supplied}))
 
     def test_cache_rejects_a_changed_framework_definition(self):
         with tempfile.TemporaryDirectory() as tmp:
